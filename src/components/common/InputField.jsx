@@ -13,8 +13,8 @@ function InputField({label = null, placeholder = "", autoComplete = "", type = "
         <div className="w-full flex flex-col">
             {label && <label className="text-white font-sans font-semibold">{label}</label>}
             <div className="relative">
-                <input className="border w-full rounded-sm py-3 px-3 outline-none border-gray-400
-            focus:border-blue-800 placeholder:text-gray-400 font-sans"
+                <input className={`border w-full rounded-sm py-3 px-3 outline-none border-gray-400
+             placeholder:text-gray-400 font-sans ${errors ? "border-red-600" : "focus:border-blue-800"}`}
                        placeholder={placeholder} autoComplete={autoComplete} type={type === "password" ? (show ? "text" : "password") : type}
                 {...register}/>
                 {type === "password" && (show ?
@@ -25,7 +25,7 @@ function InputField({label = null, placeholder = "", autoComplete = "", type = "
 
             </div>
 
-            {errors && <span className="text-sm text-red-600 mt-1">This field is required</span>}
+            {errors && <span className="text-[12px] ml-1 text-red-600 mt-1">{errors.message}</span>}
         </div>
     );
 }
@@ -34,7 +34,9 @@ InputField.propTypes = {
     label: PropTypes.string,
     placeholder: PropTypes.string,
     autoComplete: PropTypes.string,
-    type: PropTypes.string
+    type: PropTypes.string,
+    register: PropTypes.object.isRequired,
+    errors: PropTypes.object.isRequired,
 }
 
 export default InputField;

@@ -3,8 +3,8 @@
 @import "tailwindcss";
 
 .heading{
-  @apply text-2xl font-bold font-(family-name: var(--oswal));
-  font-family: var(oswald);
+  @apply text-2xl font-bold;
+  font-family: var(--oswald), sans-serif;
 }
 
 
@@ -12,7 +12,7 @@
   --bg-color-dark: #000E14;
   --bg-color: #00111A;
   --bg-color-sec: #00141F;
-  --oswal: "Oswald", sans-serif;
+  --oswald: "Oswald", sans-serif;
 }
 
 body{

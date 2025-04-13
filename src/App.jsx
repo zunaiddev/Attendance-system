@@ -1,9 +1,8 @@
-import Signup from "./components/Signup.jsx";
+import AuthLayout from "./layout/AuthLayout.jsx";
+import SignupPage from "./pages/SignupPage.jsx";
 
 function App() {
-    return <section className="h-screen w-full flex justify-center items-center">
-        <Signup />
-    </section>;
+    return <AuthLayout><SignupPage></SignupPage></AuthLayout>;
 }
 
 export default App
