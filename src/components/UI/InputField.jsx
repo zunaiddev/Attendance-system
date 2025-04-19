@@ -2,7 +2,15 @@ import PropTypes from 'prop-types';
 import {LuEye, LuEyeOff} from "react-icons/lu";
 import {useState} from "react";
 
-function InputField({label = null, placeholder = "", autoComplete = "", type = "text", register, errors}) {
+function InputField({
+                        label = null,
+                        placeholder = "",
+                        autoComplete = "",
+                        type = "text",
+                        register,
+                        errors,
+                        autoFocus = false
+                    }) {
     const [show, setShow] = useState(false);
 
     function handleShow(){
@@ -15,6 +23,7 @@ function InputField({label = null, placeholder = "", autoComplete = "", type = "
             <div className="relative">
                 <input className={`border w-full rounded-sm py-3 px-3 outline-none border-gray-400
              placeholder:text-gray-400 font-sans ${errors ? "border-red-600" : "focus:border-blue-800"}`}
+                       autoFocus={autoFocus}
                        placeholder={placeholder} autoComplete={autoComplete} type={type === "password" ? (show ? "text" : "password") : type}
                 {...register}/>
                 {type === "password" && (show ?
@@ -37,6 +46,7 @@ InputField.propTypes = {
     type: PropTypes.string,
     register: PropTypes.object.isRequired,
     errors: PropTypes.object.isRequired,
+    autoFocus: PropTypes.bool,
 }
 
 export default InputField;

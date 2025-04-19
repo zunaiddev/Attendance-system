@@ -1,8 +1,10 @@
-import AuthLayout from "./layout/AuthLayout.jsx";
-import SignupPage from "./pages/SignupPage.jsx";
+import {RouterProvider} from "react-router-dom";
+import router from "./routes/AppRoutes.jsx";
 
 function App() {
-    return <AuthLayout><SignupPage></SignupPage></AuthLayout>;
+    return (
+        <RouterProvider router={router}/>
+    );
 }
 
 export default App

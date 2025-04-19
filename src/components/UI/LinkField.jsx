@@ -1,11 +1,12 @@
 import PropTypes from "prop-types";
+import {Link} from "react-router-dom";
 
 function LinkField({to, text}) {
     return (
         <div className="w-full flex justify-center">
-            <span className="text-blue-700 hover:text-blue-800 cursor-pointer w-fit">
+            <Link to={to} className="text-blue-700 hover:text-blue-800 cursor-pointer w-fit">
               {text}
-            </span>
+            </Link>
         </div>
     );
 }
