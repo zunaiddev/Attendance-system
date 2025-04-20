@@ -1,59 +1,54 @@
-import {Outlet, useLocation, useNavigate} from 'react-router-dom';
-import LinkField from "../components/UI/LinkField.jsx";
-import {FcGoogle} from "react-icons/fc";
-import {FaGithub} from "react-icons/fa";
-import {useEffect, useState} from "react";
+import {Link, Outlet} from 'react-router-dom';
+import logo from "../assets/react.svg";
+import CheckCircle from "../components/UI/CheckCircle.jsx";
 
 function AuthLayout() {
-    let location = useLocation();
-    let navigate = useNavigate();
-    const [{header, to, text}, setData] = useState({});
-
-    useEffect(() => {
-        if (location.pathname === "/auth") {
-            navigate("/auth/signup", {replace: true});
-        }
-
-        if (location.pathname === "/auth/signup") {
-            setData({
-                header: "Become A Member",
-                to: "/auth/login",
-                text: "Already have an account? Login",
-            });
-        } else if (location.pathname === "/auth/login") {
-            setData({
-                header: "Welcome Back",
-                to: "/auth/signup",
-                text: "Don't have an account? Signup",
-            });
-        }
-    }, [location.pathname, navigate]);
-
-
-    console.log(location);
 
     return (
-        <div className="w-full h-screen flex justify-center items-center ">
-            <div
-                className="flex flex-col bg-[var(--bg-color)] py-5 px-7  rounded-lg gap-4 shadow-sm shadow-gray-100 w-90">
-                <div className="flex justify-center">
-                    <h1 className="heading">{header}</h1>
+        <div className="w-full h-screen flex px-6 md:px-10 lg:px-22 py-13">
+            <div className="w-full h-full flex justify-center md:justify-between">
+                <div className=" hidden md:block">
+                    <div className="space-y-7 relative h-full">
+                        <div className="flex items-center gap-3">
+                            <img src={logo} alt="Brand Logo" className="size-13"/>
+                            <h1 className="text-3xl font-semibold">Attendance System</h1>
+                        </div>
+                        <div className="space-y-5">
+                            <SideHeading header="Quick Attendance" text="Mark attendance fast — no paper, no hassle."/>
+                            <SideHeading header="All-in-One Tool" text="Made for students, CRs, and teachers."/>
+                            <SideHeading header="Works Offline" text="Fast, lightweight, and works with low internet."/>
+                        </div>
+                        <div className="space-x-5 absolute bottom-0">
+                            <Link to="/about" className="text-sm text-gray-400 hover:text-gray-100 hover:underline">
+                                About
+                            </Link>
+                            <Link to="/terms" className="text-sm text-gray-400 hover:text-gray-100 hover:underline">
+                                Terms & Conditions
+                            </Link>
+                            <Link to="/contact" className="text-sm text-gray-400 hover:text-gray-100 hover:underline">
+                                Contact
+                            </Link>
+                        </div>
+                    </div>
                 </div>
-                <Outlet/>
-                <LinkField to={to} text={text}/>
-                <div className="flex justify-center gap-9 justify-self-end mt-40">
-                    <center className="cursor-pointer">
-                        <FcGoogle className="size-6"/>
-                        <span>Google</span>
-                    </center>
-                    <center className="cursor-pointer">
-                        <FaGithub className="size-6 mb-1"/>
-                        <span>Github</span>
-                    </center>
+                <div className="h-fit bg-gray-800 rounded-lg p-6 w-115">
+                    <Outlet/>
                 </div>
             </div>
         </div>
     );
+}
+
+function SideHeading({header, text}) {
+    return <div className="flex gap-3">
+        <div className="pt-2">
+            <CheckCircle/>
+        </div>
+        <div className="space-y-1">
+            <h1 className="text-2xl font-bold">{header}</h1>
+            <span className="text-gray-400 text-sm">{text}</span>
+        </div>
+    </div>
 }
 
 export default AuthLayout;

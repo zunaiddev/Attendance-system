@@ -2,10 +2,10 @@ import {Outlet} from "react-router-dom";
 
 function RootLayout() {
     return (
-        <center>
+        <div className="w-full h-screen">
             <Outlet/>
-        </center>
+        </div>
     );
 }
 
-export default Rootlayout;
+export default RootLayout;

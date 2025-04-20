@@ -19,10 +19,12 @@ function InputField({
 
     return (
         <div className="w-full flex flex-col">
-            {label && <label className="text-white font-sans font-semibold">{label}</label>}
+            {label && <label className="block mb-2 text-sm font-medium text-white">{label}</label>}
             <div className="relative">
-                <input className={`border w-full rounded-sm py-3 px-3 outline-none border-gray-400
-             placeholder:text-gray-400 font-sans ${errors ? "border-red-600" : "focus:border-blue-800"}`}
+                <input
+                    className={`shadow-xs border border-gray-700 text-sm rounded-lg focus:border-blue-500 outline-none block w-full p-2.5 bg-gray-700 
+                     placeholder-gray-400 text-white
+                      ${errors && "border-red-600"}`}
                        autoFocus={autoFocus}
                        placeholder={placeholder} autoComplete={autoComplete} type={type === "password" ? (show ? "text" : "password") : type}
                 {...register}/>
