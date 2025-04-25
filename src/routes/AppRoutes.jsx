@@ -9,6 +9,9 @@ import TermsAndConditions from "../pages/TermsAndConditions.jsx";
 import CheckEmail from "../pages/CheckEmail.jsx";
 import NotFoundPage from "../pages/NotFoundPage.jsx";
 import LoginPage from "../pages/LoginPage.jsx";
+import DashboardLayout from "../layout/DashboardLayout.jsx";
+import DashboardPage from "../pages/DashboardPage.jsx";
+import SettingsPage from "../pages/SettingsPage.jsx";
 
 const router = createBrowserRouter([
     {
@@ -34,6 +37,20 @@ const router = createBrowserRouter([
             {
                 path: "check-email",
                 element: <CheckEmail/>
+            },
+            {
+                path: "dashboard",
+                element: <DashboardLayout/>,
+                children: [
+                    {
+                        index: true,
+                        element: <DashboardPage/>
+                    },
+                    {
+                        path: "settings",
+                        element: <SettingsPage/>
+                    }
+                ]
             },
             {
                 path: "auth",
