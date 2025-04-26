@@ -11,7 +11,7 @@ import NotFoundPage from "../pages/NotFoundPage.jsx";
 import LoginPage from "../pages/LoginPage.jsx";
 import DashboardLayout from "../layout/DashboardLayout.jsx";
 import DashboardPage from "../pages/DashboardPage.jsx";
-import SettingsPage from "../pages/SettingsPage.jsx";
+import ProfilePage from "../pages/ProfilePage.jsx";
 
 const router = createBrowserRouter([
     {
@@ -47,8 +47,8 @@ const router = createBrowserRouter([
                         element: <DashboardPage/>
                     },
                     {
-                        path: "settings",
-                        element: <SettingsPage/>
+                        path: "profile",
+                        element: <ProfilePage/>
                     }
                 ]
             },

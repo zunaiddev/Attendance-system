@@ -1,17 +1,13 @@
 import {NavLink} from "react-router-dom";
 import {MdSpaceDashboard} from "react-icons/md";
 import PropTypes from "prop-types";
-import {PiSignOutBold} from "react-icons/pi";
 import {createElement} from "react";
 import {BiArrowToLeft} from "react-icons/bi";
+import {CgProfile} from "react-icons/cg";
 
 function Sidebar({show, setShow}) {
     function hideSidebar() {
         setShow(false);
-    }
-
-    function showSidebar() {
-        setShow(true);
     }
 
     return (
@@ -23,7 +19,7 @@ function Sidebar({show, setShow}) {
                 <div className="h-full px-3 py-10 overflow-y-auto bg-gray-50 dark:bg-gray-800">
                     <ul className="space-y-2 font-medium">
                         <MenuItem to="/dashboard" text="Dashboard" icon={MdSpaceDashboard}/>
-                        <MenuItem to="/logout" text="logout" icon={PiSignOutBold}/>
+                        <MenuItem to={"/dashboard/profile"} text={"Profile"} icon={CgProfile}/>
                     </ul>
 
                     <button type="button" className="absolute right-4 top-3 cursor-pointer" onClick={hideSidebar}>

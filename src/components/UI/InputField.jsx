@@ -7,8 +7,9 @@ function InputField({
                         placeholder = "",
                         autoComplete = "",
                         type = "text",
-                        register,
-                        errors,
+                        register = () => {
+                        },
+                        errors = null,
                         autoFocus = false
                     }) {
     const [show, setShow] = useState(false);
@@ -46,8 +47,8 @@ InputField.propTypes = {
     placeholder: PropTypes.string,
     autoComplete: PropTypes.string,
     type: PropTypes.string,
-    register: PropTypes.object.isRequired,
-    errors: PropTypes.object.isRequired,
+    register: PropTypes.object,
+    errors: PropTypes.object,
     autoFocus: PropTypes.bool,
 }
 

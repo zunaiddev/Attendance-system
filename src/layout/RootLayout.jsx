@@ -1,5 +1,6 @@
 import {Outlet, useLocation, useNavigate} from "react-router-dom";
 import {useEffect} from "react";
+import {Toaster} from 'react-hot-toast';
 
 function RootLayout() {
     const navigate = useNavigate();
@@ -9,11 +10,11 @@ function RootLayout() {
         if (location.pathname === "/") {
             navigate("/dashboard");
         }
-    }, [])
-
+    }, []);
 
     return (
         <div className="w-full h-screen">
+            <Toaster/>
             <Outlet/>
         </div>
     );
