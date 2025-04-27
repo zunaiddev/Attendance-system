@@ -1,9 +1,12 @@
 import {useState} from "react";
 import {MdMarkEmailRead} from "react-icons/md";
-import Button from "../components/UI/Button";
+import Button from "../components/Button.jsx";
+import {useSearchParams} from "react-router-dom";
 
 function CheckEmail() {
     const [isResending, setIsResending] = useState(false);
+    const [params] = useSearchParams();
+    const from = params.get("from");
 
     const handleResendEmail = async () => {
         setIsResending(true);
@@ -17,21 +20,27 @@ function CheckEmail() {
                 <MdMarkEmailRead className="w-24 h-24 mx-auto text-blue-500"/>
                 <h1 className="text-3xl font-bold">Verify your email</h1>
                 <p className="text-gray-400">
-                    We've sent a verification link to your email address. Please check your inbox and click the link to
-                    verify your account.
+                    {
+                        from === "signup" ?
+                            "We've sent a verification link to your email address. Please check your inbox and click the link to verify your account." :
+                            "We've sent a verification link to your email address. Please check your inbox and click the link to reset your password."
+                    }
+
                 </p>
                 <p className="text-sm text-gray-500">
                     If you don't see the email, please check your spam folder.
                 </p>
             </div>
 
-            <div className="w-full space-y-4">
-                <Button
-                    text={isResending ? "Sending..." : "Resend verification email"}
-                    isSubmitting={isResending}
-                    onClick={handleResendEmail}
-                />
-            </div>
+            {
+                from === "signup" && <div className="w-full space-y-4">
+                    <Button
+                        text={isResending ? "Sending..." : "Resend verification email"}
+                        isSubmitting={isResending}
+                        onClick={handleResendEmail}
+                    />
+                </div>
+            }
         </div>
     );
 }

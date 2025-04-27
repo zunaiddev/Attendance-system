@@ -1,18 +1,27 @@
 import {useForm} from "react-hook-form";
-import InputField from "../UI/InputField.jsx";
-import Button from "../UI/Button.jsx";
-import {Link} from "react-router-dom";
+import InputField from "../components/InputField.jsx";
+import Button from "../components/Button.jsx";
+import {Link, useNavigate} from "react-router-dom";
 
-function ForgetPasswordPage() {
+function ForgotPassword() {
     const {
         register,
         handleSubmit,
+        reset,
+        setError,
         formState: {errors, isSubmitting},
     } = useForm();
+    const navigate = useNavigate();
 
     async function onSubmit(data) {
-        await new Promise(res => setTimeout(res, 2000));
-        console.log(data);
+        await new Promise(res => setTimeout(res, 1000));
+        if (data.email !== "zunaid@example.com") {
+            setError("email", {message: "Email not found", type: "manual"});
+            return;
+        }
+
+        reset();
+        navigate("/check-email?from=forgot-password");
     }
 
     return (
@@ -34,7 +43,6 @@ function ForgetPasswordPage() {
                     <div className="space-y-4">
                         <InputField
                             label="Email"
-                            type="email"
                             placeholder="demo@demo.com"
                             autoComplete="email"
                             autoFocus={true}
@@ -64,4 +72,4 @@ function ForgetPasswordPage() {
     );
 }
 
-export default ForgetPasswordPage;
+export default ForgotPassword;

@@ -1,11 +1,11 @@
 import {Outlet} from "react-router-dom";
-import Sidebar from "../components/Dashboard/Sidebar.jsx";
-import Header from "../components/UI/Header.jsx";
+import Sidebar from "../components/Sidebar.jsx";
 import {useState} from "react";
 import {RiMenu2Fill} from "react-icons/ri";
+import isMobile from "../utils/isMobile.js";
 
 function DashboardLayout() {
-    const [show, setShow] = useState(window.innerWidth > 639);
+    const [show, setShow] = useState(!isMobile());
 
     function showSidebar() {
         setShow(true);
@@ -20,9 +20,8 @@ function DashboardLayout() {
                     <RiMenu2Fill className="size-6"/>
                 </button>
             }
-            <div className={`p-4 ${(show && window.innerWidth > 639) && "ml-64"}`}>
-                <div className="p-4 border-gray-700">
-                    <Header/>
+            <div className={`${(show && window.innerWidth > 639) && "ml-64"}`}>
+                <div className="p-4 pt-15 border-gray-700">
                     <Outlet/>
                 </div>
             </div>

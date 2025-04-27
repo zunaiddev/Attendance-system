@@ -1,6 +1,6 @@
 import {Link, Outlet} from 'react-router-dom';
-import logo from "../assets/react.svg";
-import CheckCircle from "../components/UI/CheckCircle.jsx";
+import logo from "../assets/logo.svg";
+import CheckCircle from "../components/CheckCircle.jsx";
 
 function AuthLayout() {
 
@@ -31,7 +31,7 @@ function AuthLayout() {
                         </div>
                     </div>
                 </div>
-                <div className="h-fit bg-gray-800 rounded-lg p-6 w-115">
+                <div className="h-fit bg-gray-800 rounded-lg p-6 w-119">
                     <Outlet/>
                 </div>
             </div>

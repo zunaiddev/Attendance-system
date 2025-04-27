@@ -1,6 +1,7 @@
 import {useState} from "react";
-import Table from "./Table.jsx";
+import Table from "../components/Table/Table.jsx";
 import CompleteProfile from "./CompleteProfile.jsx";
+import StudentsContext from "../context/StudentsContext.jsx";
 
 function Dashboard() {
     const dummyArray = [
@@ -24,13 +25,21 @@ function Dashboard() {
             isProfileComplete: true
         }
     );
-
     const [students, setStudents] = useState(dummyArray);
-    return (user.isProfileComplete ?
-            <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-                <Table students={students}/>
-            </div> :
-            <CompleteProfile/>
+
+    function updateStudents(students) {
+        setStudents(students);
+    }
+
+    return (
+        <StudentsContext.Provider value={{students, updateStudents}}>
+            {
+                user.isProfileComplete ? <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+                        <Table students={students} updateStudents={updateStudents}/>
+                    </div> :
+                    <CompleteProfile/>
+            }
+        </StudentsContext.Provider>
     );
 }
 

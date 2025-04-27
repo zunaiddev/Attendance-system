@@ -1,6 +1,6 @@
 import React from 'react';
 
-const TermsAndConditions = () => {
+const Terms = () => {
     return (
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 animate-fadeIn">
             <section className="space-y-6 sm:space-y-8 mb-12 sm:mb-16">
@@ -101,4 +101,4 @@ const TermsAndConditions = () => {
     );
 };
 
-export default TermsAndConditions;
+export default Terms;

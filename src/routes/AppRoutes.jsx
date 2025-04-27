@@ -1,17 +1,20 @@
 import {createBrowserRouter} from "react-router-dom";
 import AuthLayout from "../layout/AuthLayout.jsx";
-import SignupPage from "../pages/Signup.jsx";
+import Signup from "../pages/Signup.jsx";
 import RootLayout from "../layout/RootLayout.jsx";
-import AboutPage from "../pages/AboutPage.jsx";
-import ContactPage from "../pages/ContactPage.jsx";
-import ForgotPasswordPage from "../pages/ForgotPasswordPage.jsx";
-import TermsAndConditions from "../pages/TermsAndConditions.jsx";
+import About from "../pages/About.jsx";
+import Contact from "../pages/Contact.jsx";
+import Terms from "../pages/Terms.jsx";
 import CheckEmail from "../pages/CheckEmail.jsx";
-import NotFoundPage from "../pages/NotFoundPage.jsx";
-import LoginPage from "../pages/LoginPage.jsx";
+import NotFound from "../pages/NotFound.jsx";
 import DashboardLayout from "../layout/DashboardLayout.jsx";
-import DashboardPage from "../pages/DashboardPage.jsx";
-import ProfilePage from "../pages/ProfilePage.jsx";
+import ForgotPassword from "../pages/ForgotPassword.jsx";
+import CompleteProfile from "../pages/CompleteProfile.jsx";
+import Dashboard from "../pages/Dashboard.jsx";
+import Profile from "../pages/Profile.jsx";
+import Login from "../pages/Login.jsx";
+import AuthRedirect from "../authentication/AuthRedirect.jsx";
+import DashboardRedirect from "../authentication/DashboardRedirect.jsx";
 
 const router = createBrowserRouter([
     {
@@ -20,55 +23,59 @@ const router = createBrowserRouter([
         children: [
             {
                 path: "about",
-                element: <AboutPage/>
+                element: <About/>
             },
             {
                 path: "terms",
-                element: <TermsAndConditions/>
+                element: <Terms/>
             },
             {
                 path: "contact",
-                element: <ContactPage/>
+                element: <Contact/>
             },
             {
                 path: "forgot-password",
-                element: <ForgotPasswordPage/>
+                element: <AuthRedirect><ForgotPassword/></AuthRedirect>
             },
             {
                 path: "check-email",
-                element: <CheckEmail/>
+                element: <AuthRedirect><CheckEmail/></AuthRedirect>
+            },
+            {
+                path: "complete-profile",
+                element: <DashboardRedirect><CompleteProfile/></DashboardRedirect>
             },
             {
                 path: "dashboard",
-                element: <DashboardLayout/>,
+                element: <DashboardRedirect><DashboardLayout/></DashboardRedirect>,
                 children: [
                     {
                         index: true,
-                        element: <DashboardPage/>
+                        element: <Dashboard/>
                     },
                     {
                         path: "profile",
-                        element: <ProfilePage/>
+                        element: <Profile/>
                     }
                 ]
             },
             {
                 path: "auth",
-                element: <AuthLayout/>,
+                element: <AuthRedirect><AuthLayout/></AuthRedirect>,
                 children: [
                     {
                         path: "signup",
-                        element: <SignupPage/>
+                        element: <Signup/>
                     },
                     {
                         path: "login",
-                        element: <LoginPage/>
+                        element: <Login/>
                     }
                 ]
             },
             {
                 path: "*",
-                element: <NotFoundPage/>
+                element: <NotFound/>
             }
         ]
     }

@@ -1,4 +1,4 @@
-function AboutPage() {
+function About() {
     return (
         <div className="max-w-6xl mx-auto px-4 py-12 animate-fadeIn">
             <section className="space-y-8 mb-16">
@@ -117,4 +117,4 @@ function AboutPage() {
     );
 }
 
-export default AboutPage;
+export default About;

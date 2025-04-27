@@ -1,6 +1,6 @@
-import InputField from "../UI/InputField.jsx";
+import InputField from "../components/InputField.jsx";
 import {useState} from "react";
-import Button from "../UI/Button.jsx";
+import Button from "../components/Button.jsx";
 import {useForm} from "react-hook-form";
 
 function CompleteProfile() {
