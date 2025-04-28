@@ -1,7 +1,7 @@
 import {Outlet, useLocation, useNavigate} from "react-router-dom";
 import {useEffect} from "react";
-import {Toaster} from 'react-hot-toast';
 import ProgressBar from "../components/ProgressBar.jsx";
+import {Toaster} from "../components/Toaster/Toaster.jsx";
 
 function RootLayout() {
     const navigate = useNavigate();
@@ -11,7 +11,7 @@ function RootLayout() {
         if (location.pathname === "/") {
             navigate("/dashboard");
         }
-    }, []);
+    }, [location, navigate]);
 
     return (
         <div className="w-full h-screen">

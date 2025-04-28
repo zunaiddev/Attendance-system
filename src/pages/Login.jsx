@@ -6,7 +6,7 @@ import Button from "../components/Button.jsx";
 import {Link, useNavigate} from "react-router-dom";
 import {FaGithub} from "react-icons/fa";
 import {FcGoogle} from "react-icons/fc";
-import toast from "react-hot-toast";
+import {showToast} from "../components/Toaster/Toaster.jsx";
 
 function Login() {
     const {
@@ -28,7 +28,7 @@ function Login() {
         }
 
         resetField("password");
-        toast.error("Invalid Email Or Password.");
+        showToast.error("Invalid Email Or Password.");
     }
 
     return (

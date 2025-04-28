@@ -42,7 +42,7 @@ function MenuItem({to, text, icon, onClick}) {
     return (
         <li>
             <NavLink to={to} onClick={onClick}
-                     className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                     className={({isActive}) => `flex items-center p-2  rounded-lg text-gray-400 hover:text-white hover:bg-gray-700 group`}>
                 {icon && createElement(icon, {className: "size-6"})}
                 <span className="ms-3">{text}</span>
             </NavLink>

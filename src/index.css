@@ -7,6 +7,21 @@
   font-family: var(--oswald), sans-serif;
 }
 
+@theme {
+  --animate-slide: slideDown 0.5s ease-out;
+  --animate-slide-end: slideDown 0.5s ease-out reverse;
+  @keyframes slideDown {
+    0% {
+      transform: translateY(-100%);
+      opacity: 0;
+    }
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+}
+
 
 :root {
   --bg-color-dark: #111827;

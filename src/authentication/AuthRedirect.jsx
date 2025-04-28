@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import isAuthenticated from "../utils/isAuthenticated.js";
-import {Navigate, useLocation} from "react-router-dom";
+import {useLocation} from "react-router-dom";
 import NProgress from "nprogress";
 
 function AuthRedirect({children}) {
@@ -25,13 +25,15 @@ function AuthRedirect({children}) {
     if (loading) {
         return null;
     }
+
     if (error) {
         return <div className="w-full h-screen flex justify-center items-center">
             <h1 className="font-2xl font-bold">Something Went Wrong..</h1>
         </div>
     }
 
-    return authenticated ? <Navigate to={"/dashboard"}/> : children;
+    // return authenticated ? <Navigate to={"/dashboard"}/> : children;
+    return children;
 }
 
 export default AuthRedirect;

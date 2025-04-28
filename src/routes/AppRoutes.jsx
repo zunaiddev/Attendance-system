@@ -9,7 +9,6 @@ import CheckEmail from "../pages/CheckEmail.jsx";
 import NotFound from "../pages/NotFound.jsx";
 import DashboardLayout from "../layout/DashboardLayout.jsx";
 import ForgotPassword from "../pages/ForgotPassword.jsx";
-import CompleteProfile from "../pages/CompleteProfile.jsx";
 import Dashboard from "../pages/Dashboard.jsx";
 import Profile from "../pages/Profile.jsx";
 import Login from "../pages/Login.jsx";
@@ -40,10 +39,6 @@ const router = createBrowserRouter([
             {
                 path: "check-email",
                 element: <AuthRedirect><CheckEmail/></AuthRedirect>
-            },
-            {
-                path: "complete-profile",
-                element: <DashboardRedirect><CompleteProfile/></DashboardRedirect>
             },
             {
                 path: "dashboard",

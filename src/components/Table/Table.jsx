@@ -1,4 +1,4 @@
-import {useContext, useEffect, useState} from "react";
+import {useContext, useEffect, useRef, useState} from "react";
 import {IoIosSearch} from "react-icons/io";
 import {RxCross2} from "react-icons/rx";
 import TableRow from "./TableRow.jsx";
@@ -12,6 +12,7 @@ function Table() {
     const [view, setView] = useState(isMobile() ? "Standard" : "Normal");
     const [filtered, setFiltered] = useState(students);
     const [isClear, setIsClear] = useState(false);
+    const tableRef = useRef(null);
 
     useEffect(() => {
         setFiltered(students);
@@ -81,7 +82,7 @@ function Table() {
                     </div>
                 </div>
             </div>
-            <table className="w-full text-sm text-left rtl:text-right text-gray-400">
+            <table className="w-full text-sm text-left rtl:text-right text-gray-400" ref={tableRef}>
                 <thead className="text-xs uppercase bg-gray-700 text-gray-400">
                 <tr>
                     <th scope="col" className="p-4">

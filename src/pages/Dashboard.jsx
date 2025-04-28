@@ -1,44 +1,46 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import Table from "../components/Table/Table.jsx";
-import CompleteProfile from "./CompleteProfile.jsx";
 import StudentsContext from "../context/StudentsContext.jsx";
+import Spinner from "../components/Spinner.jsx";
+import {getStudents} from "../services/DashboardService.jsx";
+import {showToast} from "../components/Toaster/Toaster.jsx";
+import Notification from "../components/Notification.jsx";
 
 function Dashboard() {
-    const dummyArray = [
-        {name: "Amit Sharma", roll: "BCA2023-001", course: "BCA", year: "2nd", sec: "A", sem: "4th", isPresent: false},
-        {name: "Priya Verma", roll: "BCA2023-002", course: "BCA", year: "2nd", sec: "A", sem: "4th", isPresent: false},
-        {name: "Rohit Singh", roll: "BCA2023-003", course: "BCA", year: "2nd", sec: "B", sem: "4th", isPresent: false},
-        {name: "Neha Rani", roll: "BCA2023-004", course: "BCA", year: "2nd", sec: "B", sem: "4th", isPresent: false},
-        {name: "Zunaid Khan", roll: "BCA2023-005", course: "BCA", year: "2nd", sec: "A", sem: "4th", isPresent: false},
-        {name: "Karan Mehta", roll: "BCA2023-006", course: "BCA", year: "2nd", sec: "C", sem: "4th", isPresent: false},
-        {name: "Sneha Yadav", roll: "BCA2023-007", course: "BCA", year: "2nd", sec: "C", sem: "4th", isPresent: false},
-    ];
-    const [user, setUser] = useState({
-            id: "user_123456",
-            name: "Zunaid",
-            email: "zunaid@example.com",
-            role: "STUDENT",
-            course: "BCA",
-            year: "2nd",
-            section: "A",
-            semester: "4",
-            isProfileComplete: true
+    const [students, setStudents] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [user, setUser] = useState(null);
+
+    useEffect(() => {
+        (async function () {
+            let response = await getStudents();
+            setStudents(response.data);
+            setUser(response.user);
+            setLoading(false);
+        })();
+    }, []);
+
+    useEffect(() => {
+        if (user && !user.isProfileComplete) {
+            showToast.custom((t) => <Notification heading="Alert" message="Please complete your profile"
+                                                  dismiss={t.dismiss}/>, 10000);
         }
-    );
-    const [students, setStudents] = useState(dummyArray);
+
+    }, [user]);
 
     function updateStudents(students) {
         setStudents(students);
     }
 
+    if (loading) {
+        return <Spinner/>;
+    }
+
     return (
         <StudentsContext.Provider value={{students, updateStudents}}>
-            {
-                user.isProfileComplete ? <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-                        <Table students={students} updateStudents={updateStudents}/>
-                    </div> :
-                    <CompleteProfile/>
-            }
+            <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+                <Table students={students} updateStudents={updateStudents}/>
+            </div>
         </StudentsContext.Provider>
     );
 }
