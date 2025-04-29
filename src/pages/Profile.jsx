@@ -19,7 +19,6 @@ function Profile() {
                         </div>
                     </div>
                     <Hr/>
-
                 </div>
             </div>
 
