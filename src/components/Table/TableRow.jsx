@@ -13,7 +13,7 @@ function TableRow({student, view}) {
     }
 
     return (
-        <tr className={`border-b border-gray-700 hover:bg-gray-600 ${student.isPresent ? "" : "bg-gray-800"}`}>
+        <tr className={`border-b border-gray-700 hover:bg-gray-600 ${student.isPresent ? "bg-[#74b37d] text-white" : "bg-gray-800"}`}>
             <td className="w-4 p-4">
                 <input type="checkbox" checked={student.isPresent}
                        onChange={(e) => handleCheck(e, student.roll)}

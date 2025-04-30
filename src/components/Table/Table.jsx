@@ -32,6 +32,7 @@ function Table() {
         }
 
         setFiltered([...students].sort((a, b) => a.roll.localeCompare(b.roll)));
+        console.log("Sorted");
     }
 
     function clearSearch() {
@@ -74,7 +75,7 @@ function Table() {
                 <div className="flex flex-col sm:flex-row items-center gap-3">
                     <div className="flex justify-center items-center gap-2">
                         <span className="text-white">Sort By : </span>
-                        <TableSelect list={["Name", "Roll"]} onChange={sort}/>
+                        <TableSelect list={["Roll", "Name"]} defaultValue="Roll" onChange={sort}/>
                     </div>
                     <div className="flex justify-center items-center gap-2">
                         <span className="text-white">View : </span>
@@ -82,28 +83,31 @@ function Table() {
                     </div>
                 </div>
             </div>
-            <table className="w-full text-sm text-left rtl:text-right text-gray-400" ref={tableRef}>
-                <thead className="text-xs uppercase bg-gray-700 text-gray-400">
-                <tr>
-                    <th scope="col" className="p-4">
-                        <input type="checkbox" onChange={handleAllCheck}
-                               className="w-4 h-4 text-blue-600 rounded-md bg-gray-700 border-gray-600 cursor-pointer"/>
-                    </th>
-                    {
-                        ["Name", "Roll"]
-                            .map((item, idx) => <th scope="col" className="px-6 py-3" key={idx}>{item}</th>)
-                    }
-                    {view !== "Standard" &&
-                        ["Course", "Year", "Sec", "Sem"]
-                            .map((item, idx) => <th scope="col" className="px-6 py-3" key={idx}>{item}</th>)
-                    }
-                </tr>
-                </thead>
-                <tbody>
-                {filtered.map((student) => <TableRow key={student.roll} student={student} view={view}
-                                                     updateStudents={updateStudents}/>)}
-                </tbody>
-            </table>
+            <div className="overflow-x-auto">
+                <table className="w-full text-sm text-left rtl:text-right text-gray-400 overflow-x-scroll"
+                       ref={tableRef}>
+                    <thead className="text-xs uppercase bg-gray-700 text-gray-400">
+                    <tr>
+                        <th scope="col" className="p-4">
+                            <input type="checkbox" onChange={handleAllCheck}
+                                   className="w-4 h-4 text-blue-600 rounded-md bg-gray-700 border-gray-600 cursor-pointer"/>
+                        </th>
+                        {
+                            ["Name", "Roll"]
+                                .map((item, idx) => <th scope="col" className="px-6 py-3" key={idx}>{item}</th>)
+                        }
+                        {view !== "Standard" &&
+                            ["Course", "Year", "Sec", "Sem"]
+                                .map((item, idx) => <th scope="col" className="px-6 py-3" key={idx}>{item}</th>)
+                        }
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {filtered.map((student) => <TableRow key={student.roll} student={student} view={view}
+                                                         updateStudents={updateStudents}/>)}
+                    </tbody>
+                </table>
+            </div>
         </div>
     );
 }

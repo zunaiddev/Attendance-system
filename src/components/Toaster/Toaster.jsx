@@ -31,7 +31,7 @@ function Toaster() {
     }
 
     return (
-        <div className="fixed w-full top-0 left-0 z-50 flex justify-center pt-4">
+        <div className="fixed w-full top-0 left-0 z-50 flex justify-center pt-4 ">
             {toast && toast.content}
         </div>
     );

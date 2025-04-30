@@ -27,7 +27,8 @@ function InputField({
                      placeholder-gray-400 text-white
                       ${errors && "border-red-600"}`}
                        autoFocus={autoFocus}
-                       placeholder={placeholder} autoComplete={autoComplete} type={type === "password" ? (show ? "text" : "password") : type}
+                    placeholder={placeholder} autoComplete={autoComplete}
+                    type={type === "password" ? (show ? "text" : "password") : type}
                 {...register}/>
                 {type === "password" && (show ?
                     <LuEyeOff className="absolute top-[50%] bottom-[50%] translate-y-[-50%] right-2 text-gray-400 size-5 cursor-pointer"
@@ -47,6 +48,8 @@ InputField.propTypes = {
     placeholder: PropTypes.string,
     autoComplete: PropTypes.string,
     type: PropTypes.string,
+    min: PropTypes.number,
+    max: PropTypes.number,
     register: PropTypes.object,
     errors: PropTypes.object,
     autoFocus: PropTypes.bool,

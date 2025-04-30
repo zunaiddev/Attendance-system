@@ -6,7 +6,7 @@ function TableSelect({list, onChange, defaultValue = ""}) {
             <select
                 className="bg-gray-700 border-gray-600 rounded-md text-white cursor-pointer px-4 py-1 outline-none appearance-none"
                 onChange={onChange}
-                value={defaultValue}>
+                defaultValue={defaultValue}>
                 {list.map((item, idx) => <option key={idx} value={item}>{item}</option>)}
             </select>
         </div>
