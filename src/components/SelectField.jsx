@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import {RiArrowDropDownLine} from "react-icons/ri";
+import ArrowDownIcon from "./icons/ArrowDownIcon.jsx";
 
 function SelectField({list, label, register, errors}) {
     return (
@@ -12,8 +12,7 @@ function SelectField({list, label, register, errors}) {
                     {list.map((item, index) => <option key={index} value={item}
                                                        className="bg-transparent">{item}</option>)}
                 </select>
-                <RiArrowDropDownLine
-                    className="pointer-events-none absolute right-1 size-9 top-1/2 transform -translate-y-1/2 "/>
+                <ArrowDownIcon/>
             </div>
 
             {errors && <span className="text-[12px] ml-1 text-red-600 mt-1">{errors.message}</span>}

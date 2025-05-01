@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
-import {LuEye, LuEyeOff} from "react-icons/lu";
 import {useState} from "react";
+import EyeOnIcon from "./icons/EyeOnIcon.jsx";
+import EyeOffIcon from "./icons/EyeOffIcon.jsx";
 
 function InputField({
                         label = null,
@@ -14,7 +15,7 @@ function InputField({
                     }) {
     const [show, setShow] = useState(false);
 
-    function handleShow(){
+    function handleShow() {
         setShow(!show);
     }
 
@@ -26,15 +27,22 @@ function InputField({
                     className={`shadow-xs border border-gray-700 text-sm rounded-lg focus:border-blue-500 outline-none block w-full p-2.5 bg-gray-700 
                      placeholder-gray-400 text-white
                       ${errors && "border-red-600"}`}
-                       autoFocus={autoFocus}
+                    autoFocus={autoFocus}
                     placeholder={placeholder} autoComplete={autoComplete}
                     type={type === "password" ? (show ? "text" : "password") : type}
-                {...register}/>
+                    {...register}/>
                 {type === "password" && (show ?
-                    <LuEyeOff className="absolute top-[50%] bottom-[50%] translate-y-[-50%] right-2 text-gray-400 size-5 cursor-pointer"
-                           onClick={handleShow}/> :
-                    <LuEye className="absolute top-[50%] bottom-[50%] translate-y-[-50%] right-2 text-gray-400 size-5 cursor-pointer"
-                        onClick={handleShow}/>)}
+                        <div
+                            className="absolute top-[50%] bottom-[50%] translate-y-[-50%] right-2 text-gray-400 size-5 cursor-pointer"
+                            onClick={handleShow}>
+                            <EyeOnIcon/>
+                        </div> :
+                        <div
+                            className="absolute top-[50%] bottom-[50%] translate-y-[-50%] right-2 text-gray-400 size-5 cursor-pointer"
+                            onClick={handleShow}>
+                            <EyeOffIcon/>
+                        </div>
+                )}
 
             </div>
 

@@ -2,7 +2,7 @@ import {useEffect, useState} from "react";
 import Table from "../components/Table/Table.jsx";
 import StudentsContext from "../context/StudentsContext.jsx";
 import Spinner from "../components/Spinner.jsx";
-import {getStudents} from "../services/DashboardService.jsx";
+import {getStudents} from "../services/DashboardService.js";
 import {showToast} from "../components/Toaster/Toaster.jsx";
 import Notification from "../components/Notification.jsx";
 import Button from "../components/Button.jsx";
@@ -24,11 +24,13 @@ function Dashboard() {
     }, []);
 
     useEffect(() => {
-        if (user && !user.isProfileComplete) {
-            showToast.custom((t) => <Notification heading="Alert" message="Please complete your profile"
-                                                  dismiss={t.dismiss}/>, 10000);
+        if (!sessionStorage.getItem("notify")) {
+            if (user && !user.isProfileComplete) {
+                showToast.custom((t) => <Notification heading="Alert" message="Please complete your profile"
+                                                      dismiss={t.dismiss}/>, 5000);
+                sessionStorage.setItem("notify", "true");
+            }
         }
-
     }, [user]);
 
     function updateStudents(students) {

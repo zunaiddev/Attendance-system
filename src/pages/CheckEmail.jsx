@@ -1,7 +1,7 @@
 import {useState} from "react";
-import {MdMarkEmailRead} from "react-icons/md";
 import Button from "../components/Button.jsx";
 import {useSearchParams} from "react-router-dom";
+import MailIcon from "../components/icons/MailIcon.jsx";
 
 function CheckEmail() {
     const [isResending, setIsResending] = useState(false);
@@ -17,7 +17,8 @@ function CheckEmail() {
     return (
         <div className="w-full h-full flex flex-col items-center justify-center space-y-8 max-w-md mx-auto px-4">
             <div className="text-center space-y-4">
-                <MdMarkEmailRead className="w-24 h-24 mx-auto text-blue-500"/>
+                {/*<MdMarkEmailRead className="w-24 h-24 mx-auto text-blue-500"/>*/}
+                <MailIcon className="size-15 mx-auto text-blue-500"/>
                 <h1 className="text-3xl font-bold">Verify your email</h1>
                 <p className="text-gray-400">
                     {

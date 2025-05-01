@@ -4,9 +4,9 @@ import InputField from "../components/InputField.jsx";
 import Checkbox from "../components/Checkbox.jsx";
 import Button from "../components/Button.jsx";
 import {Link, useNavigate} from "react-router-dom";
-import {FaGithub} from "react-icons/fa";
-import {FcGoogle} from "react-icons/fc";
 import {showToast} from "../components/Toaster/Toaster.jsx";
+import GoogleIcon from "../components/icons/GoogleIcon.jsx";
+import GithubIcon from "../components/icons/GithubIcon.jsx";
 
 function Login() {
     const {
@@ -36,8 +36,8 @@ function Login() {
             <div className="space-y-8">
                 <h1 className="text-3xl font-bold">Welcome Back</h1>
                 <div className="flex justify-between">
-                    <SocialButton text="Sign in with Google" icon={FcGoogle}/>
-                    <SocialButton text="Sign in with Github" icon={FaGithub}/>
+                    <SocialButton text="Sign in with Google" icon={GoogleIcon}/>
+                    <SocialButton text="Sign in with Github" icon={GithubIcon}/>
                 </div>
                 <div className="relative my-4">
                     <hr/>

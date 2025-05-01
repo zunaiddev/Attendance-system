@@ -1,9 +1,9 @@
 import {useState} from "react";
 import {useForm} from "react-hook-form";
 import Button from "../components/Button";
-import {FiEdit2} from "react-icons/fi";
 import InputField from "../components/InputField.jsx";
 import Checkbox from "../components/Checkbox.jsx";
+import UserEditIcon from "../components/icons/UserEditIcon.jsx";
 
 function Profile() {
     const [isEditing, setIsEditing] = useState(false);
@@ -57,11 +57,11 @@ function Profile() {
     };
 
     return (
-        <div className="min-h-screen bg-gray-900 text-white p-8">
+        <div className="min-h-screen bg-gray-900 text-white sm:p-8">
             <div className="w-full mx-auto">
                 <div className="flex items-center gap-4 mb-8">
                     <div
-                        className="w-20 h-20 rounded-full bg-blue-600 flex items-center justify-center text-2xl font-bold">
+                        className="size-14 sm:size-20 rounded-full bg-blue-600 flex items-center justify-center text-2xl font-bold">
                         {getInitials(user.name)}
                     </div>
                     <div className="flex-1">
@@ -72,7 +72,7 @@ function Profile() {
                         onClick={() => setIsEditing(!isEditing)}
                         className="p-2 hover:bg-gray-800 rounded-full"
                     >
-                        <FiEdit2 className="size-5"/>
+                        <UserEditIcon/>
                     </button>
                 </div>
 
@@ -117,7 +117,7 @@ function Profile() {
                         <Button text="Save Changes" isSubmitting={isSubmitting}/>
                     </form>
                 ) : (
-                    <div className="space-y-4 bg-gray-800 p-6 rounded-lg">
+                    <div className="space-y-4 bg-gray-800 p-3 sm:p-6 rounded-lg">
                         <div className="grid grid-cols-2 gap-4">
                             <div>
                                 <p className="text-gray-400">University</p>
@@ -145,7 +145,7 @@ function Profile() {
 
                 <div className="mt-8">
                     <form onSubmit={handleEmailSubmit(onEmailSubmit)}
-                          className="space-y-4 bg-gray-800 p-6 rounded-lg mb-8">
+                          className="space-y-4 bg-gray-800 p-3 sm:p-6 rounded-lg mb-8">
                         <h2 className="text-xl font-semibold mb-4">Update Email</h2>
                         <div className="grid grid-cols-1 gap-4">
                             <InputField
@@ -173,7 +173,7 @@ function Profile() {
                     </form>
 
                     <form onSubmit={handlePassSubmit(onPasswordSubmit)}
-                          className="space-y-4 bg-gray-800 p-6 rounded-lg">
+                          className="space-y-4 bg-gray-800 p-3 sm:p-6 rounded-lg">
                         <h2 className="text-xl font-semibold mb-4">Change Password</h2>
                         <div className="grid grid-cols-1 gap-4">
                             <InputField
@@ -209,7 +209,6 @@ function Profile() {
                         <Button text="Update Password" isSubmitting={isPassSubmitting}/>
                     </form>
                 </div>
-                
             </div>
         </div>
     );

@@ -4,8 +4,8 @@ import {useForm} from "react-hook-form";
 import SocialButton from "../components/SocialButton.jsx";
 import Checkbox from "../components/Checkbox.jsx";
 import {Link, useNavigate} from "react-router-dom";
-import {FcGoogle} from "react-icons/fc";
-import {FaGithub} from "react-icons/fa";
+import GithubIcon from "../components/icons/GithubIcon.jsx";
+import GoogleIcon from "../components/icons/GoogleIcon.jsx";
 
 function SignupForm() {
     const {
@@ -35,8 +35,8 @@ function SignupForm() {
             <div className="space-y-8">
                 <h1 className="text-3xl font-bold">Create Free Account</h1>
                 <div className="flex flex-col gap-3 sm:flex-row justify-between">
-                    <SocialButton text="Sign up with Google" icon={FcGoogle}/>
-                    <SocialButton text="Sign up with Github" icon={FaGithub}/>
+                    <SocialButton text="Sign up with Google" icon={GoogleIcon}/>
+                    <SocialButton text="Sign up with Github" icon={GithubIcon}/>
                 </div>
                 <div className="relative my-4">
                     <hr/>

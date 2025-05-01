@@ -1,48 +1,55 @@
 import {NavLink} from "react-router-dom";
-import {MdSpaceDashboard} from "react-icons/md";
 import PropTypes from "prop-types";
 import {createElement} from "react";
-import {BiArrowToLeft} from "react-icons/bi";
-import {CgProfile} from "react-icons/cg";
-import isMobile from "../utils/isMobile.js";
+import DashboardIcon from "./icons/DashboardIcon.jsx";
+import ProfileIcon from "./icons/ProfileIcon.jsx";
+import CloseIcon from "./icons/CloseIcon.jsx";
+import MenuIcon from "./icons/MenuIcon.jsx";
+import SearchIcon from "./icons/SearchIcon.jsx";
 
 function Sidebar({show, setShow}) {
     function hideSidebar() {
         setShow(false);
     }
 
-    function handleOnClick() {
-        if (isMobile()) {
-            hideSidebar();
-        }
+    function showSidebar() {
+        setShow(true);
     }
 
     return (
         <div>
             <aside
-                className={`fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full  ${show && "translate-x-0"}`}
+                className={`fixed left-0 top-0 z-40 w-64 h-screen transition-transform -translate-x-full  ${show && "translate-x-0"}`}
                 aria-label="Sidebar">
 
-                <div className="h-full px-3 py-10 overflow-y-auto bg-gray-50 dark:bg-gray-800">
+                <div className="h-full px-3 py-10 overflow-y-auto bg-gray-800">
                     <ul className="space-y-2 font-medium">
-                        <MenuItem to="/dashboard" text="Dashboard" icon={MdSpaceDashboard} onClick={handleOnClick}/>
-                        <MenuItem to={"/dashboard/profile"} text={"Profile"} icon={CgProfile} onClick={handleOnClick}/>
+                        <MenuItem to="/dashboard" text="Dashboard" icon={DashboardIcon}/>
+                        <MenuItem to="/dashboard/profile" text="Profile" icon={ProfileIcon}/>
+                        <MenuItem to="/dashboard/search" text="Search" icon={SearchIcon}/>
                     </ul>
 
                     <button type="button" className="absolute right-4 top-3 cursor-pointer" onClick={hideSidebar}>
-                        <BiArrowToLeft className="size-6"/>
+                        <CloseIcon/>
                     </button>
                 </div>
             </aside>
+            {
+                !show && <button type="button" onClick={showSidebar}
+                                 className="absolute top-1 left-1 p-2 mt-2 ms-3 text-sm rounded-lg text-gray-400 hover:bg-gray-700 cursor-pointer">
+                    <MenuIcon/>
+                </button>
+            }
         </div>
     );
 }
 
-function MenuItem({to, text, icon, onClick}) {
+function MenuItem({to, text, icon}) {
     return (
         <li>
-            <NavLink to={to} onClick={onClick}
-                     className={({isActive}) => `flex items-center p-2  rounded-lg text-gray-400 hover:text-white hover:bg-gray-700 group`}>
+            <NavLink to={to}
+                     className={({isActive}) => `flex items-center p-2  rounded-lg hover:text-white hover:bg-gray-700 group ${isActive ? "text-white bg-gray-700" : "text-gray-400"}`}
+                     end={true}>
                 {icon && createElement(icon, {className: "size-6"})}
                 <span className="ms-3">{text}</span>
             </NavLink>

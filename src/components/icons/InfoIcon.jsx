@@ -1,4 +1,4 @@
-function Info() {
+function InfoIcon() {
     return (
         <svg className="w-6 h-6  text-blue-700" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
              height="24" fill="none" viewBox="0 0 24 24">
@@ -8,4 +8,4 @@ function Info() {
     );
 }
 
-export default Info;
+export default InfoIcon;
