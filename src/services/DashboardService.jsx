@@ -80,7 +80,7 @@ async function getStudents() {
                 sec: "C",
                 sem: "4th",
                 isPresent: false
-            },
+            }
         ]
     }
 }

@@ -24,11 +24,13 @@ function Dashboard() {
     }, []);
 
     useEffect(() => {
-        if (user && !user.isProfileComplete) {
-            showToast.custom((t) => <Notification heading="Alert" message="Please complete your profile"
-                                                  dismiss={t.dismiss}/>, 10000);
+        if (!sessionStorage.getItem("notify")) {
+            if (user && !user.isProfileComplete) {
+                showToast.custom((t) => <Notification heading="Alert" message="Please complete your profile"
+                                                      dismiss={t.dismiss}/>, 5000);
+                sessionStorage.setItem("notify", "true");
+            }
         }
-
     }, [user]);
 
     function updateStudents(students) {
@@ -81,6 +83,9 @@ function Dashboard() {
     return (
         <StudentsContext.Provider value={{students, updateStudents}}>
             <div className="relative sm:rounded-lg">
+                <div>
+                    <button>Auto Save</button>
+                </div>
                 <Table/>
                 <div className="py-5 flex justify-end">
                     <Button text="Save"/>

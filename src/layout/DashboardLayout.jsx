@@ -1,11 +1,15 @@
 import {Outlet} from "react-router-dom";
 import Sidebar from "../components/Sidebar.jsx";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {RiMenu2Fill} from "react-icons/ri";
 import isMobile from "../utils/isMobile.js";
 
 function DashboardLayout() {
-    const [show, setShow] = useState(!isMobile());
+    const [show, setShow] = useState(localStorage.getItem("isSidebarOpen") ? localStorage.getItem("isSidebarOpen") === "true" : !isMobile());
+
+    useEffect(function () {
+        localStorage.setItem("isSidebarOpen", show.toString());
+    }, [show])
 
     function showSidebar() {
         setShow(true);
