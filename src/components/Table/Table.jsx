@@ -69,7 +69,7 @@ function Table() {
                         </div>
                     }
                 </div>
->>>>>>> 06c9ab44c09bf9b375aeb578d3c3d3806dd853f1
+>>>>>>> 06c9ab44c09bf9b375aeb578d3c3d3806dd853f1qw
                 <div
                     className="flex w-full flex-wrap items-center gap-3 p-2 rounded-lg justify-end">
                     <div className="flex justify-center items-center gap-2">
