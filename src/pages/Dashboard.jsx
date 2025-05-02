@@ -83,6 +83,9 @@ function Dashboard() {
     return (
         <StudentsContext.Provider value={{students, updateStudents}}>
             <div className="relative sm:rounded-lg">
+                <div>
+                    <button>Auto Save</button>
+                </div>
                 <Table/>
                 <div className="py-5 flex justify-end">
                     <Button text="Save"/>
