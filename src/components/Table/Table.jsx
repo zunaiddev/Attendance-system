@@ -10,7 +10,6 @@ function Table() {
 
     const [view, setView] = useState(localStorage.getItem("view") ? localStorage.getItem("view") : isMobile() ? "Standard" : "Normal");
     const [filtered, setFiltered] = useState(students);
-    const [isClear, setIsClear] = useState(false);
     const tableRef = useRef(null);
 
     useEffect(() => {
@@ -51,25 +50,7 @@ function Table() {
         <div className="relative">
             <div
                 className="flex flex-col gap-3 sm:gap-0 sm:flex-row justify-start sm:justify-between items-center pb-4">
-<<<<<<< HEAD
                 <SearchInput onChange={handleOnChange}/>
-=======
-                <div className="relative w-full">
-                    <div
-                        className="absolute inset-y-0 left-0 rtl:inset-r-0 rtl:right-0 flex items-center ps-3 pointer-events-none">
-                        <IoIosSearch className="size-4"/>
-                    </div>
-                    <input type="text"
-                           className="block outline-none p-2 ps-10 text-sm border rounded-lg w-full md:w-80 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
-                           placeholder="Search for items" onChange={handleOnChange}/>
-                    {isClear &&
-                        <div className="absolute inset-y-0 right-2 flex items-center ps-3 cursor-pointer"
-                             onClick={clearSearch}>
-                            <RxCross2 className="size-4"/>
-                        </div>
-                    }
-                </div>
->>>>>>> 06c9ab44c09bf9b375aeb578d3c3d3806dd853f1qw
                 <div
                     className="flex w-full flex-wrap items-center gap-3 p-2 rounded-lg justify-end">
                     <div className="flex justify-center items-center gap-2">
