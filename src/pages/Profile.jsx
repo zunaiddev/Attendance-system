@@ -4,6 +4,7 @@ import Button from "../components/Button";
 import InputField from "../components/InputField.jsx";
 import Checkbox from "../components/Checkbox.jsx";
 import UserEditIcon from "../components/icons/UserEditIcon.jsx";
+import getInitials from "../utils/getInitials.js";
 
 function Profile() {
     const [isEditing, setIsEditing] = useState(false);
@@ -33,15 +34,6 @@ function Profile() {
         handleSubmit: handleEmailSubmit,
         formState: {errors: emailErrors, isSubmitting: isEmailSubmitting},
     } = useForm();
-
-    const getInitials = (name) => {
-        return name
-            .split(' ')
-            .map(word => word[0])
-            .join('')
-            .toUpperCase()
-            .slice(0, 2);
-    };
 
     const onSubmit = (data) => {
         setUser(data);

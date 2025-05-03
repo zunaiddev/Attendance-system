@@ -1,16 +1,26 @@
 import SearchIcon from "./icons/SearchIcon.jsx";
-import CloseIcon from "./icons/CloseIcon.jsx";
-import {useState} from "react";
+import {createRef, useState} from "react";
+import CrossIcon from "./icons/CrossIcon.jsx";
 
 function SearchInput({onChange}) {
-    const [isClear, setIsClear] = useState(false);
+    const [isEmpty, setEmpty] = useState(true);
+    const searchRef = createRef();
 
     function clearSearch() {
-        setIsClear(true);
+        searchRef.current.value = "";
+        setEmpty(true);
     }
 
     function handleOnChange(e) {
-        onChange(e.target.value.toLowerCase().trim());
+        let value = e.target.value;
+
+        if (value.length === 0) {
+            setEmpty(true);
+        } else {
+            setEmpty(false);
+        }
+
+        onChange(value.toLowerCase().trim());
     }
 
     return (
@@ -20,12 +30,12 @@ function SearchInput({onChange}) {
                 <SearchIcon className="size-4 text-white"/>
             </div>
             <input type="text"
-                   className="block outline-none p-2 ps-10 text-sm border rounded-lg w-full md:w-80 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
-                   placeholder="Search for items" onChange={handleOnChange}/>
-            {isClear &&
+                   className="outline-none p-2 ps-10 text-sm border rounded-lg w-full bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
+                   placeholder="Search for items" onChange={handleOnChange} ref={searchRef}/>
+            {!isEmpty &&
                 <div className="absolute inset-y-0 right-2 flex items-center ps-3 cursor-pointer"
                      onClick={clearSearch}>
-                    <CloseIcon/>
+                    <CrossIcon/>
                 </div>
             }
         </div>
