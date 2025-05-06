@@ -1,6 +1,5 @@
 import {Outlet, useLocation, useNavigate} from "react-router-dom";
 import {useEffect} from "react";
-import ProgressBar from "../components/ProgressBar.jsx";
 import {Toaster} from "../components/Toaster/Toaster.jsx";
 
 function RootLayout() {
@@ -15,7 +14,6 @@ function RootLayout() {
 
     return (
         <div className="w-full h-screen">
-            <ProgressBar/>
             <Toaster/>
             <Outlet/>
         </div>

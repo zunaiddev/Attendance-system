@@ -1,7 +1,6 @@
 import {useEffect, useState} from "react";
 import isAuthenticated from "../utils/isAuthenticated.js";
 import {useLocation} from "react-router-dom";
-import NProgress from "nprogress";
 
 function AuthRedirect({children}) {
     const [loading, setLoading] = useState(true);
@@ -12,11 +11,10 @@ function AuthRedirect({children}) {
 
     useEffect(() => {
         (async function () {
-            NProgress.start();
             if (!redirected) {
                 setAuthenticated(await isAuthenticated());
             }
-            NProgress.done();
+
             setLoading(false);
             setError(false);
         })();
@@ -32,8 +30,8 @@ function AuthRedirect({children}) {
         </div>
     }
 
-    // return authenticated ? <Navigate to={"/dashboard"}/> : children;
-    return children;
+
+    return children;// return authenticated ? <Navigate to={"/dashboard"}/> : children;
 }
 
 export default AuthRedirect;

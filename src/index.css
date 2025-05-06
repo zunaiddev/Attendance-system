@@ -34,3 +34,39 @@ body{
   background: var(--bg-color-dark);
   color: white;
 }
+
+/* App.css */
+.top-loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background-color: transparent;
+  z-index: 9999;
+  overflow: hidden;
+}
+
+.top-loader::before {
+  content: '';
+  display: block;
+  position: absolute;
+  height: 100%;
+  background-color: #1a73e8;
+  animation: indeterminate 2s infinite;
+}
+
+@keyframes indeterminate {
+  0% {
+    left: -40%;
+    width: 40%;
+  }
+  50% {
+    left: 20%;
+    width: 60%;
+  }
+  100% {
+    left: 100%;
+    width: 100%;
+  }
+}
