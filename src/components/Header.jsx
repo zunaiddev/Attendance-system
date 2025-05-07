@@ -1,10 +1,12 @@
+import Switch from "./Switch.jsx";
+
 function Header() {
     return (
-        <div className="w-full pl-10 px-2 py-3 flex justify-end">
-            <span
-                className="text-lg font-bold border border-gray-300 p-2 rounded-full size-10 flex items-center justify-center">
-                ZU
-            </span>
+        <div className="w-full py-2 flex items-center gap-10">
+            <div>
+                <Switch label="Auto save"/>
+            </div>
+            <button className="text-white text-2xl cursor-pointer">+</button>
         </div>
     );
 }

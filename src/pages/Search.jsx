@@ -13,8 +13,8 @@ function Search() {
                 <SearchInput/>
             </div>
             <div className="space-y-2">
-                <SearchResult data={data}/>
-                <SearchResult isLoading={true} data={data}/>
+
+            <SearchResult isLoading={true} data={data}/>
                 <SearchResult isLoading={true} data={data}/>
                 <SearchResult isLoading={true} data={data}/>
                 <SearchResult isLoading={true} data={data}/>

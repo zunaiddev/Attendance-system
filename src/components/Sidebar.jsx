@@ -3,9 +3,9 @@ import PropTypes from "prop-types";
 import {createElement} from "react";
 import DashboardIcon from "./icons/DashboardIcon.jsx";
 import ProfileIcon from "./icons/ProfileIcon.jsx";
-import CloseIcon from "./icons/CloseIcon.jsx";
 import MenuIcon from "./icons/MenuIcon.jsx";
 import SearchIcon from "./icons/SearchIcon.jsx";
+import CloseSidebarIcon from "./icons/CloseSidebarIcon.jsx";
 
 function Sidebar({show, setShow}) {
     function hideSidebar() {
@@ -30,7 +30,7 @@ function Sidebar({show, setShow}) {
                     </ul>
 
                     <button type="button" className="absolute right-4 top-3 cursor-pointer" onClick={hideSidebar}>
-                        <CloseIcon/>
+                        <CloseSidebarIcon/>
                     </button>
                 </div>
             </aside>

@@ -8,6 +8,7 @@ import Notification from "../components/Notification.jsx";
 import Button from "../components/Button.jsx";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
+import Header from "../components/Header.jsx";
 
 function Dashboard() {
     const [students, setStudents] = useState([]);
@@ -83,9 +84,7 @@ function Dashboard() {
     return (
         <StudentsContext.Provider value={{students, updateStudents}}>
             <div className="relative sm:rounded-lg">
-                <div>
-                    <button>Auto Save</button>
-                </div>
+                <Header/>
                 <Table/>
                 <div className="py-5 flex justify-end">
                     <Button text="Save"/>

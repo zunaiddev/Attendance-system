@@ -1,6 +1,6 @@
 import SearchIcon from "./icons/SearchIcon.jsx";
 import {createRef, useState} from "react";
-import CrossIcon from "./icons/CrossIcon.jsx";
+import CloseIcon from "./icons/CloseIcon.jsx";
 
 function SearchInput({onChange}) {
     const [isEmpty, setEmpty] = useState(true);
@@ -35,7 +35,7 @@ function SearchInput({onChange}) {
             {!isEmpty &&
                 <div className="absolute inset-y-0 right-2 flex items-center ps-3 cursor-pointer"
                      onClick={clearSearch}>
-                    <CrossIcon/>
+                    <CloseIcon className="text-white size-4"/>
                 </div>
             }
         </div>
