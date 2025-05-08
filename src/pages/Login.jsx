@@ -20,7 +20,7 @@ function Login() {
 
     async function onSubmit(data) {
         await new Promise(res => setTimeout(res, 1000));
-        if (data.email === "zunaid@example.com" && data.password === "John@123") {
+        if (data.email === "abc@abc.com" && data.password === "John@123") {
             reset();
             localStorage.setItem("token", "abc");
             nav("/dashboard");
