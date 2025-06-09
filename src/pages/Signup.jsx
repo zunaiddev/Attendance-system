@@ -7,6 +7,8 @@ import {Link, useNavigate} from "react-router-dom";
 import GithubIcon from "../components/icons/GithubIcon.jsx";
 import GoogleIcon from "../components/icons/GoogleIcon.jsx";
 import usePost from "../hooks/usePost.jsx";
+import {HttpStatusCode} from "axios";
+import {showToast} from "../components/Toaster/Toaster.jsx";
 
 function SignupForm() {
     const {
@@ -21,15 +23,16 @@ function SignupForm() {
 
     async function onSubmit(formData) {
         await post("/auth/signup", formData);
-        console.log(data);
-        console.log(error);
 
-        if (formData.email === "zunaid@example.com") {
-            setError("email", {message: "Email already taken", type: "manual"});
-            return;
+        if (error != null) {
+            if (error.statusCode === HttpStatusCode.Conflict) {
+                setError("email", {message: "Email already exists"});
+                return;
+            }
+
+            showToast.error("Something went wrong. Please try again.");
         }
 
-        console.log(formData);
         reset();
         navigate("/check-email?from=signup");
     }

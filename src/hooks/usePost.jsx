@@ -11,14 +11,17 @@ function useApi() {
         setError(null);
 
         try {
-            const response = await API.post(url, {date: postData}, {
+            const response = await API.post(url, postData, {
                 headers: {
                     "Authorization": `Bearer ${token}`
                 }
             });
-            console.log(response);
             setData(response.data.payload);
         } catch (err) {
+            if (!err.response) {
+                console.log("no response returned", err);
+            }
+
             setError({statusCode: err.response.status});
         }
 

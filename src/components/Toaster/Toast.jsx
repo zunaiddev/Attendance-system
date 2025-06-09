@@ -2,8 +2,7 @@ import {useEffect, useState} from "react";
 
 function Toast({message, icon: Icon, end}) {
     const [animate, setAnimate] = useState(false);
-
-    console.log(end);
+    
     useEffect(() => {
         setTimeout(() => setAnimate(true), end);
     }, [end])

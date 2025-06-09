@@ -6,19 +6,12 @@ const API = axios.create({
 });
 
 API.interceptors.response.use(
-    response => response,
-    error => {
-        if (error.response) {
-            const status = error.response.status;
-
-            if (status === 500) {
-                alert("Something went wrong.")
-            }
-        } else if (error.request) {
-            showToast.error("No Internet Connection.")
+    res => res,
+    err => {
+        if (!err.response) {
+            showToast.error("Server Not Responding.")
         }
-
-        return Promise.reject(error);
+        return Promise.reject(err);
     }
 );
 
