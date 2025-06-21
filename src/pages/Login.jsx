@@ -7,6 +7,8 @@ import {Link, useNavigate} from "react-router-dom";
 import {showToast} from "../components/Toaster/Toaster.jsx";
 import GoogleIcon from "../components/icons/GoogleIcon.jsx";
 import GithubIcon from "../components/icons/GithubIcon.jsx";
+import usePost from "../hooks/usePost.jsx";
+import {HttpStatusCode} from "axios";
 
 function Login() {
     const {
@@ -17,18 +19,26 @@ function Login() {
         formState: {errors, isSubmitting},
     } = useForm();
     const nav = useNavigate();
+    const {error, post} = usePost();
 
     async function onSubmit(data) {
-        await new Promise(res => setTimeout(res, 1000));
-        if (data.email === "abc@abc.com" && data.password === "John@123") {
-            reset();
-            localStorage.setItem("token", "abc");
-            nav("/dashboard");
+        await post("/auth/login", data);
+
+        if (error) {
+
+            if (error.response.status === HttpStatusCode.Unauthorized) {
+                resetField("password");
+                showToast.error("Invalid Email Or Password.");
+                return;
+            }
+
+
+            showToast.error("Something went wrong.");
             return;
         }
 
-        resetField("password");
-        showToast.error("Invalid Email Or Password.");
+        reset();
+        // nav("/dashboard");
     }
 
     return (

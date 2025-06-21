@@ -18,13 +18,13 @@ function SignupForm() {
         setError,
         formState: {errors, isSubmitting},
     } = useForm();
-    const {data, error, post} = usePost();
+    const {error, post} = usePost();
     const navigate = useNavigate();
 
     async function onSubmit(formData) {
         await post("/auth/signup", formData);
 
-        if (error != null) {
+        if (error) {
             if (error.statusCode === HttpStatusCode.Conflict) {
                 setError("email", {message: "Email already exists"});
                 return;
