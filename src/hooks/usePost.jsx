@@ -20,9 +20,9 @@ function useApi() {
         } catch (err) {
             if (!err.response) {
                 console.log("no response returned", err);
+            } else {
+                setError({statusCode: err.response.status});
             }
-
-            setError({statusCode: err.response.status});
         }
 
         setLoading(false);
