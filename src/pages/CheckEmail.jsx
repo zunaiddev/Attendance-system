@@ -1,23 +1,46 @@
-import {useState} from "react";
 import Button from "../components/Button.jsx";
-import {useSearchParams} from "react-router-dom";
+import {useLocation} from "react-router-dom";
 import MailIcon from "../components/icons/MailIcon.jsx";
+import usePost from "../hooks/usePost.jsx";
+import {showToast} from "../components/Toaster/Toaster.jsx";
+import {useEffect, useRef, useState} from "react";
 
 function CheckEmail() {
-    const [isResending, setIsResending] = useState(false);
-    const [params] = useSearchParams();
-    const from = params.get("from");
+    const location = useLocation();
+    const from = location.search.substring(6);
+    const {loading, post} = usePost();
+    const timerRef = useRef(null);
+    const [timeLeft, setTimeLeft] = useState(localStorage.getItem("RESEND_EMAIL_TIME_LEFT") ?
+        Number.parseInt(localStorage.getItem("RESEND_EMAIL_TIME_LEFT")) : -1);
+
+    useEffect(() => {
+        if (timeLeft < 0) return;
+
+        let id = setInterval(function () {
+            setTimeLeft(prev => {
+                localStorage.setItem("RESEND_EMAIL_TIME_LEFT", (prev - 1).toString())
+                return prev - 1;
+            });
+        }, 1000);
+
+        return () => clearInterval(id);
+    }, [timeLeft])
 
     const handleResendEmail = async () => {
-        setIsResending(true);
-        await new Promise(res => setTimeout(res, 2000));
-        setIsResending(false);
+        let data = await post(`/auth/resend-email/${location.state.id}`, undefined, undefined);
+
+        if (!data) {
+            showToast.error("Something went wrong");
+            return;
+        }
+
+        localStorage.setItem("RESEND_EMAIL_TIME_LEFT", '59');
+        setTimeLeft(59);
     };
 
     return (
         <div className="w-full h-full flex flex-col items-center justify-center space-y-8 max-w-md mx-auto px-4">
             <div className="text-center space-y-4">
-                {/*<MdMarkEmailRead className="w-24 h-24 mx-auto text-blue-500"/>*/}
                 <MailIcon className="size-15 mx-auto text-blue-500"/>
                 <h1 className="text-3xl font-bold">Verify your email</h1>
                 <p className="text-gray-400">
@@ -26,7 +49,6 @@ function CheckEmail() {
                             "We've sent a verification link to your email address. Please check your inbox and click the link to verify your account." :
                             "We've sent a verification link to your email address. Please check your inbox and click the link to reset your password."
                     }
-
                 </p>
                 <p className="text-sm text-gray-500">
                     If you don't see the email, please check your spam folder.
@@ -36,9 +58,11 @@ function CheckEmail() {
             {
                 from === "signup" && <div className="w-full space-y-4">
                     <Button
-                        text={isResending ? "Sending..." : "Resend verification email"}
-                        isSubmitting={isResending}
+                        text={timeLeft >= 0 ? `Resend Email in 00:${timeLeft <= 9 ? '0' : ''}${timeLeft}` : "Resend verification email"}
+                        isSubmitting={loading}
                         onClick={handleResendEmail}
+                        disable={timeLeft >= 0}
+                        ref={timerRef}
                     />
                 </div>
             }

@@ -22,19 +22,20 @@ function SignupForm() {
     const navigate = useNavigate();
 
     async function onSubmit(formData) {
-        await post("/auth/signup", formData);
+        const data = await post("/auth/signup", formData);
 
-        if (error) {
-            if (error.statusCode === HttpStatusCode.Conflict) {
-                setError("email", {message: "Email already exists"});
+        if (!data) {
+            if (error.status === HttpStatusCode.Conflict) {
+                setError("email", {message: "Email already exists "});
                 return;
             }
 
             showToast.error("Something went wrong. Please try again.");
+            return;
         }
 
         reset();
-        navigate("/check-email?from=signup");
+        navigate("/check-email?from=signup", {state: {id: data.user.id, email: data.user.email}});
     }
 
     return (

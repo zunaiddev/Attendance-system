@@ -1,10 +1,12 @@
 import PropTypes from "prop-types";
 
-function Button({text, icon: Icon, isSubmitting, onClick}) {
+function Button({text, icon: Icon, isSubmitting, onClick, disable = false, ref = null}) {
     return (
         <button
-            className="flex justify-center items-center gap-2 w-full text-white focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 bg-blue-600 hover:bg-blue-700 cursor-pointer min-h-4"
-            onClick={onClick}>
+            className="flex justify-center items-center gap-2 w-full text-white focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 bg-blue-600 hover:bg-blue-700 cursor-pointer min-h-4 disabled:cursor-not-allowed disabled:text-gray-50 disabled:bg-blue-900"
+            onClick={onClick}
+            disabled={disable || isSubmitting}
+            ref={ref}>
             {isSubmitting ? <Loader/> : <>{Icon && <Icon className="size-4"/>} <span>{text}</span></>}
         </button>
     );
