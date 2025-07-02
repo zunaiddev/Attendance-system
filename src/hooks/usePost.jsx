@@ -2,7 +2,7 @@ import {useState} from "react";
 import API from "../API/API.js";
 import {HttpStatusCode} from "axios";
 
-function useApi() {
+function usePost() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
@@ -16,7 +16,6 @@ function useApi() {
                     "Authorization": `Bearer ${token}`
                 }
             });
-            console.log("response: ", response.data.payload);
 
             setLoading(false);
             return response.data.payload;
@@ -36,4 +35,4 @@ function useApi() {
     return {post, loading, error};
 }
 
-export default useApi;
+export default usePost;

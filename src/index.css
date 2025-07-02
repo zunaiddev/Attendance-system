@@ -9,7 +9,7 @@
 
 @theme {
   --animate-slide: slideDown 0.5s ease-out;
-  --animate-slide-end: slideDown 0.5s ease-out reverse;
+  --animate-slide-end: slideDown 0.5s ease-out forwards;
   @keyframes slideDown {
     0% {
       transform: translateY(-100%);

@@ -16,4 +16,4 @@ function validate(token) {
     }
 }
 
-export {extractClaims, extractPurpose, validate};
+export {extractClaims, validate};

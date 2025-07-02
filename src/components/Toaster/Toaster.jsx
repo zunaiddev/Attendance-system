@@ -1,8 +1,8 @@
 import {useState} from "react";
 import Toast from "./Toast.jsx";
 import CheckIcon from "../icons/CheckIcon.jsx";
-import CloseIcon from "../icons/CloseIcon.jsx";
 import InfoIcon from "../icons/InfoIcon.jsx";
+import ErrorIcon from "../ErrorIcon.jsx";
 
 let showToast = {};
 
@@ -21,11 +21,11 @@ function Toaster() {
     }
 
     showToast = {
-        success: (msg, duration = 5000) => addToast(() => <Toast message={msg} icon={CheckIcon}
+        success: (msg, duration = 5000) => addToast(() => <Toast message={msg} icon={CheckIcon} fill={"text-green-600"}
                                                                  end={duration - 500}/>, duration),
-        error: (msg, duration = 5000) => addToast(() => <Toast message={msg} icon={CloseIcon}
+        error: (msg, duration = 5000) => addToast(() => <Toast message={msg} icon={ErrorIcon} fill={"text-red-600"}
                                                                end={duration - 500}/>, duration),
-        info: (msg, duration = 5000) => addToast(() => <Toast message={msg} icon={InfoIcon}
+        info: (msg, duration = 5000) => addToast(() => <Toast message={msg} icon={InfoIcon} fill={"text-blue-600"}
                                                               end={duration - 500}/>, duration),
         custom: (callback, duration = -1) => addToast(callback, duration),
     }

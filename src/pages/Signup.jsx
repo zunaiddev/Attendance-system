@@ -35,7 +35,8 @@ function SignupForm() {
         }
 
         reset();
-        navigate("/check-email?from=signup", {state: {id: data.user.id, email: data.user.email}});
+        console.log('data', data);
+        navigate(`/check-email?from=signup&userId=${data?.user?.id}`);
     }
 
     return (

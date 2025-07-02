@@ -1,19 +1,25 @@
 import Button from "../components/Button.jsx";
-import {useLocation} from "react-router-dom";
+import {useNavigate, useSearchParams} from "react-router-dom";
 import MailIcon from "../components/icons/MailIcon.jsx";
 import usePost from "../hooks/usePost.jsx";
 import {showToast} from "../components/Toaster/Toaster.jsx";
 import {useEffect, useRef, useState} from "react";
 
 function CheckEmail() {
-    const location = useLocation();
-    const from = location.search.substring(6);
+    const [params] = useSearchParams();
+    const navigate = useNavigate();
+    const from = params.get("from");
+    const userId = params.get("userId");
     const {loading, post} = usePost();
     const timerRef = useRef(null);
-    const [timeLeft, setTimeLeft] = useState(localStorage.getItem("RESEND_EMAIL_TIME_LEFT") ?
-        Number.parseInt(localStorage.getItem("RESEND_EMAIL_TIME_LEFT")) : -1);
+    const [timeLeft, setTimeLeft] = useState(Number.parseInt(localStorage.getItem("RESEND_EMAIL_TIME_LEFT")) ?? -1);
 
     useEffect(() => {
+        if (!userId && from === "signup") {
+            navigate('/not-found');
+            return;
+        }
+
         if (timeLeft < 0) return;
 
         let id = setInterval(function () {
@@ -24,16 +30,17 @@ function CheckEmail() {
         }, 1000);
 
         return () => clearInterval(id);
-    }, [timeLeft])
+    }, [navigate, timeLeft, userId]);
 
     const handleResendEmail = async () => {
-        let data = await post(`/auth/resend-email/${location.state.id}`, undefined, undefined);
+        let data = await post(`/auth/resend-email/${userId}`, undefined, undefined);
 
         if (!data) {
             showToast.error("Something went wrong");
             return;
         }
 
+        showToast.success(`Email sent to ${data.email}`);
         localStorage.setItem("RESEND_EMAIL_TIME_LEFT", '59');
         setTimeLeft(59);
     };

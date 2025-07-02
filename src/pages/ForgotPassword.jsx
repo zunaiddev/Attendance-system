@@ -2,6 +2,7 @@ import {useForm} from "react-hook-form";
 import InputField from "../components/InputField.jsx";
 import Button from "../components/Button.jsx";
 import {Link, useNavigate} from "react-router-dom";
+import usePost from "../hooks/usePost.jsx";
 
 function ForgotPassword() {
     const {
@@ -12,9 +13,15 @@ function ForgotPassword() {
         formState: {errors, isSubmitting},
     } = useForm();
     const navigate = useNavigate();
+    const {post, error} = usePost();
 
-    async function onSubmit(data) {
-        await new Promise(res => setTimeout(res, 1000));
+    async function onSubmit(formData) {
+        let data = await post("/auth/forget-password", data, undefined);
+
+        // if (!data) {
+        //     error.code
+        // }
+
         if (data.email !== "zunaid@example.com") {
             setError("email", {message: "Email not found", type: "manual"});
             return;

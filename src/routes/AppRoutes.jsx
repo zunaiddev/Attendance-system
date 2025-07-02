@@ -79,6 +79,10 @@ const router = createBrowserRouter([
                 element: <Verify/>
             },
             {
+                path: "not-found",
+                element: <NotFound/>
+            },
+            {
                 path: "*",
                 element: <NotFound/>
             }
