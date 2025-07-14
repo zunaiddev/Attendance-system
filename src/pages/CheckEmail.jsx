@@ -4,6 +4,7 @@ import MailIcon from "../components/icons/MailIcon.jsx";
 import usePost from "../hooks/usePost.jsx";
 import {showToast} from "../components/Toaster/Toaster.jsx";
 import {useEffect, useRef, useState} from "react";
+import LinkField from "../components/LinkField.jsx";
 
 function CheckEmail() {
     const [params] = useSearchParams();
@@ -63,7 +64,7 @@ function CheckEmail() {
             </div>
 
             {
-                from === "signup" && <div className="w-full space-y-4">
+                from === "signup" && <div className="w-full space-y-1">
                     <Button
                         text={timeLeft >= 0 ? `Resend Email in 00:${timeLeft <= 9 ? '0' : ''}${timeLeft}` : "Resend verification email"}
                         isSubmitting={loading}
@@ -71,6 +72,7 @@ function CheckEmail() {
                         disable={timeLeft >= 0}
                         ref={timerRef}
                     />
+                    <LinkField to="/auth/login" text="or login" underline={true}/>
                 </div>
             }
         </div>
