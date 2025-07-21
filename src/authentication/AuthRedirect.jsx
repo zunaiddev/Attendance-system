@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
-import isAuthenticated from "../utils/isAuthenticated.js";
 import {useLocation} from "react-router-dom";
+import getToken from "../utils/getToken.js";
 
 function AuthRedirect({children}) {
     const [loading, setLoading] = useState(true);
@@ -12,7 +12,7 @@ function AuthRedirect({children}) {
     useEffect(() => {
         (async function () {
             if (!redirected) {
-                setAuthenticated(await isAuthenticated());
+                setAuthenticated(await getToken() !== null);
             }
 
             setLoading(false);

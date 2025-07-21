@@ -1,6 +1,4 @@
 import {useNavigate} from "react-router-dom";
-import {useEffect} from "react";
-import {showToast} from "../components/Toaster/Toaster.jsx";
 
 function NotFound() {
     const navigate = useNavigate();
@@ -8,10 +6,6 @@ function NotFound() {
     function handleBack() {
         navigate(-1);
     }
-
-    useEffect(() => {
-        showToast.success("This is a temp", 2000);
-    }, [])
 
     return (
         <div

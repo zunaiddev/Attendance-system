@@ -17,14 +17,14 @@ function Login() {
         reset,
         resetField,
         formState: {errors, isSubmitting},
-    } = useForm();
+    } = useForm({defaultValues: {email: "john@gmail.com", password: "John@123"}});
     const nav = useNavigate();
     const {post} = usePost();
 
     async function onSubmit(formData) {
         let {data, error} = await post("/auth/login", formData);
 
-        console.log("data: ", data);
+        localStorage.setItem("token", data.token);
 
         if (error) {
             if (error.status === HttpStatusCode.Unauthorized) {

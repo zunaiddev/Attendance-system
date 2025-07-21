@@ -1,10 +1,14 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {useForm} from "react-hook-form";
 import Button from "../components/Button";
 import InputField from "../components/InputField.jsx";
 import Checkbox from "../components/Checkbox.jsx";
 import UserEditIcon from "../components/icons/UserEditIcon.jsx";
 import getInitials from "../utils/getInitials.js";
+import getToken from "../utils/getToken.js";
+import {showToast} from "../components/Toaster/Toaster.jsx";
+import useGet from "../hooks/useGet.jsx";
+import MainLoader from "../loader/MainLoader.jsx";
 
 function Profile() {
     const [isEditing, setIsEditing] = useState(false);
@@ -35,6 +39,22 @@ function Profile() {
         formState: {errors: emailErrors, isSubmitting: isEmailSubmitting},
     } = useForm();
 
+    const {loading, get} = useGet();
+    const [error, setError] = useState(false);
+
+    useEffect(() => {
+        (async function () {
+            let {data, error} = await get("/user", await getToken());
+
+            setUser(data);
+
+            if (error) {
+                setError(true);
+                showToast.error("Something went wrong!");
+            }
+        })();
+    }, [])
+
     const onSubmit = (data) => {
         setUser(data);
         setIsEditing(false);
@@ -47,6 +67,14 @@ function Profile() {
     const onEmailSubmit = (data) => {
         console.log(data);
     };
+
+    if (loading) {
+        return <MainLoader/>;
+    }
+
+    if (error) {
+        return <h1>Something Went Wrong</h1>;
+    }
 
     return (
         <div className="min-h-screen bg-gray-900 text-white sm:p-8">
