@@ -2,7 +2,6 @@ import InputField from "../components/InputField.jsx";
 import Button from "../components/Button.jsx";
 import {useForm} from "react-hook-form";
 import SocialButton from "../components/SocialButton.jsx";
-import Checkbox from "../components/Checkbox.jsx";
 import {Link, useNavigate} from "react-router-dom";
 import GithubIcon from "../components/icons/GithubIcon.jsx";
 import GoogleIcon from "../components/icons/GoogleIcon.jsx";
@@ -18,15 +17,15 @@ function SignupForm() {
         setError,
         formState: {errors, isSubmitting},
     } = useForm();
-    const {error, post} = usePost();
+    const {post} = usePost();
     const navigate = useNavigate();
 
     async function onSubmit(formData) {
-        const data = await post("/auth/signup", formData);
+        const {data, error} = await post("/auth/signup", formData);
 
-        if (!data) {
+        if (error) {
             if (error.status === HttpStatusCode.Conflict) {
-                setError("email", {message: "Email already exists "});
+                setError("email", {message: "Email already exists"});
                 return;
             }
 
@@ -35,7 +34,6 @@ function SignupForm() {
         }
 
         reset();
-        console.log('data', data);
         navigate(`/check-email?from=signup&userId=${data?.user?.id}`);
     }
 
@@ -80,9 +78,9 @@ function SignupForm() {
                                         message: "Weak Password"
                                     },
                                 })} errors={errors.password}/>
-                    <Checkbox text="I agree to the" link="Terms & Conditions" to="/terms" register={
-                        register("terms", {required: "Terms & Conditions is required"})
-                    } errors={errors.terms}/>
+                    {/*<Checkbox text="I agree to the" link="Terms & Conditions" to="/terms" register={*/}
+                    {/*    register("terms", {required: "Terms & Conditions is required"})*/}
+                    {/*} errors={errors.terms}/>*/}
                     <Button text="Sign up" isSubmitting={isSubmitting}/>
                 </div>
             </form>

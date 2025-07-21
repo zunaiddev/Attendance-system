@@ -19,26 +19,36 @@ function Login() {
         formState: {errors, isSubmitting},
     } = useForm();
     const nav = useNavigate();
-    const {error, post} = usePost();
+    const {post} = usePost();
 
-    async function onSubmit(data) {
-        await post("/auth/login", data);
+    async function onSubmit(formData) {
+        let {data, error} = await post("/auth/login", formData);
+
+        console.log("data: ", data);
 
         if (error) {
-
-            if (error.response.status === HttpStatusCode.Unauthorized) {
+            if (error.status === HttpStatusCode.Unauthorized) {
                 resetField("password");
-                showToast.error("Invalid Email Or Password.");
+                showToast.error("Invalid Email Or Password");
                 return;
             }
 
+            if (error.code === "DISABLED_USER") {
+                showToast.error("Please Verify Your Email or Signup again");
+                return;
+            }
 
-            showToast.error("Something went wrong.");
+            if (error.code === "LOCKED_USER") {
+                showToast.error("You are locked");
+                return;
+            }
+
+            showToast.error("Something went wrong");
             return;
         }
 
         reset();
-        // nav("/dashboard");
+        nav("/dashboard");
     }
 
     return (

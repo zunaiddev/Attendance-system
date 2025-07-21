@@ -3,6 +3,8 @@ import InputField from "../components/InputField.jsx";
 import Button from "../components/Button.jsx";
 import {Link, useNavigate} from "react-router-dom";
 import usePost from "../hooks/usePost.jsx";
+import {HttpStatusCode} from "axios";
+import {showToast} from "../components/Toaster/Toaster.jsx";
 
 function ForgotPassword() {
     const {
@@ -13,21 +15,19 @@ function ForgotPassword() {
         formState: {errors, isSubmitting},
     } = useForm();
     const navigate = useNavigate();
-    const {post, error} = usePost();
+    const {post} = usePost();
 
     async function onSubmit(formData) {
-        let data = await post("/auth/forget-password", data, undefined);
+        let {data, error} = await post("/auth/forget-password", formData, undefined);
 
-        // if (!data) {
-        //     error.code
-        // }
+        if (error) {
+            if (error.status === HttpStatusCode.Unauthorized) {
+                showToast.error("User Not Found!");
+            }
 
-        if (data.email !== "zunaid@example.com") {
-            setError("email", {message: "Email not found", type: "manual"});
             return;
         }
-
-        reset();
+        
         navigate("/check-email?from=forgot-password");
     }
 

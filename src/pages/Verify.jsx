@@ -1,24 +1,28 @@
 import usePost from "../hooks/usePost.jsx";
 import {useEffect, useState} from "react";
-import {Navigate, useNavigate, useSearchParams} from "react-router-dom";
+import {useNavigate, useSearchParams} from "react-router-dom";
 import MainLoader from "../loader/MainLoader.jsx";
 import {showToast} from "../components/Toaster/Toaster.jsx";
 import {useForm} from "react-hook-form";
 import InputField from "../components/InputField.jsx";
 import Button from "../components/Button.jsx";
 import {extractClaims} from "../services/jwt.js";
+import toast from "../components/Toaster/Toast.jsx";
 
 function Verify() {
     const [params] = useSearchParams();
     const {post, loading} = usePost();
     const [resetPassword, setResetPassword] = useState(null);
+    const [resetToken, setResetToken] = useState("");
     const navigate = useNavigate();
 
     useEffect(() => {
         (async function () {
-            let token = params.get("token")
+            let token = params.get("token");
+            setResetToken(token);
 
             if (!token) {
+                toast.error("Token not found");
                 navigate("/not-found");
                 return;
             }
@@ -54,6 +58,7 @@ function Verify() {
             }
 
             setResetPassword(purpose === "RESET_PASSWORD");
+
         })();
     }, []);
 
@@ -64,11 +69,16 @@ function Verify() {
             }
 
             if (!resetPassword) {
-                let data = await post("/verify", undefined, params.get("token"));
+                let {data, error} = await post("/verify", undefined, params.get("token"));
 
-                if (!data) {
+                console.log("Data: ", data);
+
+                if (error) {
                     showToast.error("Something went wrong");
+                    return;
                 }
+
+                showToast.success("Verification Successful!");
             }
         })();
     }, [resetPassword])
@@ -78,10 +88,11 @@ function Verify() {
     }
 
     if (resetPassword) {
-        return <ResetPassword/>;
+        return <ResetPassword token={resetToken}/>;
     }
 
-    return <Navigate to={"/auth/login"}/>;
+    // return <Navigate to={"/auth/login"}/>;
+    return null;
 }
 
 
@@ -93,19 +104,22 @@ function ResetPassword({token}) {
         formState: {errors, isSubmitting},
         watch
     } = useForm();
-    const {post, error} = usePost();
+    const {post} = usePost();
     const navigate = useNavigate();
 
     async function onSubmit(formData) {
-        let data = await post("/verify", formData, token);
+        let {error} = await post("/verify", formData, token);
+        console.log("Data: ", formData);
+        console.log("token: ", token);
 
-        if (!data) {
+        if (error) {
             if (error.code === "SAME_PASSWORD") {
                 showToast.error("This Password Currently In use.");
                 return;
             }
 
             showToast.error("Something went wrong");
+            return;
         }
 
         reset();
@@ -114,7 +128,7 @@ function ResetPassword({token}) {
 
     return (
         <div className="w-full h-screen flex items-center justify-center">
-            <div className="max-w-md space-y-9">
+            <div className="w-90 max-w-2xl space-y-9">
                 <div className="space-y-8">
                     <div className="flex items-center space-x-3">
                         <i className="fas fa-lock text-3xl text-blue-500"></i>
@@ -129,6 +143,7 @@ function ResetPassword({token}) {
                             label="New Password"
                             autoComplete="password"
                             autoFocus={true}
+                            type="password"
                             register={register("password", {
                                 required: "Password is required",
                                 pattern: {
@@ -142,6 +157,7 @@ function ResetPassword({token}) {
                             label="Confirm Password"
                             autoComplete="new-password"
                             autoFocus={true}
+                            type="password"
                             register={register("confirmPassword", {
                                 required: "Password Does Not Match",
                                 validate: value => value === watch("password") || "Password Does Not Match",
