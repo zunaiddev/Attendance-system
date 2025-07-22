@@ -17,6 +17,7 @@ import DashboardRedirect from "../authentication/DashboardRedirect.jsx";
 import Search from "../pages/Search.jsx";
 import Verify from "../pages/Verify.jsx";
 import Logout from "../pages/Logout.jsx";
+import Settings from "../pages/Settings.jsx";
 
 const router = createBrowserRouter([
     {
@@ -58,6 +59,10 @@ const router = createBrowserRouter([
                     {
                         path: "search",
                         element: <Search/>
+                    },
+                    {
+                        path: "settings",
+                        element: <Settings/>
                     }
                 ]
             },

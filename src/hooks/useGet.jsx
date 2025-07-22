@@ -16,7 +16,6 @@ function useGet() {
             });
 
             setLoading(false);
-            console.log(response);
             data = response.data.payload;
         } catch (err) {
             error = {

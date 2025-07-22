@@ -6,6 +6,8 @@ import ProfileIcon from "./icons/ProfileIcon.jsx";
 import MenuIcon from "./icons/MenuIcon.jsx";
 import SearchIcon from "./icons/SearchIcon.jsx";
 import CloseSidebarIcon from "./icons/CloseSidebarIcon.jsx";
+import SettingsIcon from "./icons/SettingsIcon.jsx";
+import LogoutIcon from "./icons/LogoutIcon.jsx";
 
 function Sidebar({show, setShow}) {
     function hideSidebar() {
@@ -27,7 +29,8 @@ function Sidebar({show, setShow}) {
                         <MenuItem to="/dashboard" text="Dashboard" icon={DashboardIcon}/>
                         <MenuItem to="/dashboard/profile" text="Profile" icon={ProfileIcon}/>
                         <MenuItem to="/dashboard/search" text="Search" icon={SearchIcon}/>
-                        <MenuItem to="/logout" text="logout" icon={CloseSidebarIcon}/>
+                        <MenuItem to="/dashboard/settings" text="Settings" icon={SettingsIcon}/>
+                        <MenuItem to="/logout" text="Logout" icon={LogoutIcon}/>
                     </ul>
 
                     <button type="button" className="absolute right-4 top-3 cursor-pointer" onClick={hideSidebar}>
@@ -45,10 +48,10 @@ function Sidebar({show, setShow}) {
     );
 }
 
-function MenuItem({to, text, icon}) {
+function MenuItem({to, text, icon, replace = false}) {
     return (
         <li>
-            <NavLink to={to}
+            <NavLink to={to} replace={replace}
                      className={({isActive}) => `flex items-center p-2  rounded-lg hover:text-white hover:bg-gray-700 group ${isActive ? "text-white bg-gray-700" : "text-gray-400"}`}
                      end={true}>
                 {icon && createElement(icon, {className: "size-6"})}
@@ -60,7 +63,8 @@ function MenuItem({to, text, icon}) {
 MenuItem.propTypes = {
     to: PropTypes.string.isRequired,
     text: PropTypes.string.isRequired,
-    icon: PropTypes.elementType.isRequired
+    icon: PropTypes.elementType.isRequired,
+    replace: PropTypes.bool,
 };
 
 export default Sidebar;

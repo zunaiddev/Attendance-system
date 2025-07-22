@@ -28,7 +28,7 @@ function SomethingWentWrong({onRetry = () => location.reload()}) {
 
             <button
                 onClick={onRetry}
-                className="flex items-center gap-2 px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition"
+                className="flex items-center gap-2 px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition cursor-pointer"
             >
                 <svg
                     className="w-4 h-4"
@@ -44,6 +44,7 @@ function SomethingWentWrong({onRetry = () => location.reload()}) {
                         d="M4 4v6h6M20 20v-6h-6M9 20a9 9 0 1 1 6-16"
                     />
                 </svg>
+
                 Try Again
             </button>
         </div>
