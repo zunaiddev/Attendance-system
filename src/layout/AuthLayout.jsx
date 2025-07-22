@@ -1,6 +1,6 @@
 import {Link, Outlet} from 'react-router-dom';
 import logo from "../assets/logo.svg";
-import CheckCircle from "../components/CheckCircle.jsx";
+import CheckCircle from "../components/others/CheckCircle.jsx";
 
 function AuthLayout() {
 

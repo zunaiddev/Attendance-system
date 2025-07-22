@@ -1,5 +1,5 @@
-import NotifyIcon from "./icons/NotifyIcon.jsx";
-import ArrowDownIcon from "./icons/ArrowDownIcon.jsx";
+import NotifyIcon from "../icons/NotifyIcon.jsx";
+import ArrowDownIcon from "../icons/ArrowDownIcon.jsx";
 
 function Notification({heading, message, onClick, dismiss}) {
     return (

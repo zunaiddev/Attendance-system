@@ -1,13 +1,13 @@
 import {NavLink} from "react-router-dom";
 import PropTypes from "prop-types";
 import {createElement} from "react";
-import DashboardIcon from "./icons/DashboardIcon.jsx";
-import ProfileIcon from "./icons/ProfileIcon.jsx";
-import MenuIcon from "./icons/MenuIcon.jsx";
-import SearchIcon from "./icons/SearchIcon.jsx";
-import CloseSidebarIcon from "./icons/CloseSidebarIcon.jsx";
-import SettingsIcon from "./icons/SettingsIcon.jsx";
-import LogoutIcon from "./icons/LogoutIcon.jsx";
+import DashboardIcon from "../icons/DashboardIcon.jsx";
+import ProfileIcon from "../icons/ProfileIcon.jsx";
+import MenuIcon from "../icons/MenuIcon.jsx";
+import SearchIcon from "../icons/SearchIcon.jsx";
+import CloseSidebarIcon from "../icons/CloseSidebarIcon.jsx";
+import SettingsIcon from "../icons/SettingsIcon.jsx";
+import LogoutIcon from "../icons/LogoutIcon.jsx";
 
 function Sidebar({show, setShow}) {
     function hideSidebar() {

@@ -2,7 +2,7 @@ import {useState} from "react";
 import Toast from "./Toast.jsx";
 import CheckIcon from "../icons/CheckIcon.jsx";
 import InfoIcon from "../icons/InfoIcon.jsx";
-import ErrorIcon from "../ErrorIcon.jsx";
+import ErrorIcon from "../others/ErrorIcon.jsx";
 
 let showToast = {};
 

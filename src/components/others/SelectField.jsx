@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import ArrowDownIcon from "./icons/ArrowDownIcon.jsx";
+import ArrowDownIcon from "../icons/ArrowDownIcon.jsx";
 
 function SelectField({list, label, register, errors}) {
     return (

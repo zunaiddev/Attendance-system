@@ -1,6 +1,6 @@
-import SearchIcon from "./icons/SearchIcon.jsx";
+import SearchIcon from "../icons/SearchIcon.jsx";
 import {createRef, useState} from "react";
-import CloseIcon from "./icons/CloseIcon.jsx";
+import CloseIcon from "../icons/CloseIcon.jsx";
 
 function SearchInput({onChange}) {
     const [isEmpty, setEmpty] = useState(true);

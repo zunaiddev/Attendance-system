@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import usePost from "../hooks/usePost.jsx";
-import SomethingWentWrong from "../components/SomethingWentWrong.jsx";
+import SomethingWentWrong from "../components/others/SomethingWentWrong.jsx";
 import MainLoader from "../loader/MainLoader.jsx";
 import {useNavigate} from "react-router-dom";
 import {showToast} from "../components/Toaster/Toaster.jsx";

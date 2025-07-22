@@ -1,6 +1,6 @@
 import Tag from "./Tag.jsx";
 import PropTypes from 'prop-types';
-import getInitials from "../utils/getInitials.js";
+import getInitials from "../../utils/getInitials.js";
 
 function SearchResult({isLoading, data}) {
 

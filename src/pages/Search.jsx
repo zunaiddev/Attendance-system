@@ -1,5 +1,5 @@
-import SearchInput from "../components/SearchInput.jsx";
-import SearchResult from "../components/SearchResult.jsx";
+import SearchInput from "../components/others/SearchInput.jsx";
+import SearchResult from "../components/others/SearchResult.jsx";
 
 function Search() {
     let data = {

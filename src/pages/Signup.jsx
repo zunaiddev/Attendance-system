@@ -1,7 +1,7 @@
-import InputField from "../components/InputField.jsx";
-import Button from "../components/Button.jsx";
+import InputField from "../components/others/InputField.jsx";
+import Button from "../components/others/Button.jsx";
 import {useForm} from "react-hook-form";
-import SocialButton from "../components/SocialButton.jsx";
+import SocialButton from "../components/others/SocialButton.jsx";
 import {Link, useNavigate} from "react-router-dom";
 import GithubIcon from "../components/icons/GithubIcon.jsx";
 import GoogleIcon from "../components/icons/GoogleIcon.jsx";

@@ -1,10 +1,10 @@
-import Button from "../components/Button.jsx";
+import Button from "../components/others/Button.jsx";
 import {useNavigate, useSearchParams} from "react-router-dom";
 import MailIcon from "../components/icons/MailIcon.jsx";
 import usePost from "../hooks/usePost.jsx";
 import {showToast} from "../components/Toaster/Toaster.jsx";
 import {useEffect, useRef, useState} from "react";
-import LinkField from "../components/LinkField.jsx";
+import LinkField from "../components/others/LinkField.jsx";
 
 function CheckEmail() {
     const [params] = useSearchParams();

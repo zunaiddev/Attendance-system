@@ -1,7 +1,7 @@
 import {Outlet} from "react-router-dom";
-import Sidebar from "../components/Sidebar.jsx";
+import Sidebar from "../components/others/Sidebar.jsx";
 import {useEffect, useState} from "react";
-import FooterMenu from "../components/FooterMenu.jsx";
+import FooterMenu from "../components/others/FooterMenu.jsx";
 import isMobile from "../utils/isMobile.js";
 
 function DashboardLayout() {

@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import {useState} from "react";
-import EyeOnIcon from "./icons/EyeOnIcon.jsx";
-import EyeOffIcon from "./icons/EyeOffIcon.jsx";
+import EyeOnIcon from "../icons/EyeOnIcon.jsx";
+import EyeOffIcon from "../icons/EyeOffIcon.jsx";
 
 function InputField({
                         label = null,

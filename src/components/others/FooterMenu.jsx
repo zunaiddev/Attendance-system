@@ -1,7 +1,7 @@
-import DashboardIcon from "./icons/DashboardIcon.jsx";
+import DashboardIcon from "../icons/DashboardIcon.jsx";
 import PropTypes from "prop-types";
 import {NavLink} from "react-router-dom";
-import ProfileIcon from "./icons/ProfileIcon.jsx";
+import ProfileIcon from "../icons/ProfileIcon.jsx";
 
 function FooterMenu() {
     return (

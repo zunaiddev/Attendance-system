@@ -3,7 +3,7 @@ import TableRow from "./TableRow.jsx";
 import TableSelect from "./TableSelect.jsx";
 import isMobile from "../../utils/isMobile.js";
 import StudentsContext from "../../context/StudentsContext.jsx";
-import SearchInput from "../SearchInput.jsx";
+import SearchInput from "../others/SearchInput.jsx";
 
 function Table() {
     const {students, updateStudents} = useContext(StudentsContext);

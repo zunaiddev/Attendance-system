@@ -1,4 +1,4 @@
-import UserEditIcon from "./icons/UserEditIcon.jsx";
+import UserEditIcon from "../icons/UserEditIcon.jsx";
 
 function EditBtn({text = "Edit", onClick, loading = false}) {
     return (

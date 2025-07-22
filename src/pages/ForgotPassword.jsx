@@ -1,6 +1,6 @@
 import {useForm} from "react-hook-form";
-import InputField from "../components/InputField.jsx";
-import Button from "../components/Button.jsx";
+import InputField from "../components/others/InputField.jsx";
+import Button from "../components/others/Button.jsx";
 import {Link, useNavigate} from "react-router-dom";
 import usePost from "../hooks/usePost.jsx";
 import {HttpStatusCode} from "axios";

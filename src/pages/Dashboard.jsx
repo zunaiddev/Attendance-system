@@ -1,12 +1,12 @@
 import {useEffect, useState} from "react";
 import Table from "../components/Table/Table.jsx";
 import StudentsContext from "../context/StudentsContext.jsx";
-import Spinner from "../components/Spinner.jsx";
+import Spinner from "../components/others/Spinner.jsx";
 import {getStudents} from "../services/DashboardService.js";
 import {showToast} from "../components/Toaster/Toaster.jsx";
-import Notification from "../components/Notification.jsx";
-import Button from "../components/Button.jsx";
-import Header from "../components/Header.jsx";
+import Notification from "../components/others/Notification.jsx";
+import Button from "../components/others/Button.jsx";
+import Header from "../components/others/Header.jsx";
 import exportToPdf from "../utils/exportToPdf.js";
 
 function Dashboard() {
