@@ -16,6 +16,7 @@ import AuthRedirect from "../authentication/AuthRedirect.jsx";
 import DashboardRedirect from "../authentication/DashboardRedirect.jsx";
 import Search from "../pages/Search.jsx";
 import Verify from "../pages/Verify.jsx";
+import Logout from "../pages/Logout.jsx";
 
 const router = createBrowserRouter([
     {
@@ -77,6 +78,10 @@ const router = createBrowserRouter([
             {
                 path: "verify",
                 element: <Verify/>
+            },
+            {
+                path: "logout",
+                element: <Logout/>
             },
             {
                 path: "not-found",

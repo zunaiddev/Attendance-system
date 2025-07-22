@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import {useLocation} from "react-router-dom";
+import {Navigate, useLocation} from "react-router-dom";
 import getToken from "../utils/getToken.js";
 
 function AuthRedirect({children}) {
@@ -31,7 +31,7 @@ function AuthRedirect({children}) {
     }
 
 
-    return children;// return authenticated ? <Navigate to={"/dashboard"}/> : children;
+    return authenticated ? <Navigate to={"/dashboard"}/> : children;
 }
 
 export default AuthRedirect;

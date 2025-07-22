@@ -2,7 +2,8 @@ import axios from 'axios';
 import {showToast} from "../components/Toaster/Toaster.jsx";
 
 const API = axios.create({
-    baseURL: `${import.meta.env.VITE_API_HOST}/api`
+    baseURL: `${import.meta.env.VITE_API_HOST}/api`,
+    withCredentials: true,
 });
 
 API.interceptors.response.use(

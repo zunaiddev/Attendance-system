@@ -1,19 +1,18 @@
-import {jwtDecode} from "jwt-decode";
-
 function extractClaims(token) {
     try {
-        return jwtDecode(token);
+        const payloadBase64 = token.split('.')[1];
+        const payloadJson = atob(payloadBase64);
+
+        return JSON.parse(payloadJson);
     } catch {
         return null;
     }
 }
 
-function validate(token) {
+function validate(token, purpose) {
     let claims = extractClaims(token);
 
-    if (claims) {
-        return Date.now() > claims.exp * 1000;
-    }
+    return claims && (claims.exp > Math.floor(Date.now() / 1000)) && claims.purpose === purpose;
 }
 
 export {extractClaims, validate};

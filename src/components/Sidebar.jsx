@@ -27,6 +27,7 @@ function Sidebar({show, setShow}) {
                         <MenuItem to="/dashboard" text="Dashboard" icon={DashboardIcon}/>
                         <MenuItem to="/dashboard/profile" text="Profile" icon={ProfileIcon}/>
                         <MenuItem to="/dashboard/search" text="Search" icon={SearchIcon}/>
+                        <MenuItem to="/logout" text="logout" icon={CloseSidebarIcon}/>
                     </ul>
 
                     <button type="button" className="absolute right-4 top-3 cursor-pointer" onClick={hideSidebar}>

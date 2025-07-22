@@ -1,6 +1,7 @@
 import {useEffect, useState} from "react";
-import isAuthenticated from "../utils/isAuthenticated.js";
 import NProgress from "nprogress";
+import getToken from "../utils/getToken.js";
+import {Navigate} from "react-router-dom";
 
 function DashboardRedirect({children}) {
     const [loading, setLoading] = useState(true);
@@ -10,7 +11,7 @@ function DashboardRedirect({children}) {
     useEffect(() => {
         NProgress.start();
         (async function () {
-            setAuthenticated(await isAuthenticated());
+            setAuthenticated(await getToken() !== null);
             setError(false);
             setLoading(false);
             NProgress.done();
@@ -27,8 +28,7 @@ function DashboardRedirect({children}) {
         </div>
     }
 
-    // return authenticated ? children : <Navigate to={"/auth/login"} state={{redirected: true}}/>;
-    return children;
+    return authenticated ? children : <Navigate to={"/auth/login"} state={{redirected: true}}/>;
 }
 
 export default DashboardRedirect;

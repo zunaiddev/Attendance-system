@@ -1,19 +1,19 @@
 import API from "../API/API.js";
-import {extractClaims} from "../services/jwt.js";
+import {validate} from "../services/jwt.js";
 
 async function getToken() {
     let token = localStorage.getItem("token");
 
     if (!token) return null;
 
-    let claims = extractClaims(token);
-
-    if (claims?.purpose === "AUTHENTICATION") {
+    if (validate(token, "AUTHENTICATION")) {
+        return token;
     }
-
+    
     try {
         let response = await API.post("/auth/refresh");
-        console.log(response);
+
+        token = response.data.payload.token;
     } catch (err) {
         console.log("Error: ", err);
     }
