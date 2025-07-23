@@ -1,8 +1,10 @@
 import API from "../API/API.js";
 import {validate} from "../services/jwt.js";
+import {showToast} from "../components/Toaster/Toaster.jsx";
 
 async function getToken() {
-    let token = localStorage.getItem("token");
+    let rememberMe = localStorage.getItem("remember") === "true";
+    let token = rememberMe ? localStorage.getItem("token") : sessionStorage.getItem("token");
 
     if (!token) return null;
 
@@ -14,8 +16,8 @@ async function getToken() {
         let response = await API.post("/auth/refresh");
 
         token = response.data.payload.token;
-    } catch (err) {
-        console.log("Error: ", err);
+    } catch {
+        showToast.info("Session out.");
     }
 
     return token;

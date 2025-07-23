@@ -24,8 +24,6 @@ function Login() {
     async function onSubmit(formData) {
         let {data, error} = await post("/auth/login", formData);
 
-        localStorage.setItem("token", data.token);
-
         if (error) {
             if (error.status === HttpStatusCode.Unauthorized) {
                 resetField("password");
@@ -47,8 +45,19 @@ function Login() {
             return;
         }
 
+        let rememberMe = formData.remember;
+        let token = data.token;
+
+        localStorage.setItem("remember", rememberMe.toString());
+
+        if (rememberMe) {
+            localStorage.setItem("token", token);
+        } else {
+            sessionStorage.setItem("token", token);
+        }
+
         reset();
-        nav("/dashboard");
+        nav("/dashboard", {replace: true});
     }
 
     return (

@@ -71,12 +71,13 @@ function Verify() {
             if (!resetPassword) {
                 let {data, error} = await post("/verify", undefined, params.get("token"));
 
-                console.log("Data: ", data);
-
                 if (error) {
                     showToast.error("Something went wrong");
                     return;
                 }
+
+                localStorage.setItem("token", data.token);
+                localStorage.setItem("remember", "true");
 
                 showToast.success("Verification Successful!");
             }
