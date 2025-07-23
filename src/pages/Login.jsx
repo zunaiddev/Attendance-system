@@ -9,6 +9,7 @@ import GoogleIcon from "../components/icons/GoogleIcon.jsx";
 import GithubIcon from "../components/icons/GithubIcon.jsx";
 import usePost from "../hooks/usePost.jsx";
 import {HttpStatusCode} from "axios";
+import storage from "../services/storage.js";
 
 function Login() {
     const {
@@ -45,16 +46,9 @@ function Login() {
             return;
         }
 
-        let rememberMe = formData.remember;
-        let token = data.token;
+        localStorage.setItem("remember", formData.remember.toString());
 
-        localStorage.setItem("remember", rememberMe.toString());
-
-        if (rememberMe) {
-            localStorage.setItem("token", token);
-        } else {
-            sessionStorage.setItem("token", token);
-        }
+        storage.saveItem("token", data.token);
 
         reset();
         nav("/dashboard", {replace: true});

@@ -1,6 +1,7 @@
 import {useEffect, useState} from "react";
 import {Navigate, useLocation} from "react-router-dom";
 import getToken from "../utils/getToken.js";
+import SomethingWentWrong from "../components/others/SomethingWentWrong.jsx";
 
 function AuthRedirect({children}) {
     const [loading, setLoading] = useState(true);
@@ -24,12 +25,7 @@ function AuthRedirect({children}) {
         return null;
     }
 
-    if (error) {
-        return <div className="w-full h-screen flex justify-center items-center">
-            <h1 className="font-2xl font-bold">Something Went Wrong..</h1>
-        </div>
-    }
-
+    if (error) return <SomethingWentWrong/>
 
     return authenticated ? <Navigate to={"/dashboard"}/> : children;
 }

@@ -3,19 +3,15 @@ import Sidebar from "../components/others/Sidebar.jsx";
 import {useEffect, useState} from "react";
 import FooterMenu from "../components/others/FooterMenu.jsx";
 import isMobile from "../utils/isMobile.js";
+import storage from "../services/storage.js";
 
 function DashboardLayout() {
-    const [show, setShow] = useState(localStorage.getItem("isSidebarOpen") ? localStorage.getItem("isSidebarOpen") === "true" : !isMobile());
+    const [show, setShow] = useState(storage.getItem("isSidebarOpen") ? storage.getItem("isSidebarOpen") === "true" : !isMobile());
 
 
     useEffect(function () {
-        localStorage.setItem("isSidebarOpen", show.toString());
-    }, [show])
-
-
-    useEffect(function () {
-        localStorage.setItem("isSidebarOpen", show.toString());
-    }, [show])
+        storage.saveItem("isSidebarOpen", show);
+    }, [show]);
 
     return (
         <main className="relative">

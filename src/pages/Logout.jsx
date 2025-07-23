@@ -4,6 +4,7 @@ import SomethingWentWrong from "../components/others/SomethingWentWrong.jsx";
 import MainLoader from "../loader/MainLoader.jsx";
 import {useNavigate} from "react-router-dom";
 import {showToast} from "../components/Toaster/Toaster.jsx";
+import storage from "../services/storage.js";
 
 function Logout() {
     const {post} = usePost();
@@ -12,6 +13,15 @@ function Logout() {
 
     useEffect(() => {
         (async function () {
+            let remember = localStorage.getItem("remember") === "true";
+
+            if (!remember) {
+                storage.clear();
+                nav("/auth/login");
+                showToast.success("Logged out");
+                return;
+            }
+
             let {error} = await post("/auth/logout");
 
             if (error) {

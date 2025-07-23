@@ -1,9 +1,124 @@
+import PropTypes from "prop-types";
+import LinkField from "../components/others/LinkField.jsx";
+import {createElement} from "react";
+import EmailIcon from "../components/icons/EmailIcon.jsx";
+import PhoneIcon from "../components/icons/PhoneIcon.jsx";
+import supportIcon from "../components/icons/SupportIcon.jsx";
+import InputField from "../components/others/InputField.jsx";
+import {useForm} from "react-hook-form";
+import Button from "../components/others/Button.jsx";
+import axios from "axios";
+
 function Contact() {
+    const {
+        register,
+        handleSubmit,
+        formState: {errors},
+    } = useForm({
+        defaultValues: {
+            email: "work87t@gmail.com",
+            subject: "This is tester subject",
+            message: "this one is a testing message how are you"
+        }
+    });
+
+    async function onSubmit(data) {
+        data.name = "Unknown";
+
+        try {
+            const response = await axios.post("https://intact-roanna-api-v9-6a640f42.koyeb.app/api/public/submit", data, {
+                headers: {
+                    "X-API-Key": "ab4lhkcVeevV896r9ixCQeaf2SmMuRgFA",
+                }
+            });
+
+            console.log("response: ", response);
+        } catch (err) {
+            console.log("Error:", err);
+        }
+
+    }
+
     return (
-        <div>
-            <h1>Contact Page</h1>
-        </div>
+        <section className="bg-gray-900">
+            <div className="py-8 lg:py-16 px-4 mx-auto max-w-screen-md">
+                <h2 className="mb-4 text-4xl tracking-tight font-extrabold text-center text-white">Contact
+                    Us</h2>
+                <p className="mb-8 lg:mb-16 font-light text-center text-gray-400 sm:text-xl">Got a
+                    technical issue? Want to send feedback about a beta feature? Need details about our Business plan?
+                    Let us know.</p>
+                <form className="space-y-8" onSubmit={handleSubmit(onSubmit)}>
+                    <div>
+                        <InputField label="Your Email" type="text" placeholder="demo@demo.com"
+                                    register={register("email", {
+                                        required: "Please enter your email",
+                                        pattern: {
+                                            value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                                            message: "Please enter a valid email"
+                                        }
+                                    })}
+                                    autoFocus={true}
+                                    autoComplete="email"
+                                    errors={errors.email}/>
+                    </div>
+                    <div>
+                        <InputField label="Subject" type="text" placeholder="Let us know how we can help you"
+                                    register={register("subject", {
+                                        required: "Please enter a subject",
+                                        max: {value: 10, message: "Please enter a valid subject"},
+                                    })}
+                                    errors={errors.subject}
+                        />
+
+                    </div>
+                    <div className="sm:col-span-2">
+                        <label htmlFor="message"
+                               className="block mb-2 text-sm font-medium text-gray-400">Your
+                            message</label>
+                        <textarea id="message" rows="6"
+                                  className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg shadow-sm border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                  placeholder="Leave a comment..."
+                                  {...register("message", {
+                                      required: "Please enter your query",
+                                  })}></textarea>
+                    </div>
+                    <Button text="Send Message" type="submit"/>
+                </form>
+            </div>
+
+            <footer className="flex justify-around pb-10">
+                <FooterItem icon={EmailIcon} title="Email us:" linkText="demo@demo.com" to="www.gmail.com"
+                            desc="Email us for general queries, including marketing and partnership opportunities."/>
+                <FooterItem icon={PhoneIcon} title="Call us:" linkText="+1 (646) 786-5060" isLink={false}
+                            desc="Call us to speak to a member of our team. We are always happy to help."/>
+                <FooterItem icon={supportIcon} title="Support" linkText="Support" isLink={false}
+                            desc="Email us for general queries, including marketing and partnership opportunities."/>
+            </footer>
+        </section>
     );
+}
+
+function FooterItem({icon, title, desc, to, linkText, isLink = true}) {
+    return <div className="flex flex-col items-center justify-between w-full md:w-1/4 gap-2">
+        <div
+            className="bg-gray-800 rounded-md p-4">
+            {createElement(icon, {className: "size-6 text-gray-400"})}
+        </div>
+        <p className="font-bold text-white text-lg">{title}</p>
+        <p className="text-center text-gray-300">{desc}</p>
+        {isLink ?
+            <LinkField to={to} text={linkText} underline={true}/> :
+            <p className="text-blue-600 w-fit">{linkText}</p>
+        }
+    </div>;
+}
+
+FooterItem.propTypes = {
+    icon: PropTypes.element.isRequired,
+    title: PropTypes.string.isRequired,
+    desc: PropTypes.string.isRequired,
+    to: PropTypes.string,
+    isLink: PropTypes.bool,
 }
 
 export default Contact;

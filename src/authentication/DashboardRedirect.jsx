@@ -2,6 +2,7 @@ import {useEffect, useState} from "react";
 import NProgress from "nprogress";
 import getToken from "../utils/getToken.js";
 import {Navigate} from "react-router-dom";
+import SomethingWentWrong from "../components/others/SomethingWentWrong.jsx";
 
 function DashboardRedirect({children}) {
     const [loading, setLoading] = useState(true);
@@ -22,11 +23,7 @@ function DashboardRedirect({children}) {
         return null;
     }
 
-    if (error) {
-        return <div className="w-full h-screen flex justify-center items-center">
-            <h1>Something Went Wrong..</h1>
-        </div>
-    }
+    if (error) return <SomethingWentWrong/>;
 
     return authenticated ? children : <Navigate to={"/auth/login"} state={{redirected: true}}/>;
 }

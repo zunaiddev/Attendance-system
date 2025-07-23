@@ -29,9 +29,9 @@ function SearchInput({onChange}) {
                 className="absolute inset-y-0 left-0 rtl:inset-r-0 rtl:right-0 flex items-center ps-3 pointer-events-none">
                 <SearchIcon className="size-4 text-white"/>
             </div>
-            <input type="text"
+            <input type="text" name="search"
                    className="outline-none p-2 ps-10 text-sm border rounded-lg w-full bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
-                   placeholder="Search for items" onChange={handleOnChange} ref={searchRef}/>
+                   placeholder="Search by name or rollno" onChange={handleOnChange} ref={searchRef}/>
             {!isEmpty &&
                 <div className="absolute inset-y-0 right-2 flex items-center ps-3 cursor-pointer"
                      onClick={clearSearch}>

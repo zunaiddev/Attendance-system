@@ -1,10 +1,10 @@
 import API from "../API/API.js";
 import {validate} from "../services/jwt.js";
 import {showToast} from "../components/Toaster/Toaster.jsx";
+import storage from "../services/storage.js";
 
 async function getToken() {
-    let rememberMe = localStorage.getItem("remember") === "true";
-    let token = rememberMe ? localStorage.getItem("token") : sessionStorage.getItem("token");
+    let token = storage.getItem("token");
 
     if (!token) return null;
 
