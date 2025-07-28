@@ -8,12 +8,13 @@ import InputField from "../components/others/InputField.jsx";
 import {useForm} from "react-hook-form";
 import Button from "../components/others/Button.jsx";
 import axios from "axios";
+import {showToast} from "../components/Toaster/Toaster.jsx";
 
 function Contact() {
     const {
         register,
         handleSubmit,
-        formState: {errors},
+        formState: {errors, isSubmitting},
     } = useForm({
         defaultValues: {
             email: "work87t@gmail.com",
@@ -28,13 +29,13 @@ function Contact() {
         try {
             const response = await axios.post("https://intact-roanna-api-v9-6a640f42.koyeb.app/api/public/submit", data, {
                 headers: {
-                    "X-API-Key": "ab4lhkcVeevV896r9ixCQeaf2SmMuRgFA",
+                    "X-API-Key": import.meta.env.VITE_API_KEY,
                 }
             });
 
-            console.log("response: ", response);
-        } catch (err) {
-            console.log("Error:", err);
+            showToast.success("Thanks!");
+        } catch {
+            showToast.error("Something Went Wrong Please try again later.")
         }
 
     }
@@ -80,13 +81,14 @@ function Contact() {
                                   placeholder="Leave a comment..."
                                   {...register("message", {
                                       required: "Please enter your query",
+                                      maxLength: {value: 10, message: "Message is too long"},
                                   })}></textarea>
                     </div>
-                    <Button text="Send Message" type="submit"/>
+                    <Button text="Send Message" type="submit" isSubmitting={isSubmitting}/>
                 </form>
             </div>
 
-            <footer className="flex justify-around pb-10">
+            <footer className="flex justify-around flex-wrap pb-10 gap-6 md:gap-0">
                 <FooterItem icon={EmailIcon} title="Email us:" linkText="demo@demo.com" to="www.gmail.com"
                             desc="Email us for general queries, including marketing and partnership opportunities."/>
                 <FooterItem icon={PhoneIcon} title="Call us:" linkText="+1 (646) 786-5060" isLink={false}
@@ -105,7 +107,7 @@ function FooterItem({icon, title, desc, to, linkText, isLink = true}) {
             {createElement(icon, {className: "size-6 text-gray-400"})}
         </div>
         <p className="font-bold text-white text-lg">{title}</p>
-        <p className="text-center text-gray-300">{desc}</p>
+        <p className="text-center text-gray-300 max-w-sm">{desc}</p>
         {isLink ?
             <LinkField to={to} text={linkText} underline={true}/> :
             <p className="text-blue-600 w-fit">{linkText}</p>
