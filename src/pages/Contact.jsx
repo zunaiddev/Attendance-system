@@ -27,7 +27,7 @@ function Contact() {
         data.name = "Unknown";
 
         try {
-            const response = await axios.post("https://intact-roanna-api-v9-6a640f42.koyeb.app/api/public/submit", data, {
+            await axios.post("https://intact-roanna-api-v9-6a640f42.koyeb.app/api/public/submit", data, {
                 headers: {
                     "X-API-Key": import.meta.env.VITE_API_KEY,
                 }
