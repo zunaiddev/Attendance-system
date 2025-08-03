@@ -89,9 +89,10 @@ function Contact() {
             </div>
 
             <footer className="flex justify-around flex-wrap pb-10 gap-6 md:gap-0">
-                <FooterItem icon={EmailIcon} title="Email us:" linkText="demo@demo.com" to="www.gmail.com"
+                <FooterItem icon={EmailIcon} title="Email us:" linkText="zunaiddev@outlook.com"
+                            to="mailto:zunaiddev@outlook.com"
                             desc="Email us for general queries, including marketing and partnership opportunities."/>
-                <FooterItem icon={PhoneIcon} title="Call us:" linkText="+1 (646) 786-5060" isLink={false}
+                <FooterItem icon={PhoneIcon} title="Call us:" linkText="+91 9690578859" isLink={false}
                             desc="Call us to speak to a member of our team. We are always happy to help."/>
                 <FooterItem icon={supportIcon} title="Support" linkText="Support" isLink={false}
                             desc="Email us for general queries, including marketing and partnership opportunities."/>
