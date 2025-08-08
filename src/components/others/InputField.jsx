@@ -26,7 +26,7 @@ function InputField({
                 <input
                     className={`shadow-xs border border-gray-700 text-sm rounded-lg focus:border-blue-500 outline-none block w-full p-2.5 bg-gray-700 
                      placeholder-gray-400 text-white
-                      ${errors && "border-red-600"}`}
+                      ${errors && "border-red-600"} ${type === "password" && "pr-9"}`}
                     autoFocus={autoFocus}
                     placeholder={placeholder} autoComplete={autoComplete}
                     type={type === "password" ? (show ? "text" : "password") : type}

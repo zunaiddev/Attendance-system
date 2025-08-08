@@ -18,6 +18,7 @@ import Search from "../pages/Search.jsx";
 import Verify from "../pages/Verify.jsx";
 import Logout from "../pages/Logout.jsx";
 import Settings from "../pages/Settings.jsx";
+import Test from "../pages/Test.jsx";
 
 const router = createBrowserRouter([
     {
@@ -95,6 +96,10 @@ const router = createBrowserRouter([
             {
                 path: "*",
                 element: <NotFound/>
+            },
+            {
+                path: "test",
+                element: <Test/>
             }
         ]
     }
