@@ -24,7 +24,7 @@ function InputField({
             {label && <label className="block mb-2 text-sm font-medium text-gray-300">{label}</label>}
             <div className="relative">
                 <input
-                    className={`shadow-xs border border-gray-700 text-sm rounded-lg focus:border-blue-500 outline-none block w-full p-2.5 bg-gray-700 
+                    className={`shadow-xs border border-gray-700 text-sm rounded-sm focus:border-blue-500 outline-none block w-full p-2.5 bg-gray-700 
                      placeholder-gray-400 text-white
                       ${errors && "border-red-600"} ${type === "password" && "pr-9"}`}
                     autoFocus={autoFocus}

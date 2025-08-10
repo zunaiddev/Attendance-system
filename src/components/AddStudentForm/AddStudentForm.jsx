@@ -1,38 +1,72 @@
-import InputField from "../others/InputField.jsx";
-import SelectField from "../others/SelectField.jsx";
+import CloseIcon from "../icons/CloseIcon.jsx";
+import StudentFields from "./StudentFields.jsx";
+import Button from "../others/Button.jsx";
+import {useFieldArray, useForm} from "react-hook-form";
+import {useEffect} from "react";
 
 function AddStudentForm() {
+    const {
+        control,
+        register,
+        handleSubmit, formState: {errors}
+    } = useForm();
+
+    const {fields, append, remove} = useFieldArray({
+        control,
+        name: "students"
+    });
+
+    useEffect(() => {
+        addStudent();
+    }, []);
+
+    function addStudent() {
+        append({
+            name: "",
+            roll: "",
+            section: "",
+            semester: "",
+            year: ""
+        });
+    }
+
+    async function submit(data) {
+        console.log(data);
+    }
+
     return (
         <div
-            className="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center bg-red-500 size-full">
-            <div className="relative p-4 w-full">
-                <div className="relative bg-white rounded-lg shadow-sm dark:bg-gray-600">
+            className="fixed top-0 right-0 left-0 z-50 flex py-5 justify-center bg-red-500 size-full">
+            <div className="relative p-4 w-full md:w-[90%] h-full max-h-3/4">
+                <div className="relative rounded-lg shadow-sm bg-gray-600">
                     <div
-                        className="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600 border-gray-200">
-                        <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
-                            Sign in to our platform
+                        className="flex items-center justify-between p-4 md:p-5 border-b rounded-t border-gray-600">
+                        <h3 className="text-xl font-semibold text-white">
+                            Student Information
                         </h3>
-                        <button type="button"
-                                className="end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                                data-modal-hide="authentication-modal">
-                            <svg className="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                 viewBox="0 0 14 14">
-                                <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"
-                                      strokeWidth="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
-                            </svg>
-                            <span className="sr-only">Close modal</span>
+                        <button
+                            className="end-2.5 text-gray-400 bg-transparent rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center hover:bg-gray-500 hover:text-white cursor-pointer">
+                            <CloseIcon/>
                         </button>
                     </div>
-                    <div className="p-4 md:p-5">
-                        <div className="flex gap-4">
-                            <InputField label="Name" name="name" type="text"/>
-                            <InputField label="Roll no." name="name" type="text"/>
-                            <SelectField label="Course" list={["BCA", "MCA"]}/>
-                            <InputField label="Sec" name="name" type="text"/>
-                            <InputField label="Semester" name="name" type="text"/>
-                            <InputField label="Year" name="name" type="text"/>
+                    <form onSubmit={handleSubmit(submit)}>
+                        <div className="p-4 md:p-5 space-y-4 h-auto max-h-[75vh] overflow-y-auto scrollbar-hide">
+                            {fields.map((item, index) => (
+                                <StudentFields
+                                    key={item.id}
+                                    index={index}
+                                    register={register}
+                                    errors={errors}
+                                />
+                            ))}
+                            <button onClick={addStudent} type="button">Add</button>
                         </div>
-                    </div>
+                        <div className="flex justify-end pb-4 pr-4">
+                            <Button text="Clear" className="!w-25 bg-gray-500 hover:bg-gray-400"/>
+                            <Button type="submit" text="Submit" className="!w-25"/>
+                        </div>
+                    </form>
+
                 </div>
             </div>
         </div>
