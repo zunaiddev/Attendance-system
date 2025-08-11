@@ -8,14 +8,14 @@ function TableRow({student, view}) {
     function handleCheck(e, roll) {
         updateStudents(students.map(s => s.roll === roll ? {
             ...s,
-            isPresent: e.target.checked
+            present: e.target.checked
         } : s));
     }
 
     return (
         <tr className={`border-b border-gray-700 hover:bg-gray-600 ${student.isPresent ? "bg-[#74b37d] text-white" : "bg-gray-800"}`}>
             <td className="w-4 p-4">
-                <input type="checkbox" checked={student.isPresent}
+                <input type="checkbox" checked={student.present}
                        onChange={(e) => handleCheck(e, student.roll)}
                        className="w-4 h-4 text-blue-600 rounded-sm  bg-gray-700 border-gray-600 cursor-pointer"/>
             </td>
@@ -24,7 +24,7 @@ function TableRow({student, view}) {
                 {student.name}
             </th>
             <td className="px-6 py-4">
-                {student.roll}
+                {student.rollNo}
             </td>
             {
                 view !== "Standard" && <>
@@ -35,10 +35,10 @@ function TableRow({student, view}) {
                         {student.year}
                     </td>
                     <td className="px-6 py-4">
-                        {student.sec}
+                        {student.section}
                     </td>
                     <td className="px-6 py-4">
-                        {student.sem}
+                        {student.semester}
                     </td>
                 </>
             }

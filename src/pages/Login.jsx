@@ -93,7 +93,7 @@ function Login() {
                             password?</Link>
                     </div>
 
-                    <Button text="Sign in" isSubmitting={isSubmitting}/>
+                    <Button type="submit" text="Sign in" isSubmitting={isSubmitting}/>
                 </div>
             </form>
 

@@ -4,10 +4,17 @@ import PropTypes from "prop-types";
 import {courses} from "../../Data/courses.js";
 import {semesters} from "../../Data/semesters.js";
 import {years} from "../../Data/years.js";
+import TrashIcon from "../icons/TrashIcon.jsx";
 
-function StudentFields({index, register, errors}) {
+function StudentFields({index, register, errors, remove}) {
     return (
         <div className="flex flex-col gap-4 sm:flex-row border-2 rounded-sm p-1 sm:border-0 sm:p-0">
+            <div className="flex items-center h-10 w-29">
+                {index !== 0 && <button type="button" onClick={remove}>
+                    <TrashIcon className="text-gray-300 size-4 cursor-pointer"/>
+                </button>}
+            </div>
+
             <InputField placeholder="Name"
                         register={register(`students.${index}.name`, {
                             required: "Name is required",
@@ -21,38 +28,38 @@ function StudentFields({index, register, errors}) {
                         })}
                         errors={errors?.students?.[index]?.roll}/>
             <InputField placeholder="Section"
-                        register={register("students.${index}.section", {
+                        register={register(`students.${index}.section`, {
                             required: "Section is required",
-                            pattern: {value: /^[A-Z](-?\d{0,2})?$/, message: "Invalid Section"},
+                            pattern: {value: /^[A-Z](-?\d{0,2})?$/i, message: "Invalid Section"},
                         })}
                         errors={errors?.students?.[index]?.section}/>
             <SelectField list={courses} defaultOpt="Course"
                          register={register(`students.${index}.course`, {
                              required: "Course is required"
                          })}
-                         errors={errors?.students?.[index]?.course}
+                         error={errors?.students?.[index]?.course}
                          className="shadow-xs border border-gray-700 text-sm rounded-sm focus:border-blue-500 !py-2.5 bg-gray-700"/>
             <SelectField list={semesters} defaultOpt="Semester"
                          register={register(`students.${index}.semester`, {
                              required: "Semester is required"
                          })}
-                         errors={errors?.students?.[index]?.semester}
+                         error={errors?.students?.[index]?.semester}
                          className="shadow-xs border border-gray-700 text-sm rounded-sm focus:border-blue-500 !py-2.5 bg-gray-700"/>
             <SelectField list={years} defaultOpt="Year"
                          register={register(`students.${index}.year`, {
                              required: "Year is required"
                          })}
-                         errors={errors?.students?.[index]?.year}
+                         error={errors?.students?.[index]?.year}
                          className="shadow-xs border border-gray-700 text-sm rounded-sm focus:border-blue-500 !py-2.5 bg-gray-700"/>
         </div>
     );
 }
 
 StudentFields.propTypes = {
-    autoFocus: PropTypes.bool,
     index: PropTypes.number.isRequired,
     register: PropTypes.func.isRequired,
-    errors: PropTypes.object.isRequired
+    errors: PropTypes.object.isRequired,
+    remove: PropTypes.func.isRequired,
 }
 
 export default StudentFields;

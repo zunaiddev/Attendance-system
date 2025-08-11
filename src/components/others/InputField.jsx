@@ -6,7 +6,7 @@ import EyeOffIcon from "../icons/EyeOffIcon.jsx";
 function InputField({
                         label = null,
                         placeholder = "",
-                        autoComplete = "",
+                        autoComplete = null,
                         type = "text",
                         register = () => {
                         },

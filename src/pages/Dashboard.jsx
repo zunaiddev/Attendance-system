@@ -1,25 +1,34 @@
 import {useEffect, useState} from "react";
 import Table from "../components/Table/Table.jsx";
 import StudentsContext from "../context/StudentsContext.jsx";
-import Spinner from "../components/others/Spinner.jsx";
-import {getStudents} from "../services/DashboardService.js";
 import {showToast} from "../components/Toaster/Toaster.jsx";
 import Notification from "../components/others/Notification.jsx";
 import Button from "../components/others/Button.jsx";
 import Header from "../components/others/Header.jsx";
 import exportToPdf from "../utils/exportToPdf.js";
+import AddStudentForm from "../components/AddStudentForm/AddStudentForm.jsx";
+import useGet from "../hooks/useGet.jsx";
+import getToken from "../utils/getToken.js";
+import MainLoader from "../loader/MainLoader.jsx";
+import SomethingWentWrong from "../components/others/SomethingWentWrong.jsx";
 
 function Dashboard() {
     const [students, setStudents] = useState([]);
-    const [loading, setLoading] = useState(true);
     const [user, setUser] = useState(null);
+    const [showStudentForm, setShowStudentForm] = useState(false);
+    const {get, loading} = useGet();
+    const [somethingWentWrong, setsSomethingWentWrong] = useState(false);
 
     useEffect(() => {
         (async function () {
-            let response = await getStudents();
-            setStudents(response.data);
-            setUser(response.user);
-            setLoading(false);
+            let {data, error} = await get("/student", await getToken());
+
+            if (error) {
+                setsSomethingWentWrong(true);
+            }
+
+            setStudents(data.students);
+            setUser(data.user);
         })();
     }, []);
 
@@ -37,20 +46,37 @@ function Dashboard() {
         setStudents(students);
     }
 
+    function handleHideStudentForm() {
+        setShowStudentForm(false);
+    }
+
+    function handleShowStudentForm() {
+        setShowStudentForm(true);
+    }
+
     if (loading) {
-        return <Spinner/>;
+        return <MainLoader/>;
+    }
+
+    if (somethingWentWrong) {
+        return <SomethingWentWrong/>
     }
 
     return (
         <StudentsContext.Provider value={{students, updateStudents}}>
-            <div className="relative sm:rounded-lg">
-                <Header/>
+            {students.length > 0 ? <div className="relative sm:rounded-lg">
+                <Header onStudentAddClick={handleShowStudentForm}/>
                 <Table/>
                 <div className="py-5 flex justify-end">
                     <Button text="Save"/>
                     <Button text="Export to Pdf" onClick={() => exportToPdf(students)}/>
                 </div>
-            </div>
+            </div> : <div className="size-full flex flex-col justify-center items-center gap-6">
+                <h1 className="text-lg">There are not any students try to add</h1>
+                <Button text="Add Students" className="!w-fit" onClick={handleShowStudentForm}/>
+            </div>}
+
+            {showStudentForm && <AddStudentForm onClose={handleHideStudentForm}/>}
         </StudentsContext.Provider>
     );
 }

@@ -1,5 +1,5 @@
 import NotifyIcon from "../icons/NotifyIcon.jsx";
-import ArrowDownIcon from "../icons/ArrowDownIcon.jsx";
+import CloseIcon from "../icons/CloseIcon.jsx";
 
 function Notification({heading, message, onClick, dismiss}) {
     return (
@@ -27,7 +27,7 @@ function Notification({heading, message, onClick, dismiss}) {
                 </div>
                 <button type="button" onClick={dismiss}
                         className="ms-auto -mx-1.5 -my-1.5 items-center justify-center shrink-0 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 inline-flex h-8 w-8 text-gray-500 hover:text-white bg-gray-800 hover:bg-gray-700">
-                    <ArrowDownIcon/>
+                    <CloseIcon/>
                 </button>
             </div>
         </div>

@@ -6,7 +6,7 @@ function UseDelete() {
     const [errors, setErrors] = useState(null);
 
 
-    return {isLoading: loading, data, errors}
+    return {isLoading: loading, data, error: errors}
 }
 
 export default UseDelete;

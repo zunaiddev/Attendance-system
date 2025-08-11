@@ -78,10 +78,7 @@ function SignupForm() {
                                         message: "Weak Password"
                                     },
                                 })} errors={errors.password}/>
-                    {/*<Checkbox text="I agree to the" link="Terms & Conditions" to="/terms" register={*/}
-                    {/*    register("terms", {required: "Terms & Conditions is required"})*/}
-                    {/*} errors={errors.terms}/>*/}
-                    <Button text="Sign up" isSubmitting={isSubmitting}/>
+                    <Button type="submit" text="Sign up" isSubmitting={isSubmitting}/>
                 </div>
             </form>
 
