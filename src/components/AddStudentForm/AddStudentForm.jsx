@@ -2,15 +2,19 @@ import CloseIcon from "../icons/CloseIcon.jsx";
 import StudentFields from "./StudentFields.jsx";
 import Button from "../others/Button.jsx";
 import {useFieldArray, useForm} from "react-hook-form";
-import {useContext, useEffect} from "react";
+import {useContext, useEffect, useMemo} from "react";
 import useConfirm from "../../hooks/useConfirm.jsx";
 import PropTypes from "prop-types";
 import usePost from "../../hooks/usePost.jsx";
 import getToken from "../../utils/getToken.js";
 import StudentsContext from "../../context/StudentsContext.jsx";
 
-function AddStudentForm({onClose}) {
+function AddStudentForm({onClose, isUpdate}) {
     const {students, updateStudents} = useContext(StudentsContext);
+    const rolls = useMemo(function () {
+        return isUpdate ? [] : students.map(student => student.roll);
+    }, [isUpdate, students]);
+
     const {
         control,
         register,
@@ -30,8 +34,22 @@ function AddStudentForm({onClose}) {
     });
 
     useEffect(() => {
-        addField();
+        if (isUpdate) {
+            append(students);
+        } else {
+            addField();
+        }
+
     }, []);
+
+    useEffect(() => {
+        fields.forEach((field) => console.log("field", field));
+    }, [fields]);
+
+    useEffect(() => {
+        console.log("Students rolls", rolls);
+    }, [rolls]);
+
 
     function addField() {
         append({name: "John Doe", roll: "23120254", course: "BCA", section: "C6", semester: 1, year: 2});
@@ -51,14 +69,14 @@ function AddStudentForm({onClose}) {
             for (let val in value) {
                 if (value[val] !== "") {
                     if (await confirm()) reset();
-                    break;
+                    return;
                 }
             }
         }
     }
 
     async function handleClose() {
-        await handleReset();
+        if (!isUpdate) await handleReset();
         onClose();
     }
 
@@ -67,6 +85,10 @@ function AddStudentForm({onClose}) {
         updateStudents(prev => [...prev, ...data]);
         reset();
         onClose();
+    }
+
+    function handleOnChange(e) {
+        console.log(e.target.checked);
     }
 
     return (
@@ -93,6 +115,9 @@ function AddStudentForm({onClose}) {
                                     register={register}
                                     errors={errors}
                                     remove={() => remove(index)}
+                                    rolls={rolls}
+                                    update={isUpdate}
+                                    onChange={handleOnChange}
                                 />
                             ))}
 
@@ -102,12 +127,16 @@ function AddStudentForm({onClose}) {
 
                         </div>
                         <div className="flex justify-end py-4 pr-4">
-                            <Button type="button" text="Duplicate" className="!w-25 bg-gray-500 hover:bg-gray-400"
-                                    onClick={duplicateField}/>
-                            <Button type="button" text="Add" className="!w-25 bg-gray-500 hover:bg-gray-400"
-                                    onClick={addField}/>
-                            <Button text="Clear" className="!w-25 bg-gray-500 hover:bg-gray-400" onClick={handleReset}/>
-                            <Button type="submit" text="Submit" className="!w-25" isSubmitting={isSubmitting}/>
+                            {!isUpdate && <>
+                                <Button type="button" text="Duplicate" className="!w-25 bg-gray-500 hover:bg-gray-400"
+                                        onClick={duplicateField}/>
+                                <Button type="button" text="Add" className="!w-25 bg-gray-500 hover:bg-gray-400"
+                                        onClick={addField}/>
+                                <Button text="Clear" className="!w-25 bg-gray-500 hover:bg-gray-400"
+                                        onClick={handleReset}/>
+                            </>}
+                            <Button type="submit" text={isUpdate ? "Update" : "Submit"} className="!w-25"
+                                    isSubmitting={isSubmitting}/>
                         </div>
                     </form>
                 </div>
@@ -118,7 +147,8 @@ function AddStudentForm({onClose}) {
 }
 
 AddStudentForm.propTypes = {
-    onClose: PropTypes.func.isRequired
+    onClose: PropTypes.func.isRequired,
+    isUpdate: PropTypes.bool.isRequired,
 }
 
 export default AddStudentForm;

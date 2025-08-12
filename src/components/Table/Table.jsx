@@ -46,11 +46,13 @@ function Table() {
         updateStudents(students.map(student => ({...student, isPresent: e.target.checked})));
     }
 
+
     return (
         <div className="relative">
             <div
                 className="flex flex-col gap-3 sm:gap-0 sm:flex-row justify-start sm:justify-between items-center pb-4">
                 <SearchInput onChange={handleOnChange}/>
+
                 <div
                     className="flex w-full flex-wrap items-center gap-3 p-2 rounded-lg justify-end">
                     <div className="flex justify-center items-center gap-2">
@@ -65,29 +67,38 @@ function Table() {
             </div>
             <div className="overflow-x-auto">
                 {filtered.length === 0 ? <div className="text-center text-white">No Students Found</div> :
-                <table className="w-full text-sm text-left rtl:text-right text-gray-400 overflow-x-scroll"
-                       ref={tableRef}>
-                    <thead className="text-xs uppercase bg-gray-700 text-gray-400">
-                    <tr>
-                        <th scope="col" className="p-4">
-                            <input type="checkbox" onChange={handleAllCheck}
-                                   className="w-4 h-4 text-blue-600 rounded-md bg-gray-700 border-gray-600 cursor-pointer"/>
-                        </th>
-                        {
-                            ["Name", "Roll"]
-                                .map((item, idx) => <th scope="col" className="px-6 py-3" key={idx}>{item}</th>)
-                        }
-                        {view !== "Standard" &&
-                            ["Course", "Year", "Sec", "Sem"]
-                                .map((item, idx) => <th scope="col" className="px-6 py-3" key={idx}>{item}</th>)
-                        }
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {filtered.map((student) => <TableRow key={student.roll} student={student} view={view}
-                                                         updateStudents={updateStudents}/>)}
-                    </tbody>
-                </table>
+                    <div className="max-h-[70vh] overflow-y-auto scrollbar">
+                        <table className="w-full text-sm text-left rtl:text-right text-gray-400" ref={tableRef}>
+                            <thead className="text-xs uppercase bg-gray-700 text-gray-400 sticky top-0">
+                            <tr>
+                                <th scope="col" className="p-4">
+                                    <input
+                                        type="checkbox"
+                                        onChange={handleAllCheck}
+                                        className="w-4 h-4 text-blue-600 rounded-md bg-gray-700 border-gray-600 cursor-pointer"
+                                    />
+                                </th>
+                                {["Name", "Roll"].map((item, idx) => (
+                                    <th scope="col" className="px-6 py-3" key={idx}>{item}</th>
+                                ))}
+                                {view !== "Standard" &&
+                                    ["Course", "Year", "Sec", "Sem"].map((item, idx) => (
+                                        <th scope="col" className="px-6 py-3" key={idx}>{item}</th>
+                                    ))}
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {filtered.map((student) => (
+                                <TableRow
+                                    key={student.id}
+                                    student={student}
+                                    view={view}
+                                    updateStudents={updateStudents}
+                                />
+                            ))}
+                            </tbody>
+                        </table>
+                    </div>
                 }
             </div>
         </div>

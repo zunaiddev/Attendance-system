@@ -13,30 +13,39 @@ function exportToPdf(students) {
         s.roll,
         s.course,
         s.year,
-        s.sec,
-        s.sem,
-        s.isPresent ? "Present" : "Absent"
+        s.section,
+        s.semester,
+        s.isPresent ? "P" : "A"
     ]);
 
     autoTable(doc, {
         startY: 20,
         head: headers,
         body: data,
-        didParseCell: function (data) {
-            if (data.section === 'body' && data.column.index === 6) {
-                const status = data.cell.text[0];
-                if (status === "Present") {
-                    data.cell.styles.fillColor = [204, 255, 204];
-                    data.cell.styles.textColor = [0, 100, 0];
+        styles: {
+            halign: 'center',
+            valign: 'middle',
+        },
+        headStyles: {
+            fillColor: [54, 69, 79],
+            textColor: 255,
+            fontStyle: 'bold'
+        },
+        didParseCell: function (hookData) {
+            if (hookData.section === 'body' && hookData.column.index === 6) {
+                const status = hookData.cell.text[0];
+                if (status === "P") {
+                    hookData.cell.styles.textColor = [0, 128, 0];
+                    hookData.cell.styles.fontSize = 14;
                 } else {
-                    data.cell.styles.fillColor = [255, 204, 204];
-                    data.cell.styles.textColor = [139, 0, 0];
+                    hookData.cell.styles.textColor = [220, 20, 60];
+                    hookData.cell.styles.fontSize = 14;
                 }
             }
-        },
+        }
     });
 
     doc.save("attendance-report.pdf");
-};
+}
 
 export default exportToPdf;

@@ -24,15 +24,17 @@
 
 
 :root {
-  --bg-color-dark: #111827;
-  --bg-color: #00111A;
-  --bg-color-sec: #00141F;
-  --oswald: "Oswald", sans-serif;
+    --bg-color-dark: #111827;
+    --bg-color: #00111A;
+    --bg-color-sec: #00141F;
+    --oswald: "Oswald", sans-serif;
+    --sb-size: 7px;
 }
 
 body{
   background: var(--bg-color-dark);
   color: white;
+
 }
 
 /* App.css */
@@ -64,6 +66,28 @@ body{
 .scrollbar-hide::-webkit-scrollbar {
     display: none;
 }
+
+.scrollbar::-webkit-scrollbar {
+    width: var(--sb-size);
+}
+
+.scrollbar::-webkit-scrollbar-track {
+    @apply bg-gray-500;
+    border-radius: 0;
+}
+
+.scrollbar::-webkit-scrollbar-thumb {
+    @apply bg-gray-300;
+    border-radius: 3px;
+}
+
+/*@supports not selector(::-webkit-scrollbar) {*/
+/*    .scrollbar {*/
+/*        scrollbar-color: var(#6BAF8D) var(#232E33;*/
+/*    }*/
+/*}*/
+
+Copy code
 
 @keyframes indeterminate {
   0% {

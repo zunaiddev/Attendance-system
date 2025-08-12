@@ -1,5 +1,4 @@
 import {useEffect, useState} from "react";
-import Table from "../components/Table/Table.jsx";
 import StudentsContext from "../context/StudentsContext.jsx";
 import {showToast} from "../components/Toaster/Toaster.jsx";
 import Notification from "../components/others/Notification.jsx";
@@ -11,6 +10,7 @@ import useGet from "../hooks/useGet.jsx";
 import getToken from "../utils/getToken.js";
 import MainLoader from "../loader/MainLoader.jsx";
 import SomethingWentWrong from "../components/others/SomethingWentWrong.jsx";
+import Table from "../components/Table/Table.jsx";
 
 function Dashboard() {
     const [students, setStudents] = useState([]);
@@ -18,6 +18,7 @@ function Dashboard() {
     const [showStudentForm, setShowStudentForm] = useState(false);
     const {get, loading} = useGet();
     const [somethingWentWrong, setsSomethingWentWrong] = useState(false);
+    const [isUpdate, setUpdate] = useState(false);
 
     useEffect(() => {
         (async function () {
@@ -48,9 +49,17 @@ function Dashboard() {
 
     function handleHideStudentForm() {
         setShowStudentForm(false);
+        if (isUpdate) {
+            setUpdate(false);
+        }
     }
 
     function handleShowStudentForm() {
+        setShowStudentForm(true);
+    }
+
+    function handleOnUpdate() {
+        setUpdate(!isUpdate);
         setShowStudentForm(true);
     }
 
@@ -65,7 +74,7 @@ function Dashboard() {
     return (
         <StudentsContext.Provider value={{students, updateStudents}}>
             {students.length > 0 ? <div className="relative sm:rounded-lg">
-                <Header onStudentAddClick={handleShowStudentForm}/>
+                <Header onStudentAddClick={handleShowStudentForm} isUpdate={isUpdate} onUpdate={handleOnUpdate}/>
                 <Table/>
                 <div className="py-5 flex justify-end">
                     <Button text="Save"/>
@@ -76,7 +85,7 @@ function Dashboard() {
                 <Button text="Add Students" className="!w-fit" onClick={handleShowStudentForm}/>
             </div>}
 
-            {showStudentForm && <AddStudentForm onClose={handleHideStudentForm}/>}
+            {showStudentForm && <AddStudentForm onClose={handleHideStudentForm} isUpdate={isUpdate}/>}
         </StudentsContext.Provider>
     );
 }

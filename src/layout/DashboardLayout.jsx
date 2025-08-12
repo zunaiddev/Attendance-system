@@ -19,7 +19,7 @@ function DashboardLayout() {
                 isMobile() ? <FooterMenu/> : <Sidebar show={show} setShow={setShow}/>
             }
             <div className={`min-h-screen ${(show && window.innerWidth > 639) && "ml-64"}`}>
-                <div className="p-4 py-13 border-gray-700 size-full">
+                <div className="px-4 pt-10 border-gray-700 size-full">
                     <Outlet/>
                 </div>
             </div>

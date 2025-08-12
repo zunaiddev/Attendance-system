@@ -4,6 +4,8 @@ import StudentsContext from "../../context/StudentsContext.jsx";
 
 function TableRow({student, view}) {
     const {students, updateStudents} = useContext(StudentsContext);
+    let {name, roll, course, year, semester, section} = student;
+    semester = 2;
 
     function handleCheck(e, roll) {
         updateStudents(students.map(s => s.roll === roll ? {
@@ -21,29 +23,33 @@ function TableRow({student, view}) {
             </td>
             <th scope="row"
                 className="px-6 py-4 font-medium whitespace-nowrap text-white">
-                {student.name}
+                {name.replace(/^\w/, c => c.toUpperCase())}
             </th>
             <td className="px-6 py-4">
-                {student.rollNo}
+                {roll}
             </td>
             {
                 view !== "Standard" && <>
                     <td className="px-6 py-4">
-                        {student.course}
+                        {course.toUpperCase()}
                     </td>
                     <td className="px-6 py-4">
-                        {student.year}
+                        {year}{getHolder(year)}
                     </td>
                     <td className="px-6 py-4">
-                        {student.section}
+                        {section}
                     </td>
                     <td className="px-6 py-4">
-                        {student.semester}
+                        {semester}{getHolder(semester)}
                     </td>
                 </>
             }
         </tr>
     );
+}
+
+function getHolder(val) {
+    return val === 1 ? "st" : val === 2 ? "nd" : val === 3 ? "rd" : "th";
 }
 
 TableRow.propTypes = {

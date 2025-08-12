@@ -6,13 +6,16 @@ import {semesters} from "../../Data/semesters.js";
 import {years} from "../../Data/years.js";
 import TrashIcon from "../icons/TrashIcon.jsx";
 
-function StudentFields({index, register, errors, remove}) {
+function StudentFields({index, register, errors, remove, rolls, update, onChange}) {
+
     return (
         <div className="flex flex-col gap-4 sm:flex-row border-2 rounded-sm p-1 sm:border-0 sm:p-0">
             <div className="flex items-center h-10 w-29">
-                {index !== 0 && <button type="button" onClick={remove}>
+                {update ? <input type="checkbox" value="" onChange={(e) => onChange(e)}
+                                 className='w-4 h-4 border rounded-sm bg-gray-700 border-gray-600 ring-offset-gray-800 cursor-pointer'/> : (index !== 0 &&
+                    <button type="button" onClick={remove}>
                     <TrashIcon className="text-gray-300 size-4 cursor-pointer"/>
-                </button>}
+                    </button>)}
             </div>
 
             <InputField placeholder="Name"
@@ -21,10 +24,11 @@ function StudentFields({index, register, errors, remove}) {
                             pattern: {value: /^[A-Za-z ]{2,50}$/, message: "Invalid Name"},
                         })}
                         errors={errors?.students?.[index]?.name}/>
-            <InputField placeholder="Rollno"
+            <InputField placeholder="Roll"
                         register={register(`students.${index}.roll`, {
                             required: "Roll is required",
                             pattern: {value: /^[A-Za-z]{0,5}[-/]?\d{2,4}[-/]?\d{1,6}$/, message: "Invalid Roll number"},
+                            validate: (value) => rolls.some(roll => roll === value) ? "Roll already exists" : true,
                         })}
                         errors={errors?.students?.[index]?.roll}/>
             <InputField placeholder="Section"
@@ -60,6 +64,9 @@ StudentFields.propTypes = {
     register: PropTypes.func.isRequired,
     errors: PropTypes.object.isRequired,
     remove: PropTypes.func.isRequired,
+    onChange: PropTypes.func.isRequired,
+    update: PropTypes.bool.isRequired,
+    rolls: PropTypes.array.isRequired,
 }
 
 export default StudentFields;
