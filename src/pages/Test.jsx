@@ -1,8 +1,16 @@
-import AddStudentForm from "../components/AddStudentForm/AddStudentForm.jsx";
+import {useEffect} from "react";
+import {Toast} from "../components/Toaster/Toaster.jsx";
 
 function Test() {
+
+    useEffect(() => {
+        Toast.success("success");
+    }, []);
+
     return (
-        <AddStudentForm/>
+        <center>
+            Hii This one is a testing page
+        </center>
     );
 }
 

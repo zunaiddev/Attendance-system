@@ -1,6 +1,6 @@
 import API from "../API/API.js";
 import {validate} from "../services/jwt.js";
-import {showToast} from "../components/Toaster/Toaster.jsx";
+import {Toast} from "../components/Toaster/Toaster.jsx";
 import storage from "../services/storage.js";
 
 async function getToken() {
@@ -17,7 +17,7 @@ async function getToken() {
 
         token = response.data.payload.token;
     } catch {
-        showToast.info("Session out.");
+        Toast.info("Session out.");
     }
 
     return token;

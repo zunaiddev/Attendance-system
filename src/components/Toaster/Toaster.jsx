@@ -1,10 +1,10 @@
 import {useState} from "react";
-import Toast from "./Toast.jsx";
+import ToastComponent from "./ToastComponent.jsx";
 import CheckIcon from "../icons/CheckIcon.jsx";
 import InfoIcon from "../icons/InfoIcon.jsx";
 import ErrorIcon from "../others/ErrorIcon.jsx";
 
-let showToast = {};
+let Toast = {};
 
 function Toaster() {
     const [toast, setToast] = useState({});
@@ -20,13 +20,16 @@ function Toaster() {
         setTimeout(dismiss, duration);
     }
 
-    showToast = {
-        success: (msg, duration = 5000) => addToast(() => <Toast message={msg} icon={CheckIcon} fill={"text-green-600"}
-                                                                 end={duration - 500}/>, duration),
-        error: (msg, duration = 5000) => addToast(() => <Toast message={msg} icon={ErrorIcon} fill={"text-red-600"}
-                                                               end={duration - 500}/>, duration),
-        info: (msg, duration = 5000) => addToast(() => <Toast message={msg} icon={InfoIcon} fill={"text-blue-600"}
-                                                              end={duration - 500}/>, duration),
+    Toast = {
+        success: (msg, duration = 5000) => addToast(() => <ToastComponent message={msg} icon={CheckIcon}
+                                                                          fill={"text-green-600"}
+                                                                          end={duration}/>, duration),
+        error: (msg, duration = 5000) => addToast(() => <ToastComponent message={msg} icon={ErrorIcon}
+                                                                        fill={"text-red-600"}
+                                                                        end={duration}/>, duration),
+        info: (msg, duration = 5000) => addToast(() => <ToastComponent message={msg} icon={InfoIcon}
+                                                                       fill={"text-blue-600"}
+                                                                       end={duration}/>, duration),
         custom: (callback, duration = -1) => addToast(callback, duration),
     }
 
@@ -37,4 +40,4 @@ function Toaster() {
     );
 }
 
-export {showToast, Toaster};
+export {Toast, Toaster};

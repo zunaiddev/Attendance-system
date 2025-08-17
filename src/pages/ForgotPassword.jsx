@@ -4,7 +4,7 @@ import Button from "../components/others/Button.jsx";
 import {Link, useNavigate} from "react-router-dom";
 import usePost from "../hooks/usePost.jsx";
 import {HttpStatusCode} from "axios";
-import {showToast} from "../components/Toaster/Toaster.jsx";
+import {Toast} from "../components/Toaster/Toaster.jsx";
 
 function ForgotPassword() {
     const {
@@ -22,7 +22,7 @@ function ForgotPassword() {
 
         if (error) {
             if (error.status === HttpStatusCode.Unauthorized) {
-                showToast.error("User Not Found!");
+                Toast.error("User Not Found!");
             }
 
             return;

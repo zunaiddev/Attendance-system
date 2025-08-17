@@ -2,7 +2,7 @@ import Button from "../components/others/Button.jsx";
 import {useNavigate, useSearchParams} from "react-router-dom";
 import MailIcon from "../components/icons/MailIcon.jsx";
 import usePost from "../hooks/usePost.jsx";
-import {showToast} from "../components/Toaster/Toaster.jsx";
+import {Toast} from "../components/Toaster/Toaster.jsx";
 import {useEffect, useRef, useState} from "react";
 import LinkField from "../components/others/LinkField.jsx";
 
@@ -37,11 +37,11 @@ function CheckEmail() {
         let data = await post(`/auth/resend-email/${userId}`, undefined, undefined);
 
         if (!data) {
-            showToast.error("Something went wrong");
+            Toast.error("Something went wrong");
             return;
         }
 
-        showToast.success(`Email sent to ${data.email}`);
+        Toast.success(`Email sent to ${data.email}`);
         localStorage.setItem("RESEND_EMAIL_TIME_LEFT", '59');
         setTimeLeft(59);
     };

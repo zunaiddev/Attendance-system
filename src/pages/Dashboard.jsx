@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import StudentsContext from "../context/StudentsContext.jsx";
-import {showToast} from "../components/Toaster/Toaster.jsx";
+import {Toast} from "../components/Toaster/Toaster.jsx";
 import Notification from "../components/others/Notification.jsx";
 import Button from "../components/others/Button.jsx";
 import Header from "../components/others/Header.jsx";
@@ -36,8 +36,8 @@ function Dashboard() {
     useEffect(() => {
         if (!sessionStorage.getItem("notify")) {
             if (user && !user.isProfileComplete) {
-                showToast.custom((t) => <Notification heading="Alert" message="Please complete your profile"
-                                                      dismiss={t.dismiss}/>, 5000);
+                Toast.custom((t) => <Notification heading="Alert" message="Please complete your profile"
+                                                  dismiss={t.dismiss}/>, 5000);
                 sessionStorage.setItem("notify", "true");
             }
         }

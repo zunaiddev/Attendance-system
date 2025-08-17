@@ -6,7 +6,7 @@ import Checkbox from "../components/others/Checkbox.jsx";
 import UserEditIcon from "../components/icons/UserEditIcon.jsx";
 import getInitials from "../utils/getInitials.js";
 import getToken from "../utils/getToken.js";
-import {showToast} from "../components/Toaster/Toaster.jsx";
+import {Toast} from "../components/Toaster/Toaster.jsx";
 import useGet from "../hooks/useGet.jsx";
 import MainLoader from "../loader/MainLoader.jsx";
 
@@ -50,7 +50,7 @@ function Profile() {
 
             if (error) {
                 setError(true);
-                showToast.error("Something went wrong!");
+                Toast.error("Something went wrong!");
             }
         })();
     }, [])

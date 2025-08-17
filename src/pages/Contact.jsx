@@ -8,7 +8,7 @@ import InputField from "../components/others/InputField.jsx";
 import {useForm} from "react-hook-form";
 import Button from "../components/others/Button.jsx";
 import axios from "axios";
-import {showToast} from "../components/Toaster/Toaster.jsx";
+import {Toast} from "../components/Toaster/Toaster.jsx";
 
 function Contact() {
     const {
@@ -33,9 +33,9 @@ function Contact() {
                 }
             });
 
-            showToast.success("Thanks!");
+            Toast.success("Thanks!");
         } catch {
-            showToast.error("Something Went Wrong Please try again later.")
+            Toast.error("Something Went Wrong Please try again later.")
         }
 
     }
