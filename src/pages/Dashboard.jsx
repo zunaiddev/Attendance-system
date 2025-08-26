@@ -3,21 +3,21 @@ import StudentsContext from "../context/StudentsContext.jsx";
 import {Toast} from "../components/Toaster/Toaster.jsx";
 import Notification from "../components/others/Notification.jsx";
 import Button from "../components/others/Button.jsx";
-import Header from "../components/others/Header.jsx";
 import exportToPdf from "../utils/exportToPdf.js";
-import AddStudentForm from "../components/AddStudentForm/AddStudentForm.jsx";
 import useGet from "../hooks/useGet.jsx";
 import getToken from "../utils/getToken.js";
 import MainLoader from "../loader/MainLoader.jsx";
 import SomethingWentWrong from "../components/others/SomethingWentWrong.jsx";
 import Table from "../components/Table/Table.jsx";
+import Switch from "../components/others/Switch.jsx";
+import AddStudentsForm from "../components/StudentsForm/AddStudentsForm.jsx";
 
 function Dashboard() {
     const [students, setStudents] = useState([]);
     const [user, setUser] = useState(null);
     const [showStudentForm, setShowStudentForm] = useState(false);
     const {get, loading} = useGet();
-    const [somethingWentWrong, setsSomethingWentWrong] = useState(false);
+    const [somethingWentWrong, setSomethingWentWrong] = useState(false);
     const [isUpdate, setUpdate] = useState(false);
 
     useEffect(() => {
@@ -25,7 +25,7 @@ function Dashboard() {
             let {data, error} = await get("/student", await getToken());
 
             if (error) {
-                setsSomethingWentWrong(true);
+                setSomethingWentWrong(true);
             }
 
             setStudents(data.students);
@@ -54,7 +54,7 @@ function Dashboard() {
         }
     }
 
-    function handleShowStudentForm() {
+    function handleAddStudents() {
         setShowStudentForm(true);
     }
 
@@ -74,18 +74,28 @@ function Dashboard() {
     return (
         <StudentsContext.Provider value={{students, updateStudents}}>
             {students.length > 0 ? <div className="relative sm:rounded-lg">
-                <Header onStudentAddClick={handleShowStudentForm} isUpdate={isUpdate} onUpdate={handleOnUpdate}/>
+                <div className="w-full pb-2 flex items-center gap-10">
+                    <div>
+                        <Switch label="Auto save"/>
+                    </div>
+                    <Button text="+ Add Students" className="text-white text-sm cursor-pointer"
+                            onClick={handleAddStudents}/>
+                    <Button text={isUpdate ? "Cancel" : "Manage"} onClick={handleOnUpdate}
+                            className="sm:!w-fit sm:ml-2 !py-2 bg-gray-700 border-gray-600 hover:bg-gray-600"/>
+                </div>
+
                 <Table/>
+
                 <div className="py-5 flex justify-end">
                     <Button text="Save"/>
                     <Button text="Export to Pdf" onClick={() => exportToPdf(students)}/>
                 </div>
             </div> : <div className="size-full flex flex-col justify-center items-center gap-6">
                 <h1 className="text-lg">There are not any students try to add</h1>
-                <Button text="Add Students" className="!w-fit" onClick={handleShowStudentForm}/>
+                <Button text="Add Students" onClick={handleAddStudents}/>
             </div>}
 
-            {showStudentForm && <AddStudentForm onClose={handleHideStudentForm} isUpdate={isUpdate}/>}
+            {showStudentForm && <AddStudentsForm onClose={handleHideStudentForm} isUpdate={isUpdate}/>}
         </StudentsContext.Provider>
     );
 }

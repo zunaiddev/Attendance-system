@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 function Button({text, type = "button", icon: Icon, isSubmitting, onClick, disable = false, ref = null, className}) {
     return (
         <button type={type}
-                className={`flex justify-center items-center gap-2 w-full text-white focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 bg-blue-600 hover:bg-blue-700 cursor-pointer min-h-4 disabled:cursor-not-allowed disabled:text-gray-50 disabled:bg-blue-900 ${className}`}
+                className={`flex justify-center items-center gap-2 w-fit text-white focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 bg-blue-600 hover:bg-blue-700 cursor-pointer min-h-4 disabled:cursor-not-allowed disabled:text-gray-50 disabled:bg-blue-900 ${className}`}
             onClick={onClick}
             disabled={disable || isSubmitting}
             ref={ref}>

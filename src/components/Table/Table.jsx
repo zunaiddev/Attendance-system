@@ -43,9 +43,8 @@ function Table() {
     }
 
     function handleAllCheck(e) {
-        updateStudents(students.map(student => ({...student, isPresent: e.target.checked})));
+        updateStudents(students.map(student => ({...student, present: e.target.checked})));
     }
-
 
     return (
         <div className="relative">

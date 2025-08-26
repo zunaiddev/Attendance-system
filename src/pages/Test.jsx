@@ -1,16 +1,8 @@
-import {useEffect} from "react";
-import {Toast} from "../components/Toaster/Toaster.jsx";
+import AddStudentsForm from "../components/StudentsForm/AddStudentsForm.jsx";
 
 function Test() {
-
-    useEffect(() => {
-        Toast.success("success");
-    }, []);
-
     return (
-        <center>
-            Hii This one is a testing page
-        </center>
+        <AddStudentsForm/>
     );
 }
 

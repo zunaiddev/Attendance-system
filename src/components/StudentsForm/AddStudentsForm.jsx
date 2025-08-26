@@ -2,63 +2,41 @@ import CloseIcon from "../icons/CloseIcon.jsx";
 import StudentFields from "./StudentFields.jsx";
 import Button from "../others/Button.jsx";
 import {useFieldArray, useForm} from "react-hook-form";
-import {useContext, useEffect, useMemo} from "react";
+import {useCallback, useContext, useEffect, useMemo} from "react";
 import useConfirm from "../../hooks/useConfirm.jsx";
 import PropTypes from "prop-types";
 import usePost from "../../hooks/usePost.jsx";
 import getToken from "../../utils/getToken.js";
 import StudentsContext from "../../context/StudentsContext.jsx";
 
-function AddStudentForm({onClose, isUpdate}) {
+function AddStudentsForm({onClose, isUpdate}) {
     const {students, updateStudents} = useContext(StudentsContext);
-    const rolls = useMemo(function () {
-        return isUpdate ? [] : students.map(student => student.roll);
-    }, [isUpdate, students]);
+
+    const rolls = useMemo(() => isUpdate ? [] : students.map(student => student.roll), [isUpdate, students]);
 
     const {
-        control,
-        register,
-        handleSubmit,
-        formState: {errors, isSubmitting},
-        reset,
-        getValues
+        control, register, handleSubmit,
+        formState: {errors, isSubmitting}, reset, getValues
     } = useForm();
+
+    const {fields, append, remove} = useFieldArray({control, name: "students"});
+
+    const addField = useCallback(() => append({
+        name: "John Doe", roll: "23120254", course: "BCA",
+        section: "C6", semester: 1, year: 2
+    }), [append]);
 
     const {post} = usePost();
 
     const [confirm, Confirm] = useConfirm();
 
-    const {fields, append, remove} = useFieldArray({
-        control,
-        name: "students"
-    });
-
     useEffect(() => {
-        if (isUpdate) {
-            append(students);
-        } else {
-            addField();
-        }
-
-    }, []);
-
-    useEffect(() => {
-        fields.forEach((field) => console.log("field", field));
-    }, [fields]);
-
-    useEffect(() => {
-        console.log("Students rolls", rolls);
-    }, [rolls]);
-
-
-    function addField() {
-        append({name: "John Doe", roll: "23120254", course: "BCA", section: "C6", semester: 1, year: 2});
-    }
+        if (isUpdate) append(students); else addField();
+    }, [addField, append, isUpdate, students]);
 
     function duplicateField() {
         let values = getValues().students;
         let lastField = values[values.length - 1];
-        console.log("lastField", lastField);
         append(lastField);
     }
 
@@ -69,7 +47,6 @@ function AddStudentForm({onClose, isUpdate}) {
             for (let val in value) {
                 if (value[val] !== "") {
                     if (await confirm()) reset();
-                    return;
                 }
             }
         }
@@ -146,9 +123,9 @@ function AddStudentForm({onClose, isUpdate}) {
     );
 }
 
-AddStudentForm.propTypes = {
+AddStudentsForm.propTypes = {
     onClose: PropTypes.func.isRequired,
     isUpdate: PropTypes.bool.isRequired,
 }
 
-export default AddStudentForm;
+export default AddStudentsForm;
