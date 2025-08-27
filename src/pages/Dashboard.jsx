@@ -31,7 +31,7 @@ function Dashboard() {
             setStudents(data.students);
             setUser(data.user);
         })();
-    }, []);
+    }, [get]);
 
     useEffect(() => {
         if (!sessionStorage.getItem("notify")) {

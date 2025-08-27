@@ -103,34 +103,34 @@ function Profile() {
                                 label="Name"
                                 autoComplete="name"
                                 register={register("name")}
-                                errors={errors.name}
+                                error={errors.name}
                                 autoFocus={true}
                             />
                             <InputField
                                 label="University"
                                 autoComplete="university"
                                 register={register("university")}
-                                errors={errors.university}
+                                error={errors.university}
                             />
                             <InputField
                                 label="Section"
                                 autoComplete="section"
                                 register={register("section")}
-                                errors={errors.section}
+                                error={errors.section}
                             />
                             <InputField
                                 label="Semester"
                                 type="number"
                                 autoComplete="semester"
                                 register={register("semester")}
-                                errors={errors.semester}
+                                error={errors.semester}
                             />
                             <InputField
                                 label="Year"
                                 type="number"
                                 autoComplete="year"
                                 register={register("year")}
-                                errors={errors.year}
+                                error={errors.year}
                             />
                             <Checkbox text="I'm a Class Representative" register={register("isClassRep")}/>
                         </div>
@@ -178,7 +178,7 @@ function Profile() {
                                         message: "Invalid email address"
                                     }
                                 })}
-                                errors={emailErrors.newEmail}
+                                error={emailErrors.newEmail}
                             />
                             <InputField
                                 label="Current Password"
@@ -186,7 +186,7 @@ function Profile() {
                                 register={registerEmail("password", {
                                     required: "Password is required to update email"
                                 })}
-                                errors={emailErrors.password}
+                                error={emailErrors.password}
                             />
                         </div>
                         <Button text="Update Email" isSubmitting={isEmailSubmitting}/>
@@ -202,7 +202,7 @@ function Profile() {
                                 register={registerPass("currentPassword", {
                                     required: "Current password is required"
                                 })}
-                                errors={passErrors.currentPassword}
+                                error={passErrors.currentPassword}
                             />
                             <InputField
                                 label="New Password"
@@ -214,7 +214,7 @@ function Profile() {
                                         message: "Password must be at least 8 characters"
                                     }
                                 })}
-                                errors={passErrors.newPassword}
+                                error={passErrors.newPassword}
                             />
                             <InputField
                                 label="Confirm New Password"
@@ -223,7 +223,7 @@ function Profile() {
                                     required: "Please confirm your password",
                                     validate: (value) => value === getValues("newPassword") || "Passwords do not match"
                                 })}
-                                errors={passErrors.confirmPassword}
+                                error={passErrors.confirmPassword}
                             />
                         </div>
                         <Button text="Update Password" isSubmitting={isPassSubmitting}/>

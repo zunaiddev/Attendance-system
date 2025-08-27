@@ -1,10 +1,10 @@
-import {useState} from "react";
+import {useCallback, useState} from "react";
 import API from "../API/API.js";
 
 function useGet() {
     const [loading, setLoading] = useState(false);
 
-    const get = async (url, token) => {
+    const get = useCallback(async (url, token) => {
         setLoading(true);
         let data = null, error = null;
 
@@ -27,7 +27,7 @@ function useGet() {
         setLoading(false);
 
         return {data, error};
-    };
+    }, []);
 
     return {get, loading};
 }

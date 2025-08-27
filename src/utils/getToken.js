@@ -1,7 +1,7 @@
 import API from "../API/API.js";
 import {validate} from "../services/jwt.js";
-import {Toast} from "../components/Toaster/Toaster.jsx";
 import storage from "../services/storage.js";
+import {Toast} from "../components/Toaster/Toaster.jsx";
 
 async function getToken() {
     let token = storage.getItem("token");
@@ -15,9 +15,15 @@ async function getToken() {
     try {
         let response = await API.post("/auth/refresh");
 
-        token = response.data.payload.token;
-    } catch {
-        Toast.info("Session out.");
+        token = response.data?.payload?.token;
+        storage.saveItem("token", token);
+    } catch (error) {
+        if (error.response?.data?.code === "MISSING_COOKIE") {
+            sessionStorage.clear();
+            Toast.info("Session expired");
+        } else {
+            Toast.error("Something went wrong!");
+        }
     }
 
     return token;

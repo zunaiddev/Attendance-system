@@ -60,7 +60,7 @@ function ForgotPassword() {
                                     message: "Invalid Email"
                                 },
                             })}
-                            errors={errors.email}
+                            error={errors.email}
                         />
                         <Button text="Send Reset Instructions" isSubmitting={isSubmitting}/>
                     </div>

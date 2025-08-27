@@ -23,20 +23,20 @@ function StudentFields({index, register, errors, remove, rolls, update, onChange
                             required: "Name is required",
                             pattern: {value: /^[A-Za-z ]{2,50}$/, message: "Invalid Name"},
                         })}
-                        errors={errors?.students?.[index]?.name}/>
+                        error={errors?.students?.[index]?.name}/>
             <InputField placeholder="Roll"
                         register={register(`students.${index}.roll`, {
                             required: "Roll is required",
                             pattern: {value: /^[A-Za-z]{0,5}[-/]?\d{2,4}[-/]?\d{1,6}$/, message: "Invalid Roll number"},
                             validate: (value) => rolls.some(roll => roll === value) ? "Roll already exists" : true,
                         })}
-                        errors={errors?.students?.[index]?.roll}/>
+                        error={errors?.students?.[index]?.roll}/>
             <InputField placeholder="Section"
                         register={register(`students.${index}.section`, {
                             required: "Section is required",
                             pattern: {value: /^[A-Z](-?\d{0,2})?$/i, message: "Invalid Section"},
                         })}
-                        errors={errors?.students?.[index]?.section}/>
+                        error={errors?.students?.[index]?.section}/>
             <SelectField list={courses} defaultOpt="Course"
                          register={register(`students.${index}.course`, {
                              required: "Course is required"

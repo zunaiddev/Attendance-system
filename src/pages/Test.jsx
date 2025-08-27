@@ -1,8 +1,10 @@
-import AddStudentsForm from "../components/StudentsForm/AddStudentsForm.jsx";
+import InstitutionDetailsForm from "../components/InstitutionDetailsForm/InstitutionDetailsForm.jsx";
 
 function Test() {
     return (
-        <AddStudentsForm/>
+        <div>
+            <InstitutionDetailsForm/>
+        </div>
     );
 }
 

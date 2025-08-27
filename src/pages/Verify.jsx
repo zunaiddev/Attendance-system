@@ -1,6 +1,6 @@
 import usePost from "../hooks/usePost.jsx";
-import {useEffect, useState} from "react";
-import {useNavigate, useSearchParams} from "react-router-dom";
+import {useCallback, useEffect, useState} from "react";
+import {Navigate, useNavigate, useSearchParams} from "react-router-dom";
 import MainLoader from "../loader/MainLoader.jsx";
 import {Toast} from "../components/Toaster/Toaster.jsx";
 import {useForm} from "react-hook-form";
@@ -14,65 +14,69 @@ function Verify() {
     const {post, loading} = usePost();
     const [resetPassword, setResetPassword] = useState(null);
     const [resetToken, setResetToken] = useState("");
-    const navigate = useNavigate();
-
-    useEffect(() => {
-        (async function () {
-            let token = params.get("token");
-            setResetToken(token);
-
-            if (!token) {
-                toast.error("Token not found");
-                navigate("/not-found");
-                return;
-            }
-
-            let claims = extractClaims(token);
-
-            if (!claims) {
-                Toast.error("Invalid token");
-                navigate("/auth/login");
-                return;
-            }
-
-            if (claims.exp > new Date().getTime()) {
-                Toast.error("Token Has Expired.");
-                navigate("/auth/login");
-                return;
-            }
-
-            console.log(claims);
-
-            let purpose = claims.purpose;
-
-            if (!purpose) {
-                Toast.error("Invalid token");
-                navigate("/auth/login");
-                return;
-            }
-
-            if (purpose !== "VERIFY_USER" && purpose !== "UPDATE_EMAIL" && purpose !== "RESET_PASSWORD") {
-                Toast.error("This Token Is not Allowed here.");
-                navigate("/auth/login");
-                return;
-            }
-
-            setResetPassword(purpose === "RESET_PASSWORD");
-
-        })();
+    const navigate = useCallback(text => {
+        console.log("navigated to ", text);
     }, []);
 
     useEffect(() => {
-        (async function () {
-            if (resetPassword == null) {
-                return;
-            }
+        console.log("First Hook runs")
+        let token = params.get("token");
+        setResetToken(token);
 
+        if (!token) {
+            toast.error("Token not found");
+            return;
+        }
+
+        let claims = extractClaims(token);
+
+        if (!claims) {
+            Toast.error("Invalid token");
+            navigate("/auth/login");
+            return;
+        }
+
+        if (claims.exp > new Date().getTime()) {
+            Toast.error("Token Has Expired.");
+            navigate("/auth/login");
+            return;
+        }
+
+        let purpose = claims.purpose;
+
+        if (!purpose) {
+            Toast.error("Invalid token");
+            navigate("/auth/login");
+            return;
+        }
+
+        if (purpose !== "VERIFY_USER" && purpose !== "UPDATE_EMAIL" && purpose !== "RESET_PASSWORD") {
+            Toast.error("This Token Is not Allowed here.");
+            navigate("/auth/login");
+            return;
+        }
+
+        setResetPassword(purpose === "RESET_PASSWORD");
+    }, [navigate, params]);
+
+    useEffect(() => {
+        console.log("Second Hook Runs.")
+
+        if (resetPassword == null) {
+            return;
+        }
+
+        (async function () {
             if (!resetPassword) {
                 let {data, error} = await post("/verify", undefined, params.get("token"));
 
                 if (error) {
-                    Toast.error("Something went wrong");
+                    if (error.code === "USED_TOKEN") {
+                        Toast.success("User Is Already Verified.");
+                        return;
+                    }
+
+                    Toast.error("Something went wrong.");
                     return;
                 }
 
@@ -82,7 +86,7 @@ function Verify() {
                 Toast.success("Verification Successful!");
             }
         })();
-    }, [resetPassword])
+    }, [params, post, resetPassword]);
 
     if (loading) {
         return <MainLoader/>;
@@ -92,8 +96,7 @@ function Verify() {
         return <ResetPassword token={resetToken}/>;
     }
 
-    // return <Navigate to={"/auth/login"}/>;
-    return null;
+    return <Navigate to={"/auth/login"}/>;
 }
 
 
@@ -152,7 +155,7 @@ function ResetPassword({token}) {
                                     message: "Weak Password"
                                 },
                             })}
-                            errors={errors.password}
+                            error={errors.password}
                         />
                         <InputField
                             label="Confirm Password"
@@ -163,7 +166,7 @@ function ResetPassword({token}) {
                                 required: "Password Does Not Match",
                                 validate: value => value === watch("password") || "Password Does Not Match",
                             })}
-                            errors={errors.confirmPassword}
+                            error={errors.confirmPassword}
                         />
                         <Button text="Reset" isSubmitting={isSubmitting}/>
                     </div>

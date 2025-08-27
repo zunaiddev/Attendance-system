@@ -60,7 +60,7 @@ function Contact() {
                                     })}
                                     autoFocus={true}
                                     autoComplete="email"
-                                    errors={errors.email}/>
+                                    error={errors.email}/>
                     </div>
                     <div>
                         <InputField label="Subject" type="text" placeholder="Let us know how we can help you"
@@ -68,7 +68,7 @@ function Contact() {
                                         required: "Please enter a subject",
                                         max: {value: 10, message: "Please enter a valid subject"},
                                     })}
-                                    errors={errors.subject}
+                                    error={errors.subject}
                         />
 
                     </div>

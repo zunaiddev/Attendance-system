@@ -29,7 +29,7 @@ function SignupForm() {
                 return;
             }
 
-            Toast.error("Something went wrong. Please try again.");
+            Toast.error("Something went wrong. Please try again later.");
             return;
         }
 
@@ -60,15 +60,15 @@ function SignupForm() {
                                 register={register("name", {
                                     required: "Name is required",
                                     pattern: {value: /^[a-zA-Z][a-zA-Z\s'-]{1,49}$/, message: "Invalid Name"},
-                                })} errors={errors.name} autoFocus={true}/>
-                    <InputField label="Email" type="email" placeholder="demo@demo.com" autoComplete="email"
+                                })} error={errors.name} autoFocus={true}/>
+                    <InputField label="Email" type="text" placeholder="demo@demo.com" autoComplete="email"
                                 register={register("email", {
                                     required: "Email is required",
                                     pattern: {
                                         value: /^[a-zA-Z0-9._%+-]{2,64}@[a-zA-Z0-9.-]{2,255}\.[a-zA-Z]{2,}$/,
                                         message: "Invalid Email"
                                     },
-                                })} errors={errors.email}/>
+                                })} error={errors.email}/>
 
                     <InputField label="Password" type="password" placeholder="Password" autoComplete="password"
                                 register={register("password", {
@@ -77,8 +77,8 @@ function SignupForm() {
                                         value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$%^&+=!])[A-Za-z\d@#$%^&+=!]{8,20}$/,
                                         message: "Weak Password"
                                     },
-                                })} errors={errors.password}/>
-                    <Button type="submit" text="Sign up" isSubmitting={isSubmitting}/>
+                                })} error={errors.password}/>
+                    <Button className="!w-full" type="submit" text="Sign up" isSubmitting={isSubmitting}/>
                 </div>
             </form>
 

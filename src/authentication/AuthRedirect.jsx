@@ -8,11 +8,10 @@ function AuthRedirect({children}) {
     const [error, setError] = useState(false);
     const [authenticated, setAuthenticated] = useState(false);
     const location = useLocation();
-    const redirected = location.state?.redirected;
 
     useEffect(() => {
         (async function () {
-            if (!redirected) {
+            if (!location.state?.redirected) {
                 setAuthenticated(await getToken() !== null);
             }
 

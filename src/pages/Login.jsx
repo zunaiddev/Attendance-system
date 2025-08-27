@@ -81,19 +81,19 @@ function Login() {
                                         value: /^[a-zA-Z0-9._%+-]{2,64}@[a-zA-Z0-9.-]{2,255}\.[a-zA-Z]{2,}$/,
                                         message: "Invalid Email"
                                     },
-                                })} errors={errors.email}/>
+                                })} error={errors.email}/>
 
                     <InputField label="Password" type="password" placeholder="Password" autoComplete="password"
                                 register={register("password", {
                                     required: "Password is required"
-                                })} errors={errors.password}/>
+                                })} error={errors.password}/>
                     <div className="flex justify-between">
                         <Checkbox text="Remember me" register={register("remember")} errors={errors.remember}/>
                         <Link to="/forgot-password" className="text-blue-500 hover:underline">Forgot
                             password?</Link>
                     </div>
 
-                    <Button type="submit" text="Sign in" isSubmitting={isSubmitting}/>
+                    <Button className="!w-full" type="submit" text="Sign in" isSubmitting={isSubmitting}/>
                 </div>
             </form>
 

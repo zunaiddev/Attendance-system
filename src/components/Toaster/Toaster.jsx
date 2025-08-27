@@ -34,7 +34,7 @@ function Toaster() {
     }
 
     return (
-        <div className="fixed w-full top-0 left-0 z-50 flex justify-center pt-4 ">
+        <div className="z-50 fixed top-2 left-1/2 transform -translate-x-1/2 size-fit">
             {toast && toast.content}
         </div>
     );

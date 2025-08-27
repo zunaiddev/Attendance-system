@@ -13,15 +13,6 @@ function Logout() {
 
     useEffect(() => {
         (async function () {
-            let remember = localStorage.getItem("remember") === "true";
-
-            if (!remember) {
-                storage.clear();
-                nav("/auth/login");
-                Toast.success("Logged out");
-                return;
-            }
-
             let {error} = await post("/auth/logout");
 
             if (error) {
@@ -29,11 +20,12 @@ function Logout() {
                 return;
             }
 
-            localStorage.clear();
+            storage.clear();
+
             nav("/auth/login");
             Toast.success("Logged out");
         })();
-    }, []);
+    }, [nav, post]);
 
     if (error) return <SomethingWentWrong/>;
 

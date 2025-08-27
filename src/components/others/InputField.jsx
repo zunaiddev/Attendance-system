@@ -8,9 +8,8 @@ function InputField({
                         placeholder = "",
                         autoComplete = null,
                         type = "text",
-                        register = () => {
-                        },
-                        errors = null,
+                        register,
+                        error = null,
                         autoFocus = false
                     }) {
     const [show, setShow] = useState(false);
@@ -26,7 +25,7 @@ function InputField({
                 <input
                     className={`shadow-xs border border-gray-700 text-sm rounded-sm focus:border-blue-500 outline-none block w-full p-2.5 bg-gray-700 
                      placeholder-gray-400 text-white
-                      ${errors && "border-red-600"} ${type === "password" && "pr-9"}`}
+                      ${error && "border-red-600"} ${type === "password" && "pr-9"}`}
                     autoFocus={autoFocus}
                     placeholder={placeholder} autoComplete={autoComplete}
                     type={type === "password" ? (show ? "text" : "password") : type}
@@ -46,7 +45,7 @@ function InputField({
 
             </div>
 
-            {errors && <span className="text-[12px] ml-1 text-red-600 mt-1">{errors.message}</span>}
+            {error && <span className="text-[12px] ml-1 text-red-600 mt-1">{error.message}</span>}
         </div>
     );
 }
@@ -58,8 +57,8 @@ InputField.propTypes = {
     type: PropTypes.string,
     min: PropTypes.number,
     max: PropTypes.number,
-    register: PropTypes.object,
-    errors: PropTypes.object,
+    register: PropTypes.object.isRequired,
+    error: PropTypes.object.isRequired,
     autoFocus: PropTypes.bool,
 }
 
