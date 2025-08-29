@@ -1,15 +1,20 @@
-import {useState} from "react";
+import {JSX, useState} from "react";
 import ToastComponent from "./ToastComponent.jsx";
 import CheckIcon from "../icons/CheckIcon.jsx";
 import InfoIcon from "../icons/InfoIcon.jsx";
 import ErrorIcon from "../others/ErrorIcon.jsx";
 
-let Toast = {};
+type ToastData = {
+    content: JSX.Element;
+    dismiss: () => void;
+} | null;
+
+let toast: ToastType;
 
 function Toaster() {
-    const [toast, setToast] = useState({});
+    const [toastData, setToast] = useState<ToastData>(null);
 
-    function addToast(callback, duration) {
+    function addToast(callback: any, duration: number) {
         function dismiss() {
             setToast(null);
         }
@@ -20,7 +25,7 @@ function Toaster() {
         setTimeout(dismiss, duration);
     }
 
-    Toast = {
+    toast = {
         success: (msg, duration = 5000) => addToast(() => <ToastComponent message={msg} icon={CheckIcon}
                                                                           fill={"text-green-600"}
                                                                           end={duration}/>, duration),
@@ -35,9 +40,9 @@ function Toaster() {
 
     return (
         <div className="z-50 fixed top-2 left-1/2 transform -translate-x-1/2 size-fit">
-            {toast && toast.content}
+            {toastData && toastData.content}
         </div>
     );
 }
 
-export {Toast, Toaster};
+export {toast, Toaster};

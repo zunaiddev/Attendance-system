@@ -3,7 +3,7 @@ import usePost from "../hooks/usePost.jsx";
 import SomethingWentWrong from "../components/others/SomethingWentWrong.jsx";
 import MainLoader from "../loader/MainLoader.jsx";
 import {useNavigate} from "react-router-dom";
-import {Toast} from "../components/Toaster/Toaster.jsx";
+import {toast} from "../components/Toaster/Toaster.tsx";
 import storage from "../services/storage.js";
 
 function Logout() {
@@ -23,7 +23,7 @@ function Logout() {
             storage.clear();
 
             nav("/auth/login");
-            Toast.success("Logged out");
+            toast.success("Logged out");
         })();
     }, [nav, post]);
 

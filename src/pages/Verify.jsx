@@ -2,7 +2,6 @@ import usePost from "../hooks/usePost.jsx";
 import {useCallback, useEffect, useState} from "react";
 import {Navigate, useNavigate, useSearchParams} from "react-router-dom";
 import MainLoader from "../loader/MainLoader.jsx";
-import {Toast} from "../components/Toaster/Toaster.jsx";
 import {useForm} from "react-hook-form";
 import InputField from "../components/others/InputField.jsx";
 import Button from "../components/others/Button.jsx";
@@ -31,13 +30,13 @@ function Verify() {
         let claims = extractClaims(token);
 
         if (!claims) {
-            Toast.error("Invalid token");
+            toast.error("Invalid token");
             navigate("/auth/login");
             return;
         }
 
         if (claims.exp > new Date().getTime()) {
-            Toast.error("Token Has Expired.");
+            toast.error("Token Has Expired.");
             navigate("/auth/login");
             return;
         }
@@ -45,13 +44,13 @@ function Verify() {
         let purpose = claims.purpose;
 
         if (!purpose) {
-            Toast.error("Invalid token");
+            toast.error("Invalid token");
             navigate("/auth/login");
             return;
         }
 
         if (purpose !== "VERIFY_USER" && purpose !== "UPDATE_EMAIL" && purpose !== "RESET_PASSWORD") {
-            Toast.error("This Token Is not Allowed here.");
+            toast.error("This Token Is not Allowed here.");
             navigate("/auth/login");
             return;
         }
@@ -72,18 +71,18 @@ function Verify() {
 
                 if (error) {
                     if (error.code === "USED_TOKEN") {
-                        Toast.success("User Is Already Verified.");
+                        toast.success("User Is Already Verified.");
                         return;
                     }
 
-                    Toast.error("Something went wrong.");
+                    toast.error("Something went wrong.");
                     return;
                 }
 
                 localStorage.setItem("token", data.token);
                 localStorage.setItem("remember", "true");
 
-                Toast.success("Verification Successful!");
+                toast.success("Verification Successful!");
             }
         })();
     }, [params, post, resetPassword]);
@@ -118,11 +117,11 @@ function ResetPassword({token}) {
 
         if (error) {
             if (error.code === "SAME_PASSWORD") {
-                Toast.error("This Password Currently In use.");
+                toast.error("This Password Currently In use.");
                 return;
             }
 
-            Toast.error("Something went wrong");
+            toast.error("Something went wrong");
             return;
         }
 

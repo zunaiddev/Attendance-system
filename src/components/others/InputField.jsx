@@ -3,6 +3,10 @@ import {useState} from "react";
 import EyeOnIcon from "../icons/EyeOnIcon.jsx";
 import EyeOffIcon from "../icons/EyeOffIcon.jsx";
 
+type InputFieldProp = {
+
+}
+
 function InputField({
                         label = null,
                         placeholder = "",

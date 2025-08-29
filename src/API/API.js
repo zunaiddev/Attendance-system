@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {Toast} from "../components/Toaster/Toaster.jsx";
+import {toast} from "../components/Toaster/Toaster.tsx";
 
 const API = axios.create({
     baseURL: `${import.meta.env.VITE_API_HOST}/api`,
@@ -10,7 +10,7 @@ API.interceptors.response.use(
     res => res,
     err => {
         if (!err.response) {
-            Toast.error("Server Not Responding.")
+            toast.error("Server Not Responding.")
         }
         return Promise.reject(err);
     }

@@ -4,7 +4,7 @@ import InputField from "../components/others/InputField.jsx";
 import Checkbox from "../components/others/Checkbox.jsx";
 import Button from "../components/others/Button.jsx";
 import {Link, useNavigate} from "react-router-dom";
-import {Toast} from "../components/Toaster/Toaster.jsx";
+import {toast} from "../components/Toaster/Toaster.tsx";
 import GoogleIcon from "../components/icons/GoogleIcon.jsx";
 import GithubIcon from "../components/icons/GithubIcon.jsx";
 import usePost from "../hooks/usePost.jsx";
@@ -28,21 +28,21 @@ function Login() {
         if (error) {
             if (error.status === HttpStatusCode.Unauthorized) {
                 resetField("password");
-                Toast.error("Invalid Email Or Password");
+                toast.error("Invalid Email Or Password");
                 return;
             }
 
             if (error.code === "DISABLED_USER") {
-                Toast.error("Please Verify Your Email or Signup again");
+                toast.error("Please Verify Your Email or Signup again");
                 return;
             }
 
             if (error.code === "LOCKED_USER") {
-                Toast.error("You are locked");
+                toast.error("You are locked");
                 return;
             }
 
-            Toast.error("Something went wrong");
+            toast.error("Something went wrong");
             return;
         }
 

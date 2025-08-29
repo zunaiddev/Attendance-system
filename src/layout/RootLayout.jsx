@@ -1,6 +1,6 @@
 import {Outlet, useLocation, useNavigate} from "react-router-dom";
 import {useEffect} from "react";
-import {Toaster} from "../components/Toaster/Toaster.jsx";
+import {Toaster} from "../components/Toaster/Toaster.tsx";
 
 function RootLayout() {
     const navigate = useNavigate();

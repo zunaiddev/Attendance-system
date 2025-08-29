@@ -2,7 +2,7 @@ import Button from "../components/others/Button.jsx";
 import {useSearchParams} from "react-router-dom";
 import MailIcon from "../components/icons/MailIcon.jsx";
 import usePost from "../hooks/usePost.jsx";
-import {Toast} from "../components/Toaster/Toaster.jsx";
+import {toast} from "../components/Toaster/Toaster.tsx";
 import {useEffect, useRef, useState} from "react";
 import LinkField from "../components/others/LinkField.jsx";
 import SomethingWentWrong from "../components/others/SomethingWentWrong.jsx";
@@ -18,7 +18,7 @@ function CheckEmail() {
 
     useEffect(() => {
         if (!userId && from === "signup") {
-            Toast.error("Missing User id.");
+            toast.error("Missing User id.");
             setSomethingWrong(true);
             return;
         }
@@ -39,11 +39,11 @@ function CheckEmail() {
         let {data, error} = await post(`/auth/resend-email/${userId}`);
 
         if (error) {
-            Toast.error("Something went wrong");
+            toast.error("Something went wrong");
             return;
         }
 
-        Toast.success(`Email sent to ${data.email}`);
+        toast.success(`Email sent to ${data.email}`);
         localStorage.setItem("RESEND_EMAIL_TIME_LEFT", '59');
         setTimeLeft(59);
     };

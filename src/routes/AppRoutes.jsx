@@ -3,7 +3,7 @@ import AuthLayout from "../layout/AuthLayout.jsx";
 import Signup from "../pages/Signup.jsx";
 import RootLayout from "../layout/RootLayout.jsx";
 import About from "../pages/About.jsx";
-import Contact from "../pages/Contact.jsx";
+import Contact from "../pages/Contact.tsx";
 import Terms from "../pages/Terms.jsx";
 import CheckEmail from "../pages/CheckEmail.jsx";
 import NotFound from "../pages/NotFound.jsx";

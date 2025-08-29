@@ -1,7 +1,7 @@
 import API from "../API/API.js";
 import {validate} from "../services/jwt.js";
 import storage from "../services/storage.js";
-import {Toast} from "../components/Toaster/Toaster.jsx";
+import {toast} from "../components/Toaster/Toaster.tsx";
 
 async function getToken() {
     let token = storage.getItem("token");
@@ -20,9 +20,9 @@ async function getToken() {
     } catch (error) {
         if (error.response?.data?.code === "MISSING_COOKIE") {
             sessionStorage.clear();
-            Toast.info("Session expired");
+            toast.info("Session expired");
         } else {
-            Toast.error("Something went wrong!");
+            toast.error("Something went wrong!");
         }
     }
 

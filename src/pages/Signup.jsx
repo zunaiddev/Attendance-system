@@ -7,7 +7,7 @@ import GithubIcon from "../components/icons/GithubIcon.jsx";
 import GoogleIcon from "../components/icons/GoogleIcon.jsx";
 import usePost from "../hooks/usePost.jsx";
 import {HttpStatusCode} from "axios";
-import {Toast} from "../components/Toaster/Toaster.jsx";
+import {toast} from "../components/Toaster/Toaster.tsx";
 
 function SignupForm() {
     const {
@@ -29,7 +29,7 @@ function SignupForm() {
                 return;
             }
 
-            Toast.error("Something went wrong. Please try again later.");
+            toast.error("Something went wrong. Please try again later.");
             return;
         }
 

@@ -1,6 +1,5 @@
-import PropTypes from "prop-types";
 import LinkField from "../components/others/LinkField.jsx";
-import {createElement} from "react";
+import {ComponentType, createElement} from "react";
 import EmailIcon from "../components/icons/EmailIcon.jsx";
 import PhoneIcon from "../components/icons/PhoneIcon.jsx";
 import supportIcon from "../components/icons/SupportIcon.jsx";
@@ -8,22 +7,24 @@ import InputField from "../components/others/InputField.jsx";
 import {useForm} from "react-hook-form";
 import Button from "../components/others/Button.jsx";
 import axios from "axios";
-import {Toast} from "../components/Toaster/Toaster.jsx";
+import {toast} from "../components/Toaster/Toaster.js";
+
+type FooterType = {
+    icon: ComponentType<{ className: string }>;
+    title: string,
+    desc: string,
+    to?: string,
+    linkText: string, isLink?: boolean
+}
 
 function Contact() {
     const {
         register,
         handleSubmit,
         formState: {errors, isSubmitting},
-    } = useForm({
-        defaultValues: {
-            email: "work87t@gmail.com",
-            subject: "This is tester subject",
-            message: "this one is a testing message how are you"
-        }
-    });
+    } = useForm();
 
-    async function onSubmit(data) {
+    async function onSubmit(data: any) {
         data.name = "Unknown";
 
         try {
@@ -33,9 +34,9 @@ function Contact() {
                 }
             });
 
-            Toast.success("Thanks!");
+            toast.success("Thanks!");
         } catch {
-            Toast.error("Something Went Wrong Please try again later.")
+            toast.error("Something Went Wrong Please try again later.")
         }
 
     }
@@ -101,7 +102,7 @@ function Contact() {
     );
 }
 
-function FooterItem({icon, title, desc, to, linkText, isLink = true}) {
+function FooterItem({icon, title, desc, to, linkText, isLink}: FooterType) {
     return <div className="flex flex-col items-center justify-between w-full md:w-1/4 gap-2">
         <div
             className="bg-gray-800 rounded-md p-4">
@@ -114,14 +115,6 @@ function FooterItem({icon, title, desc, to, linkText, isLink = true}) {
             <p className="text-blue-600 w-fit">{linkText}</p>
         }
     </div>;
-}
-
-FooterItem.propTypes = {
-    icon: PropTypes.element.isRequired,
-    title: PropTypes.string.isRequired,
-    desc: PropTypes.string.isRequired,
-    to: PropTypes.string,
-    isLink: PropTypes.bool,
 }
 
 export default Contact;
