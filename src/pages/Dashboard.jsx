@@ -2,7 +2,7 @@ import {useEffect, useState} from "react";
 import StudentsContext from "../context/StudentsContext.jsx";
 import {toast} from "../components/Toaster/Toaster.tsx";
 import Notification from "../components/others/Notification.jsx";
-import Button from "../components/others/Button.jsx";
+import Button from "../components/others/Button.tsx";
 import exportToPdf from "../utils/exportToPdf.js";
 import useGet from "../hooks/useGet.jsx";
 import getToken from "../utils/getToken.js";

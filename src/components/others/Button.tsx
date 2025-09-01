@@ -1,6 +1,26 @@
-import PropTypes from "prop-types";
+import {ElementType, MouseEventHandler, Ref} from "react";
 
-function Button({text, type = "button", icon: Icon, isSubmitting, onClick, disable = false, ref = null, className}) {
+type ButtonProp = {
+    text: string;
+    type: "submit" | "reset" | "button";
+    icon?: ElementType;
+    isSubmitting?: boolean;
+    onClick?: MouseEventHandler<HTMLButtonElement> | undefined;
+    disable?: boolean;
+    ref: Ref<HTMLButtonElement>;
+    className?: string;
+}
+
+function Button({
+                    text,
+                    type = "button",
+                    icon: Icon,
+                    isSubmitting,
+                    onClick,
+                    disable = false,
+                    ref = null,
+                    className
+                }: ButtonProp) {
     return (
         <button type={type}
                 className={`flex justify-center items-center gap-2 w-fit text-white focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 bg-blue-600 hover:bg-blue-700 cursor-pointer min-h-4 disabled:cursor-not-allowed disabled:text-gray-50 disabled:bg-blue-900 ${className}`}
@@ -24,14 +44,6 @@ function Loader() {
             fill="currentColor"/>
         </svg>
     );
-}
-
-Button.propTypes = {
-    text: PropTypes.string.isRequired,
-    isSubmitting: PropTypes.bool,
-    onClick: PropTypes.func,
-    className: PropTypes.string,
-    type: PropTypes.string,
 }
 
 export default Button;

@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import {useForm} from "react-hook-form";
-import Button from "../components/others/Button.jsx";
-import InputField from "../components/others/InputField.jsx";
+import Button from "../components/others/Button.tsx";
+import InputField from "../components/others/InputField.tsx";
 import Checkbox from "../components/others/Checkbox.jsx";
 import UserEditIcon from "../components/icons/UserEditIcon.jsx";
 import getInitials from "../utils/getInitials.js";

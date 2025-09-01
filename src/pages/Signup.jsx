@@ -1,5 +1,5 @@
-import InputField from "../components/others/InputField.jsx";
-import Button from "../components/others/Button.jsx";
+import InputField from "../components/others/InputField.tsx";
+import Button from "../components/others/Button.tsx";
 import {useForm} from "react-hook-form";
 import SocialButton from "../components/others/SocialButton.jsx";
 import {Link, useNavigate} from "react-router-dom";

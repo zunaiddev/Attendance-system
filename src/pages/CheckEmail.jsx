@@ -1,4 +1,4 @@
-import Button from "../components/others/Button.jsx";
+import Button from "../components/others/Button.tsx";
 import {useSearchParams} from "react-router-dom";
 import MailIcon from "../components/icons/MailIcon.jsx";
 import usePost from "../hooks/usePost.jsx";

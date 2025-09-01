@@ -3,9 +3,9 @@ import {ComponentType, createElement} from "react";
 import EmailIcon from "../components/icons/EmailIcon.jsx";
 import PhoneIcon from "../components/icons/PhoneIcon.jsx";
 import supportIcon from "../components/icons/SupportIcon.jsx";
-import InputField from "../components/others/InputField.jsx";
-import {useForm} from "react-hook-form";
-import Button from "../components/others/Button.jsx";
+import InputField from "../components/others/InputField.js";
+import {FieldValues, useForm} from "react-hook-form";
+import Button from "../components/others/Button.js";
 import axios from "axios";
 import {toast} from "../components/Toaster/Toaster.js";
 
@@ -17,20 +17,20 @@ type FooterType = {
     linkText: string, isLink?: boolean
 }
 
-function Contact() {
+function Contact(): Element {
     const {
         register,
         handleSubmit,
         formState: {errors, isSubmitting},
     } = useForm();
 
-    async function onSubmit(data: any) {
+    async function onSubmit(data: FieldValues) {
         data.name = "Unknown";
 
         try {
             await axios.post("https://intact-roanna-api-v9-6a640f42.koyeb.app/api/public/submit", data, {
                 headers: {
-                    "X-API-Key": import.meta.env.VITE_API_KEY,
+                    "X-API-Key": import.meta.env.VITE_API_KY,
                 }
             });
 
@@ -77,7 +77,7 @@ function Contact() {
                         <label htmlFor="message"
                                className="block mb-2 text-sm font-medium text-gray-400">Your
                             message</label>
-                        <textarea id="message" rows="6"
+                        <textarea id="message" rows={6}
                                   className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg shadow-sm border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                   placeholder="Leave a comment..."
                                   {...register("message", {

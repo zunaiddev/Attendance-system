@@ -1,4 +1,4 @@
-import InputField from "../others/InputField.jsx";
+import InputField from "../others/InputField.tsx";
 import SelectField from "../others/SelectField.jsx";
 import PropTypes from "prop-types";
 import {courses} from "../../Data/courses.js";

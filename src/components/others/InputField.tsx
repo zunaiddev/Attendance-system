@@ -1,24 +1,25 @@
-import PropTypes from 'prop-types';
-import {useState} from "react";
+import {HTMLInputAutoCompleteAttribute, useState} from "react";
 import EyeOnIcon from "../icons/EyeOnIcon.jsx";
 import EyeOffIcon from "../icons/EyeOffIcon.jsx";
+import {FieldError, UseFormRegisterReturn} from "react-hook-form";
 
-type InputFieldProp = {
-
+type InputFieldType = {
+    label?: string | null,
+    placeholder?: string | "",
+    autoComplete?: HTMLInputAutoCompleteAttribute,
+    type?: "text" | "email" | "number" | "password",
+    register: UseFormRegisterReturn,
+    error: FieldError,
+    autoFocus: boolean
 }
 
 function InputField({
-                        label = null,
-                        placeholder = "",
-                        autoComplete = null,
-                        type = "text",
-                        register,
-                        error = null,
-                        autoFocus = false
-                    }) {
-    const [show, setShow] = useState(false);
+                        label = null, placeholder = "", autoComplete, type = "text",
+                        register, error, autoFocus = false
+                    }: InputFieldType) {
+    const [show, setShow] = useState<boolean>(false);
 
-    function handleShow() {
+    function handleShow(): void {
         setShow(!show);
     }
 
@@ -52,18 +53,6 @@ function InputField({
             {error && <span className="text-[12px] ml-1 text-red-600 mt-1">{error.message}</span>}
         </div>
     );
-}
-
-InputField.propTypes = {
-    label: PropTypes.string,
-    placeholder: PropTypes.string,
-    autoComplete: PropTypes.string,
-    type: PropTypes.string,
-    min: PropTypes.number,
-    max: PropTypes.number,
-    register: PropTypes.object.isRequired,
-    error: PropTypes.object.isRequired,
-    autoFocus: PropTypes.bool,
 }
 
 export default InputField;

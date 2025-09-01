@@ -1,11 +1,11 @@
 import CloseIcon from "../icons/CloseIcon.jsx";
-import InputField from "../others/InputField.jsx";
+import InputField from "../others/InputField.tsx";
 import {useForm} from "react-hook-form";
 import SelectField from "../others/SelectField.jsx";
 import {courses} from "../../Data/courses.js";
 import {years} from "../../Data/years.js";
 import {semesters} from "../../Data/semesters.js";
-import Button from "../others/Button.jsx";
+import Button from "../others/Button.tsx";
 import InfoIcon from "../icons/InfoIcon.jsx";
 
 function InstitutionDetailsForm() {
