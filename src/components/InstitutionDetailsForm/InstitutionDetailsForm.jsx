@@ -1,7 +1,7 @@
-import CloseIcon from "../icons/CloseIcon.jsx";
+import CloseIcon from "../icons/CloseIcon.tsx";
 import InputField from "../others/InputField.tsx";
 import {useForm} from "react-hook-form";
-import SelectField from "../others/SelectField.jsx";
+import SelectField from "../others/SelectField.tsx";
 import {courses} from "../../Data/courses.js";
 import {years} from "../../Data/years.js";
 import {semesters} from "../../Data/semesters.js";
@@ -33,11 +33,13 @@ function InstitutionDetailsForm() {
                             <InfoIcon className="size-5 text-gray-400 cursor-pointer"/>
 
                             <div
-                                className="w-fit absolute bg-gray-500 z-10 top-[calc(100%+0.5rem)] left-1/2 transform -translate-x-1/2 p-3 rounded-md p ">
+                                className="w-60 absolute bg-gray-800 z-10 top-[calc(100%+0.5rem)] left-1/2 transform -translate-x-1/2 p-3 rounded-md hidden group-hover:block shadow-sm shadow-gray-500">
                                 <div
-                                    className="absolute left-1/2 transform -translate-x-1/2 top-[-5px] w-0 h-0 border-l-[10px] border-l-transparent border-r-[10px] border-r-transparent border-b-[10px] border-b-gray-500"></div>
+                                    className="absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2 top-0 w-0 h-0 border-l-[10px] border-l-transparent border-r-[10px] border-r-transparent border-b-[10px] border-b-gray-800"/>
 
-                                <p className="w-sm">Thuw hd ehde dehdved ghv</p>
+                                <p>
+                                    This is a text that should be display inside info and there is another txt
+                                </p>
                             </div>
                         </div>
                     </div>

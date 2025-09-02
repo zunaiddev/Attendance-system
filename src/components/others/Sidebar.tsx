@@ -1,20 +1,24 @@
 import {NavLink} from "react-router-dom";
-import PropTypes from "prop-types";
-import {createElement} from "react";
-import DashboardIcon from "../icons/DashboardIcon.jsx";
+import {ComponentType, createElement, JSX} from "react";
 import ProfileIcon from "../icons/ProfileIcon.jsx";
 import MenuIcon from "../icons/MenuIcon.jsx";
 import SearchIcon from "../icons/SearchIcon.jsx";
-import CloseSidebarIcon from "../icons/CloseSidebarIcon.jsx";
 import SettingsIcon from "../icons/SettingsIcon.jsx";
 import LogoutIcon from "../icons/LogoutIcon.jsx";
+import DashboardIcon from "../icons/DashboardIcon";
+import CloseSidebarIcon from "../icons/CloseSidebarIcon";
 
-function Sidebar({show, setShow}) {
-    function hideSidebar() {
+type Props = {
+    show: boolean,
+    setShow: (show: boolean) => void,
+}
+
+function Sidebar({show, setShow}: Props): JSX.Element {
+    function hideSidebar(): void {
         setShow(false);
     }
 
-    function showSidebar() {
+    function showSidebar(): void {
         setShow(true);
     }
 
@@ -48,7 +52,14 @@ function Sidebar({show, setShow}) {
     );
 }
 
-function MenuItem({to, text, icon, replace = false}) {
+type MenuItemProps = {
+    to: string;
+    text: string;
+    icon: ComponentType<{ className?: string }>;
+    replace?: boolean;
+}
+
+function MenuItem({to, text, icon, replace = false}: MenuItemProps) {
     return (
         <li>
             <NavLink to={to} replace={replace}
@@ -59,12 +70,5 @@ function MenuItem({to, text, icon, replace = false}) {
             </NavLink>
         </li>);
 }
-
-MenuItem.propTypes = {
-    to: PropTypes.string.isRequired,
-    text: PropTypes.string.isRequired,
-    icon: PropTypes.elementType.isRequired,
-    replace: PropTypes.bool,
-};
 
 export default Sidebar;

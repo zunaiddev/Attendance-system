@@ -1,6 +1,11 @@
-function CheckIcon({className = "size-6 text-white"}) {
+import {IconProp} from "../../types/IconProp";
+import {JSX} from "react";
+import {twMerge} from "tailwind-merge";
+
+function CheckIcon({className}: IconProp): JSX.Element {
     return (
-        <svg className={className} xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+        <svg className={twMerge(" size-6 text-white", className)} xmlns="http://www.w3.org/2000/svg" width="24"
+             height="24"
              fill="currentColor"
              viewBox="0 0 24 24">
             <path fillRule="evenodd"

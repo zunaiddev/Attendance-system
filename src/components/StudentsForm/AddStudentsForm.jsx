@@ -1,4 +1,4 @@
-import CloseIcon from "../icons/CloseIcon.jsx";
+import CloseIcon from "../icons/CloseIcon.tsx";
 import StudentFields from "./StudentFields.jsx";
 import Button from "../others/Button.tsx";
 import {useFieldArray, useForm} from "react-hook-form";

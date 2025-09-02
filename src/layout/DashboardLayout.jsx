@@ -1,5 +1,5 @@
 import {Outlet} from "react-router-dom";
-import Sidebar from "../components/others/Sidebar.jsx";
+import Sidebar from "../components/others/Sidebar.tsx";
 import {useEffect, useState} from "react";
 import FooterMenu from "../components/others/FooterMenu.jsx";
 import isMobile from "../utils/isMobile.js";

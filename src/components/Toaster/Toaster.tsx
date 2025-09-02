@@ -1,6 +1,6 @@
 import {JSX, useState} from "react";
 import ToastComponent from "./ToastComponent.jsx";
-import CheckIcon from "../icons/CheckIcon.jsx";
+import CheckIcon from "../icons/CheckIcon.js";
 import InfoIcon from "../icons/InfoIcon.jsx";
 import ErrorIcon from "../others/ErrorIcon.jsx";
 

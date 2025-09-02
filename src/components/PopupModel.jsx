@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import CloseIcon from "./icons/CloseIcon.jsx";
+import CloseIcon from "./icons/CloseIcon.tsx";
 
 function PopupModel({message, desc, onSubmit, onClose, custom, buttonText}) {
     return (

@@ -1,5 +1,5 @@
 import NotifyIcon from "../icons/NotifyIcon.jsx";
-import CloseIcon from "../icons/CloseIcon.jsx";
+import CloseIcon from "../icons/CloseIcon.tsx";
 
 function Notification({heading, message, onClick, dismiss}) {
     return (

@@ -2,7 +2,7 @@ import InstitutionDetailsForm from "../components/InstitutionDetailsForm/Institu
 
 function Test() {
     return (
-        <div>
+        <div className="h-full">
             <InstitutionDetailsForm/>
         </div>
     );
