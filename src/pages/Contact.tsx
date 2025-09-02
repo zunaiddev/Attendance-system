@@ -1,5 +1,5 @@
 import LinkField from "../components/others/LinkField.jsx";
-import {ComponentType, createElement} from "react";
+import {ComponentType, createElement, useEffect} from "react";
 import EmailIcon from "../components/icons/EmailIcon.jsx";
 import PhoneIcon from "../components/icons/PhoneIcon.jsx";
 import supportIcon from "../components/icons/SupportIcon.jsx";
@@ -17,20 +17,31 @@ type FooterType = {
     linkText: string, isLink?: boolean
 }
 
-function Contact(): Element {
+type InputsType = {
+    name: string;
+    email: string;
+    subject: string;
+    message: string;
+}
+
+function Contact() {
     const {
         register,
         handleSubmit,
         formState: {errors, isSubmitting},
-    } = useForm();
+    } = useForm<InputsType>();
 
-    async function onSubmit(data: FieldValues) {
+    useEffect(() => {
+        console.log(typeof errors.email);
+    }, [errors.email]);
+
+    async function onSubmit(data: FieldValues): Promise<void> {
         data.name = "Unknown";
 
         try {
             await axios.post("https://intact-roanna-api-v9-6a640f42.koyeb.app/api/public/submit", data, {
                 headers: {
-                    "X-API-Key": import.meta.env.VITE_API_KY,
+                    "X-API-Key": import.meta.env.VITE_API_KEY,
                 }
             });
 

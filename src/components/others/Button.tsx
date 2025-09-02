@@ -7,7 +7,7 @@ type ButtonProp = {
     isSubmitting?: boolean;
     onClick?: MouseEventHandler<HTMLButtonElement> | undefined;
     disable?: boolean;
-    ref: Ref<HTMLButtonElement>;
+    ref?: Ref<HTMLButtonElement>;
     className?: string;
 }
 

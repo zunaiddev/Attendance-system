@@ -1,7 +1,7 @@
 import {HTMLInputAutoCompleteAttribute, useState} from "react";
 import EyeOnIcon from "../icons/EyeOnIcon.jsx";
 import EyeOffIcon from "../icons/EyeOffIcon.jsx";
-import {FieldError, UseFormRegisterReturn} from "react-hook-form";
+import {FieldError, FieldErrorsImpl, Merge, UseFormRegisterReturn} from "react-hook-form";
 
 type InputFieldType = {
     label?: string | null,
@@ -9,8 +9,8 @@ type InputFieldType = {
     autoComplete?: HTMLInputAutoCompleteAttribute,
     type?: "text" | "email" | "number" | "password",
     register: UseFormRegisterReturn,
-    error: FieldError,
-    autoFocus: boolean
+    error: FieldError | Merge<FieldError, FieldErrorsImpl<any>> | undefined;
+    autoFocus?: boolean
 }
 
 function InputField({
@@ -50,7 +50,7 @@ function InputField({
 
             </div>
 
-            {error && <span className="text-[12px] ml-1 text-red-600 mt-1">{error.message}</span>}
+            {error?.message && <span className="text-[12px] ml-1 text-red-600 mt-1">{error.message as string}</span>}
         </div>
     );
 }
