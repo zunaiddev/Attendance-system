@@ -7,13 +7,51 @@ import {years} from "../../Data/years.js";
 import {semesters} from "../../Data/semesters.js";
 import Button from "../others/Button.tsx";
 import InfoIcon from "../icons/InfoIcon.jsx";
+import {useEffect, useRef, useState} from "react";
+import useGet from "../../hooks/useGet.jsx";
 
 function InstitutionDetailsForm() {
     const {
         register,
         handleSubmit,
+        watch,
+        setValue,
         formState: {errors, isSubmitting},
     } = useForm();
+    const [showList, setShowList] = useState(false);
+    const [list, setList] = useState([]);
+    const university = watch("university");
+    const {get, loading} = useGet();
+    const containerRef = useRef(null);
+
+    function handleOnClick(value) {
+        setShowList(false);
+        setValue("university", value);
+    }
+
+    useEffect(() => {
+        if (university?.trim()) {
+            (async function () {
+                setShowList(true);
+                let response = await get(`/public/university?search=${university}`);
+                setList(response.data);
+            })();
+            return;
+        }
+
+        setList([]);
+    }, [get, university]);
+
+    useEffect(() => {
+        const handleClickOutside = (e) => {
+            if (containerRef.current && !containerRef.current.contains(e.target)) {
+                setShowList(false);
+            }
+        };
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => document.removeEventListener("mousedown", handleClickOutside);
+    }, []);
+
 
     function onSubmit(data) {
         console.log("Form Data: ", data);
@@ -52,10 +90,24 @@ function InstitutionDetailsForm() {
 
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="w-full p-6 space-y-5">
-                        <InputField placeholder="University"
-                                    register={register("university", {
-                                        required: "University is required",
-                                    })} error={errors.university}/>
+                        <div className="relative" ref={containerRef}>
+                            <InputField placeholder="University"
+                                        register={register("university", {
+                                            required: "University is required",
+                                        })} error={errors.university}/>
+                            {showList &&
+                                <div
+                                    className="absolute z-50 w-full py-3 space-y-3 bg-gray-800 rounded-md max-h-80 translate-y-1">
+                                    {list.length <= 0 ? (loading ? <p>loading...</p> : <p>Not Found</p>) :
+                                        <ul className="overflow-y-auto h-full">
+                                            {list.map(item => (
+                                                <li key={item.id} onClick={() => handleOnClick(item.name)}
+                                                    className="capitalize cursor-pointer hover:bg-gray-500/20 p-2 pl-3">{item.name}</li>))}
+                                        </ul>}
+
+                                </div>
+                            }
+                        </div>
 
                         <SelectField defaultOpt="Course" list={courses}
                                      register={register("course", {

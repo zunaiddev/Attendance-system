@@ -10,7 +10,7 @@ type InputFieldType = {
     type?: "text" | "email" | "number" | "password",
     register: UseFormRegisterReturn,
     error: FieldError | Merge<FieldError, FieldErrorsImpl<any>> | undefined;
-    autoFocus?: boolean
+    autoFocus?: boolean;
 }
 
 function InputField({
@@ -32,7 +32,8 @@ function InputField({
                      placeholder-gray-400 text-white
                       ${error && "border-red-600"} ${type === "password" && "pr-9"}`}
                     autoFocus={autoFocus}
-                    placeholder={placeholder} autoComplete={autoComplete}
+                    placeholder={placeholder}
+                    autoComplete={autoComplete}
                     type={type === "password" ? (show ? "text" : "password") : type}
                     {...register}/>
                 {type === "password" && (show ?
