@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import usePost from "../hooks/usePost.jsx";
+import usePost from "../hooks/usePost.tsx";
 import SomethingWentWrong from "../components/others/SomethingWentWrong.jsx";
 import MainLoader from "../loader/MainLoader.jsx";
 import {useNavigate} from "react-router-dom";

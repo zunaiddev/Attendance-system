@@ -1,4 +1,4 @@
-import usePost from "../hooks/usePost.jsx";
+import usePost from "../hooks/usePost.tsx";
 import {useCallback, useEffect, useState} from "react";
 import {Navigate, useNavigate, useSearchParams} from "react-router-dom";
 import MainLoader from "../loader/MainLoader.jsx";
@@ -6,7 +6,7 @@ import {useForm} from "react-hook-form";
 import InputField from "../components/others/InputField.tsx";
 import Button from "../components/others/Button.tsx";
 import {extractClaims} from "../services/jwt.js";
-import toast from "../components/Toaster/ToastComponent.jsx";
+import {toast} from "../components/Toaster/Toaster.js";
 
 function Verify() {
     const [params] = useSearchParams();
@@ -18,7 +18,6 @@ function Verify() {
     }, []);
 
     useEffect(() => {
-        console.log("First Hook runs")
         let token = params.get("token");
         setResetToken(token);
 

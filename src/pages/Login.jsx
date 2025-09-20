@@ -7,7 +7,7 @@ import {Link, useNavigate} from "react-router-dom";
 import {toast} from "../components/Toaster/Toaster.tsx";
 import GoogleIcon from "../components/icons/GoogleIcon.jsx";
 import GithubIcon from "../components/icons/GithubIcon.jsx";
-import usePost from "../hooks/usePost.jsx";
+import usePost from "../hooks/usePost.tsx";
 import {HttpStatusCode} from "axios";
 import storage from "../services/storage.js";
 

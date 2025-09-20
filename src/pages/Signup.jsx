@@ -5,7 +5,7 @@ import SocialButton from "../components/others/SocialButton.jsx";
 import {Link, useNavigate} from "react-router-dom";
 import GithubIcon from "../components/icons/GithubIcon.jsx";
 import GoogleIcon from "../components/icons/GoogleIcon.jsx";
-import usePost from "../hooks/usePost.jsx";
+import usePost from "../hooks/usePost.tsx";
 import {HttpStatusCode} from "axios";
 import {toast} from "../components/Toaster/Toaster.tsx";
 
@@ -16,7 +16,13 @@ function SignupForm() {
         reset,
         setError,
         formState: {errors, isSubmitting},
-    } = useForm();
+    } = useForm({
+        defaultValues: {
+            name: "John Doe",
+            email: "john@gmail.com",
+            password: "John@123",
+        }
+    });
     const {post} = usePost();
     const navigate = useNavigate();
 

@@ -9,8 +9,9 @@ import Button from "../others/Button.tsx";
 import InfoIcon from "../icons/InfoIcon.jsx";
 import {useEffect, useRef, useState} from "react";
 import useGet from "../../hooks/useGet.jsx";
+import PropTypes from "prop-types";
 
-function InstitutionDetailsForm() {
+function InstitutionDetailsForm({onClose, onSubmit}) {
     const {
         register,
         handleSubmit,
@@ -52,13 +53,8 @@ function InstitutionDetailsForm() {
         return () => document.removeEventListener("mousedown", handleClickOutside);
     }, []);
 
-
-    function onSubmit(data) {
-        console.log("Form Data: ", data);
-    }
-
     return (
-        <div className="fixed top-0 right-0 h-screen w-screen flex justify-center pt-20 p-5">
+        <div className="fixed top-0 right-0 h-screen w-screen flex justify-center pt-20 p-5 z-50">
             <div className="relative rounded-lg shadow-sm bg-gray-600 w-full max-w-lg h-fit">
                 <div
                     className="flex items-center justify-between p-4 md:p-5 border-b rounded-t border-gray-600">
@@ -82,7 +78,7 @@ function InstitutionDetailsForm() {
                         </div>
                     </div>
 
-                    <button
+                    <button onClick={onClose}
                         className="end-2.5 text-gray-400 bg-transparent rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center hover:bg-gray-500 hover:text-white cursor-pointer">
                         <CloseIcon/>
                     </button>
@@ -136,6 +132,11 @@ function InstitutionDetailsForm() {
             </div>
         </div>
     );
+}
+
+InstitutionDetailsForm.propTypes = {
+    onClose: PropTypes.func.isRequired,
+    onSubmit: PropTypes.func.isRequired,
 }
 
 export default InstitutionDetailsForm;

@@ -1,15 +1,15 @@
 import {useCallback, useState} from "react";
 import API from "../API/API.js";
 
-function usePost() {
-    const [loading, setLoading] = useState(false);
+function usePut(): { put: Function, loading: boolean } {
+    const [loading, setLoading] = useState<boolean>(false);
 
-    const post = useCallback(async (url, postData = undefined, token = undefined) => {
+    const put = useCallback(async (url: string, postData: object | undefined, token: undefined | string) => {
         setLoading(true);
-        let data = null, error = null;
+        let data: any = null, error: object | null = null;
 
         try {
-            const response = await API.post(url, postData, {
+            const response = await API.put(url, postData, {
                 headers: {
                     "Authorization": `Bearer ${token}`
                 }
@@ -17,7 +17,7 @@ function usePost() {
 
             setLoading(false);
             data = response.data.payload;
-        } catch (err) {
+        } catch (err: any) {
             error = {
                 status: err.status,
                 code: (err.response && err.response.data) ? err.response.data.code : "CLIENT_ERROR"
@@ -29,7 +29,7 @@ function usePost() {
         return {data, error};
     }, []);
 
-    return {post, loading};
+    return {put, loading};
 }
 
-export default usePost;
+export default usePut;

@@ -5,7 +5,7 @@ import {useFieldArray, useForm} from "react-hook-form";
 import {useCallback, useContext, useEffect, useMemo} from "react";
 import useConfirm from "../../hooks/useConfirm.jsx";
 import PropTypes from "prop-types";
-import usePost from "../../hooks/usePost.jsx";
+import usePost from "../../hooks/usePost.tsx";
 import getToken from "../../utils/getToken.js";
 import StudentsContext from "../../context/StudentsContext.jsx";
 
@@ -46,7 +46,10 @@ function AddStudentsForm({onClose, isUpdate}) {
         for (const value of values) {
             for (let val in value) {
                 if (value[val] !== "") {
-                    if (await confirm()) reset();
+                    if (await confirm()) {
+                        reset();
+                        onClose();
+                    }
                 }
             }
         }
