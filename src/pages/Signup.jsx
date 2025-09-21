@@ -23,7 +23,7 @@ function SignupForm() {
             password: "John@123",
         }
     });
-    const {post} = usePost();
+    const [post] = usePost();
     const navigate = useNavigate();
 
     async function onSubmit(formData) {

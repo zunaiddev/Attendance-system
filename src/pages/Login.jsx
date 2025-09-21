@@ -20,7 +20,7 @@ function Login() {
         formState: {errors, isSubmitting},
     } = useForm({defaultValues: {email: "john@gmail.com", password: "John@123"}});
     const nav = useNavigate();
-    const {post} = usePost();
+    const [post] = usePost();
 
     async function onSubmit(formData) {
         let {data, error} = await post("/auth/login", formData);

@@ -19,6 +19,7 @@ import Verify from "../pages/Verify.jsx";
 import Logout from "../pages/Logout.jsx";
 import Settings from "../pages/Settings.jsx";
 import Test from "../pages/Test.jsx";
+import InstitutionForm from "../pages/InstitutionForm.jsx";
 
 const router = createBrowserRouter([
     {
@@ -96,6 +97,10 @@ const router = createBrowserRouter([
             {
                 path: "*",
                 element: <NotFound/>
+            },
+            {
+                path: "institution",
+                element: <InstitutionForm/>
             },
             {
                 path: "test",

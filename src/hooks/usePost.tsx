@@ -1,7 +1,7 @@
 import {useCallback, useState} from "react";
 import API from "../API/API.js";
 
-function usePost(): { post: Function, loading: boolean } {
+function usePost(): [post: Function, loading: boolean] {
     const [loading, setLoading] = useState<boolean>(false);
 
     const post = useCallback(async (url: string, postData: object | undefined, token: undefined | string) => {
@@ -29,7 +29,7 @@ function usePost(): { post: Function, loading: boolean } {
         return {data, error};
     }, []);
 
-    return {post, loading};
+    return [post, loading];
 }
 
 export default usePost;

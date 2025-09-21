@@ -7,7 +7,7 @@ import {toast} from "../components/Toaster/Toaster.tsx";
 import storage from "../services/storage.js";
 
 function Logout() {
-    const {post} = usePost();
+    const [post] = usePost();
     const [error, setError] = useState(false);
     const nav = useNavigate();
 

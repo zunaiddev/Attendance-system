@@ -1,7 +1,7 @@
 import {useCallback, useState} from "react";
 import API from "../API/API.js";
 
-function usePut(): { put: Function, loading: boolean } {
+function usePut(): [put: Function, loading: boolean] {
     const [loading, setLoading] = useState<boolean>(false);
 
     const put = useCallback(async (url: string, postData: object | undefined, token: undefined | string) => {
@@ -26,10 +26,10 @@ function usePut(): { put: Function, loading: boolean } {
 
         setLoading(false);
 
-        return {data, error};
+        return [data, error];
     }, []);
 
-    return {put, loading};
+    return [put, loading];
 }
 
 export default usePut;

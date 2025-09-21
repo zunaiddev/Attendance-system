@@ -11,7 +11,7 @@ function CheckEmail() {
     const [params] = useSearchParams();
     const from = params.get("from");
     const userId = params.get("userId");
-    const {loading, post} = usePost();
+    const [post, loading] = usePost();
     const timerRef = useRef(null);
     const [timeLeft, setTimeLeft] = useState(Number.parseInt(localStorage.getItem("RESEND_EMAIL_TIME_LEFT")) ?? -1);
     const [somethingWrong, setSomethingWrong] = useState(false);

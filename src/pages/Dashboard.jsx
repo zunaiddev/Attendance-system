@@ -9,19 +9,16 @@ import SomethingWentWrong from "../components/others/SomethingWentWrong.jsx";
 import Table from "../components/Table/Table.jsx";
 import Switch from "../components/others/Switch.jsx";
 import AddStudentsForm from "../components/StudentsForm/AddStudentsForm.jsx";
-import InstitutionDetailsForm from "../components/InstitutionDetailsForm/InstitutionDetailsForm.jsx";
-import usePut from "../hooks/userPut.js";
-import {toast} from "../components/Toaster/Toaster.js";
+import {useNavigate} from "react-router-dom";
 
 function Dashboard() {
     const [students, setStudents] = useState([]);
     const [user, setUser] = useState(null);
     const [showStudentForm, setShowStudentForm] = useState(false);
     const {get, loading} = useGet();
-    const {put} = usePut();
     const [somethingWentWrong, setSomethingWentWrong] = useState(false);
     const [isUpdate, setUpdate] = useState(false);
-    const [showInstitutionForm, setShowInstitutionForm] = useState(false);
+    const navigate = useNavigate();
 
     useEffect(() => {
         (async function () {
@@ -38,7 +35,11 @@ function Dashboard() {
     }, [get]);
 
     useEffect(() => {
-        setShowInstitutionForm(user && !user.completed);
+        if (user && !user.completed) {
+            navigate("/institution", {
+                state: {user}
+            });
+        }
 
         // if (!sessionStorage.getItem("notify")) {
         //     if (user && !user.isProfileComplete) {
@@ -85,19 +86,6 @@ function Dashboard() {
         setUpdate(true);
     }
 
-    async function handleOnSubmit(formData) {
-        formData.name = user.name;
-        let {data, error} = await put("/user", formData, await getToken());
-
-        if (error) {
-            toast.error("Something went wrong!");
-            return;
-        }
-
-        setUser(data);
-        toast.success("Successfully updated");
-    }
-
     return (
         <StudentsContext.Provider value={{students, updateStudents}}>
             <>
@@ -125,8 +113,6 @@ function Dashboard() {
                 </div>}
 
                 {showStudentForm && <AddStudentsForm onClose={handleHideStudentForm} isUpdate={isUpdate}/>}
-                {showInstitutionForm &&
-                    <InstitutionDetailsForm onClose={() => setShowInstitutionForm(false)} onSubmit={handleOnSubmit}/>}
             </>
         </StudentsContext.Provider>
     );

@@ -10,7 +10,7 @@ import {toast} from "../components/Toaster/Toaster.js";
 
 function Verify() {
     const [params] = useSearchParams();
-    const {post, loading} = usePost();
+    const [post, loading] = usePost();
     const [resetPassword, setResetPassword] = useState(null);
     const [resetToken, setResetToken] = useState("");
     const navigate = useCallback(text => {
@@ -58,8 +58,6 @@ function Verify() {
     }, [navigate, params]);
 
     useEffect(() => {
-        console.log("Second Hook Runs.")
-
         if (resetPassword == null) {
             return;
         }
@@ -106,7 +104,7 @@ function ResetPassword({token}) {
         formState: {errors, isSubmitting},
         watch
     } = useForm();
-    const {post} = usePost();
+    const [post] = usePost();
     const navigate = useNavigate();
 
     async function onSubmit(formData) {

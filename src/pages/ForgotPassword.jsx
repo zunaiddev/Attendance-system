@@ -15,7 +15,7 @@ function ForgotPassword() {
         formState: {errors, isSubmitting},
     } = useForm();
     const navigate = useNavigate();
-    const {post} = usePost();
+    const [post] = usePost();
 
     async function onSubmit(formData) {
         let {data, error} = await post("/auth/forget-password", formData, undefined);

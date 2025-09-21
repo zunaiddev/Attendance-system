@@ -26,7 +26,7 @@ function AddStudentsForm({onClose, isUpdate}) {
         section: "C6", semester: 1, year: 2
     }), [append]);
 
-    const {post} = usePost();
+    const [post] = usePost();
 
     const [confirm, Confirm] = useConfirm();
 

@@ -2,29 +2,21 @@ import {useEffect, useState} from "react";
 import {useForm} from "react-hook-form";
 import Button from "../components/others/Button.tsx";
 import InputField from "../components/others/InputField.tsx";
-import Checkbox from "../components/others/Checkbox.jsx";
 import UserEditIcon from "../components/icons/UserEditIcon.jsx";
 import getInitials from "../utils/getInitials.js";
 import getToken from "../utils/getToken.js";
-import {toast} from "../components/Toaster/Toaster.tsx";
 import useGet from "../hooks/useGet.jsx";
 import MainLoader from "../loader/MainLoader.jsx";
+import SomethingWentWrong from "../components/others/SomethingWentWrong.jsx";
+import capitaliseEachChar from "../utils/capitaliseEachChar.js";
+import usePut from "../hooks/userPut.js";
+import {toast} from "../components/Toaster/Toaster.js";
 
 function Profile() {
     const [isEditing, setIsEditing] = useState(false);
-    const [user, setUser] = useState({
-        name: "John Doe",
-        email: "john@example.com",
-        university: "Sample University",
-        section: "A",
-        semester: "6",
-        year: "3",
-        isClassRep: false
-    });
+    const [user, setUser] = useState();
 
-    const {register, handleSubmit, formState: {errors, isSubmitting}} = useForm({
-        defaultValues: user
-    });
+    const {register, handleSubmit, formState: {errors, isSubmitting}, setValue} = useForm();
 
     const {
         register: registerPass,
@@ -40,7 +32,14 @@ function Profile() {
     } = useForm();
 
     const {loading, get} = useGet();
+    const [put] = usePut();
     const [error, setError] = useState(false);
+
+    useEffect(() => {
+        for (let val in user) {
+            setValue(val, user[val]);
+        }
+    }, [user]);
 
     useEffect(() => {
         (async function () {
@@ -48,16 +47,15 @@ function Profile() {
 
             setUser(data);
 
-            if (error) {
-                setError(true);
-                toast.error("Something went wrong!");
-            }
+            setError(error != null);
         })();
     }, [])
 
-    const onSubmit = (data) => {
+    const onSubmit = async (formData) => {
+        const [data, error] = await put("/user", formData, await getToken());
         setUser(data);
         setIsEditing(false);
+        toast.success("Updated");
     };
 
     const onPasswordSubmit = (data) => {
@@ -73,7 +71,7 @@ function Profile() {
     }
 
     if (error) {
-        return <h1>Something Went Wrong</h1>;
+        return <SomethingWentWrong/>;
     }
 
     return (
@@ -82,11 +80,11 @@ function Profile() {
                 <div className="flex items-center gap-4 mb-8">
                     <div
                         className="size-14 sm:size-20 rounded-full bg-blue-600 flex items-center justify-center text-2xl font-bold">
-                        {getInitials(user.name)}
+                        {getInitials(user?.name)}
                     </div>
                     <div className="flex-1">
-                        <h1 className="text-2xl font-bold">{user.name}</h1>
-                        <p className="text-gray-400">{user.email}</p>
+                        <h1 className="text-2xl font-bold">{capitaliseEachChar(user?.name)}</h1>
+                        <p className="text-gray-400">{user?.email}</p>
                     </div>
                     <button
                         onClick={() => setIsEditing(!isEditing)}
@@ -132,32 +130,27 @@ function Profile() {
                                 register={register("year")}
                                 error={errors.year}
                             />
-                            <Checkbox text="I'm a Class Representative" register={register("isClassRep")}/>
                         </div>
-                        <Button text="Save Changes" isSubmitting={isSubmitting}/>
+                        <Button text="Save Changes" type="submit" isSubmitting={isSubmitting}/>
                     </form>
                 ) : (
                     <div className="space-y-4 bg-gray-800 p-3 sm:p-6 rounded-lg">
                         <div className="grid grid-cols-2 gap-4">
                             <div>
                                 <p className="text-gray-400">University</p>
-                                <p>{user.university}</p>
+                                <p>{capitaliseEachChar(user?.university)}</p>
                             </div>
                             <div>
                                 <p className="text-gray-400">Section</p>
-                                <p>{user.section}</p>
+                                <p>{user?.section}</p>
                             </div>
                             <div>
                                 <p className="text-gray-400">Semester</p>
-                                <p>{user.semester}</p>
+                                <p>{user?.semester}</p>
                             </div>
                             <div>
                                 <p className="text-gray-400">Year</p>
-                                <p>{user.year}</p>
-                            </div>
-                            <div className="col-span-2">
-                                <p className="text-gray-400">Role</p>
-                                <p>{user.isClassRep ? "Class Representative" : "Student"}</p>
+                                <p>{user?.year}</p>
                             </div>
                         </div>
                     </div>
