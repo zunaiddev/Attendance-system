@@ -19,7 +19,8 @@ import Verify from "../pages/Verify.jsx";
 import Logout from "../pages/Logout.jsx";
 import Settings from "../pages/Settings.jsx";
 import Test from "../pages/Test.jsx";
-import InstitutionForm from "../pages/InstitutionForm.jsx";
+import Institution from "../pages/InstitutionForm.jsx";
+import FindStudents from "../pages/FindStudents.js";
 
 const router = createBrowserRouter([
     {
@@ -100,7 +101,10 @@ const router = createBrowserRouter([
             },
             {
                 path: "institution",
-                element: <InstitutionForm/>
+                element: <Institution/>
+            }, {
+                path: "find-students",
+                element: <FindStudents/>
             },
             {
                 path: "test",
