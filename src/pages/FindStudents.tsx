@@ -1,106 +1,132 @@
-import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow} from "../components/table";
-import {useEffect, useState} from "react";
+import React, {useState} from "react";
+import StudentField from "../components/StudentField";
+import {Student} from "../types/Student";
 import Button from "../components/others/Button";
-import useGet from "../hooks/useGet";
-import getToken from "../utils/getToken";
-import usePost from "../hooks/usePost";
 
-interface Student {
-    id: number;
-    name: string;
-    roll: string;
-    course: string;
-    year: number;
-    section: string;
-    semester: number;
-    university: string;
-}
+export default function FindStudents() {
 
-function FindStudents() {
-    const [students, setStudents] = useState<Student[]>([]);
-    const [selectedStudents, setSelectedStudents] = useState<Set<number>>(new Set());
-    const {get} = useGet();
-    const [post, loading] = usePost();
+    const [students, setStudents] = useState<Student[]>([
+        {
+            id: 1,
+            name: "Amit Sharma",
+            role: "Student",
+            course: "BCA",
+            year: 2,
+            section: "A",
+            semester: 4,
+            university: "Quantum University"
+        },
+        {
+            id: 2,
+            name: "Priya Verma",
+            role: "Student",
+            course: "B.Tech",
+            year: 3,
+            section: "B",
+            semester: 6,
+            university: "IIT Delhi"
+        },
+        {
+            id: 3,
+            name: "Rohit Singh",
+            role: "Student",
+            course: "B.Sc",
+            year: 1,
+            section: "C",
+            semester: 2,
+            university: "Delhi University"
+        },
+        {
+            id: 4,
+            name: "Sneha Gupta",
+            role: "Student",
+            course: "MBA",
+            year: 1,
+            section: "A",
+            semester: 1,
+            university: "Quantum University"
+        },
+        {
+            id: 5,
+            name: "Aditya Yadav",
+            role: "Student",
+            course: "B.Com",
+            year: 2,
+            section: "B",
+            semester: 3,
+            university: "Delhi University"
+        },
+        {
+            id: 6,
+            name: "Neha Khan",
+            role: "Student",
+            course: "MCA",
+            year: 2,
+            section: "C",
+            semester: 4,
+            university: "Quantum University"
+        },
+        {
+            id: 7,
+            name: "Karan Mehta",
+            role: "Student",
+            course: "BCA",
+            year: 3,
+            section: "A",
+            semester: 6,
+            university: "IIT Delhi"
+        },
+        {
+            id: 8,
+            name: "Riya Sharma",
+            role: "Student",
+            course: "B.Tech",
+            year: 2,
+            section: "B",
+            semester: 4,
+            university: "Delhi University"
+        }
+    ]);
+    const [selected, setSelected] = useState<Set<number>>(new Set());
 
-    useEffect(() => {
-        console.log("Selected Students", selectedStudents);
-    }, [selectedStudents]);
+    function add(id: number): void {
+        setSelected(prev => new Set(prev.add(id)));
+    }
 
-    useEffect(() => {
-        (async function () {
-            const {data} = await get("/student/find", await getToken());
-            setStudents(data);
-        })();
-    }, []);
-
-    function add(id: number) {
-        setSelectedStudents(prev => {
-            let newSet = new Set(prev);
-            newSet.add(id);
-            return newSet;
+    function remove(id: number): void {
+        setSelected(prev => {
+            const set = new Set(prev);
+            set.delete(id);
+            return set;
         });
     }
 
-    async function handleSave() {
-        let [data, error] = await post("/student", [...selectedStudents], await getToken());
-        console.log(data);
-        console.log(error);
-    }
+    const handleSelectAllToggle = () => {
+        if (selected.size === students.length) {
+            setSelected(new Set());
+            return;
+        }
+        setSelected(new Set(students.map(student => student.id)));
+    };
 
     return (
-        <div className="px-30 py-5 space-y-4">
-            <div className="flex flex-col gap-6 rounded-xl border p-6">
-                <div className="flex items-center gap-3">
-                    <h1 className="text-xl font-bold">Students Info</h1>
-                    <span className="bg-gray-800 text-primary px-2 py-1 rounded-md">
-                {selectedStudents.size} / {students?.length} Selected
-              </span>
-                    <Button text="Save" type="button" onClick={handleSave}/>
-                </div>
-                <div className="overflow-x-auto">
-                    <Table>
-                        <TableHeader>
-                            <TableRow>
-                                <TableHead>Name</TableHead>
-                                <TableHead>Roll No</TableHead>
-                                <TableHead>Course</TableHead>
-                                <TableHead>Year</TableHead>
-                                <TableHead>Section</TableHead>
-                                <TableHead>Semester</TableHead>
-                                <TableHead>University</TableHead>
-                                <TableHead className="text-center">Actions</TableHead>
-                            </TableRow>
-                        </TableHeader>
-                        <TableBody>
-                            {students.map((student) => {
-                                const isSelected: boolean = true;
-                                return (
-                                    <TableRow
-                                        key={student.id}
-                                        className={isSelected ? "bg-primary/5 border-primary/20" : ""}
-                                    >
-                                        <TableCell className="font-medium">{student.name}</TableCell>
-                                        <TableCell>{student.roll}</TableCell>
-                                        <TableCell>{student.course}</TableCell>
-                                        <TableCell>{student.year}</TableCell>
-                                        <TableCell>{student.section}</TableCell>
-                                        <TableCell>{student.semester}</TableCell>
-                                        <TableCell>{student.university}</TableCell>
-                                        <TableCell>
-                                            <div className="">
-                                                <Button text="+" type="button" onClick={() => add(student.id)}
-                                                        className="bg-none w-4 h-4 p-0 bg-transparent border hover:bg-transparent"/>
-                                            </div>
-                                        </TableCell>
-                                    </TableRow>
-                                );
-                            })}
-                        </TableBody>
-                    </Table>
-                </div>
+        <div className="min-h-screen bg-gradient-to-br from-gray-900 to-black text-gray-100 p-8">
+            <div className="flex justify-between items-center mb-8">
+                <h2 className="text-3xl font-extrabold tracking-wide">Find Students</h2>
+                <Button onClick={handleSelectAllToggle}
+                        text={selected.size == students.length ? "Deselect All" : "Select All"} type="button"/>
+            </div>
+
+            <div className="space-y-4">
+                {students.map((student) => <StudentField student={student}/>)}
+            </div>
+
+            <div className="mt-10 flex justify-center">
+                <button
+                    className="px-8 py-3 bg-purple-600 font-semibold rounded-xl shadow-md hover:scale-105 hover:bg-purple-700 transition-transform duration-200">
+                    Save
+                </button>
             </div>
         </div>
     );
 }
-
-export default FindStudents;

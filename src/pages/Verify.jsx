@@ -76,7 +76,7 @@ function Verify() {
                     return;
                 }
 
-                localStorage.setItem("token", data.token);
+                localStorage.setItem("token", data?.token);
                 localStorage.setItem("remember", "true");
 
                 toast.success("Verification Successful!");
@@ -92,7 +92,7 @@ function Verify() {
         return <ResetPassword token={resetToken}/>;
     }
 
-    return <Navigate to={"/auth/login"}/>;
+    return <Navigate to={"/dashboard"}/>;
 }
 
 
@@ -109,8 +109,6 @@ function ResetPassword({token}) {
 
     async function onSubmit(formData) {
         let {error} = await post("/verify", formData, token);
-        console.log("Data: ", formData);
-        console.log("token: ", token);
 
         if (error) {
             if (error.code === "SAME_PASSWORD") {

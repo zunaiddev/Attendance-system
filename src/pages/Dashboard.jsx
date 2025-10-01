@@ -22,7 +22,7 @@ function Dashboard() {
 
     useEffect(() => {
         (async function () {
-            let {data, error} = await get("/student", await getToken());
+            let {data, error} = await get("/students/find", await getToken());
 
             if (error) {
                 setSomethingWentWrong(true);
@@ -35,7 +35,7 @@ function Dashboard() {
     }, [get]);
 
     useEffect(() => {
-        if (user && !user.completed) {
+        if (user && !user.academic) {
             navigate("/institution", {
                 state: {user}
             });
