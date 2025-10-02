@@ -5,46 +5,46 @@ import InputField from "../components/others/InputField.tsx";
 import UserEditIcon from "../components/icons/UserEditIcon.jsx";
 import getInitials from "../utils/getInitials.js";
 import getToken from "../utils/getToken.js";
-import useGet from "../hooks/useGet.jsx";
 import MainLoader from "../loader/MainLoader.jsx";
 import SomethingWentWrong from "../components/others/SomethingWentWrong.jsx";
 import capitaliseEachChar from "../utils/capitaliseEachChar.js";
 import usePut from "../hooks/userPut.js";
 import {toast} from "../components/Toaster/Toaster.js";
+import getMapping from "../API/getMapping.js";
+import Badge from "../components/Badge/Badge.js";
+import Role from "../types/Role.js";
+import UpdatePassword from "../components/Profile/UpdatePassword.js";
 
 function Profile() {
     const [isEditing, setIsEditing] = useState(false);
-    const [user, setUser] = useState();
+    const [user, setUser] = useState(null);
+    const [loading, setLoading] = useState(false);
 
     const {register, handleSubmit, formState: {errors, isSubmitting}, setValue} = useForm();
 
     const {
-        register: registerPass,
-        handleSubmit: handlePassSubmit,
-        formState: {errors: passErrors, isSubmitting: isPassSubmitting},
-        getValues
-    } = useForm();
-
-    const {
-        register: registerEmail,
-        handleSubmit: handleEmailSubmit,
+        register: registerEmail, handleSubmit: handleEmailSubmit,
         formState: {errors: emailErrors, isSubmitting: isEmailSubmitting},
     } = useForm();
 
-    const {loading, get} = useGet();
     const [put] = usePut();
     const [error, setError] = useState(false);
 
     useEffect(() => {
-        for (let val in user) {
-            setValue(val, user[val]);
+        if (user) {
+            let academic = user.academic;
+            setValue("name", user.name);
+            setValue("university", academic.university);
+            setValue("section", academic.section);
+            setValue("semester", academic.semester);
+            setValue("year", academic.year);
         }
     }, [user]);
 
     useEffect(() => {
         (async function () {
-            let {data, error} = await get("/user", await getToken());
-
+            let {data, error} = await getMapping("/user");
+            setLoading(false);
             setUser(data);
 
             setError(error != null);
@@ -56,10 +56,6 @@ function Profile() {
         setUser(data);
         setIsEditing(false);
         toast.success("Updated");
-    };
-
-    const onPasswordSubmit = (data) => {
-        console.log(data);
     };
 
     const onEmailSubmit = (data) => {
@@ -83,7 +79,11 @@ function Profile() {
                         {getInitials(user?.name)}
                     </div>
                     <div className="flex-1">
-                        <h1 className="text-2xl font-bold">{capitaliseEachChar(user?.name)}</h1>
+                        <div className="flex items-center gap-4">
+                            <h1 className="text-2xl font-bold inline-block">{capitaliseEachChar(user?.name)}</h1>
+                            {getBadge(user?.role)}
+                        </div>
+
                         <p className="text-gray-400">{user?.email}</p>
                     </div>
                     <button
@@ -138,19 +138,23 @@ function Profile() {
                         <div className="grid grid-cols-2 gap-4">
                             <div>
                                 <p className="text-gray-400">University</p>
-                                <p>{capitaliseEachChar(user?.university)}</p>
+                                <p>{capitaliseEachChar(user?.academic.university)}</p>
+                            </div>
+                            <div>
+                                <p className="text-gray-400">Course</p>
+                                <p>{user?.academic.course.toUpperCase()}</p>
                             </div>
                             <div>
                                 <p className="text-gray-400">Section</p>
-                                <p>{user?.section}</p>
+                                <p>{user?.academic.section}</p>
                             </div>
                             <div>
                                 <p className="text-gray-400">Semester</p>
-                                <p>{user?.semester}</p>
+                                <p>{user?.academic.semester}</p>
                             </div>
                             <div>
                                 <p className="text-gray-400">Year</p>
-                                <p>{user?.year}</p>
+                                <p>{user?.academic.year}</p>
                             </div>
                         </div>
                     </div>
@@ -184,47 +188,17 @@ function Profile() {
                         </div>
                         <Button text="Update Email" isSubmitting={isEmailSubmitting}/>
                     </form>
-
-                    <form onSubmit={handlePassSubmit(onPasswordSubmit)}
-                          className="space-y-4 bg-gray-800 p-3 sm:p-6 rounded-lg">
-                        <h2 className="text-xl font-semibold mb-4">Change Password</h2>
-                        <div className="grid grid-cols-1 gap-4">
-                            <InputField
-                                label="Current Password"
-                                type="password"
-                                register={registerPass("currentPassword", {
-                                    required: "Current password is required"
-                                })}
-                                error={passErrors.currentPassword}
-                            />
-                            <InputField
-                                label="New Password"
-                                type="password"
-                                register={registerPass("newPassword", {
-                                    required: "New password is required",
-                                    minLength: {
-                                        value: 8,
-                                        message: "Password must be at least 8 characters"
-                                    }
-                                })}
-                                error={passErrors.newPassword}
-                            />
-                            <InputField
-                                label="Confirm New Password"
-                                type="password"
-                                register={registerPass("confirmPassword", {
-                                    required: "Please confirm your password",
-                                    validate: (value) => value === getValues("newPassword") || "Passwords do not match"
-                                })}
-                                error={passErrors.confirmPassword}
-                            />
-                        </div>
-                        <Button text="Update Password" isSubmitting={isPassSubmitting}/>
-                    </form>
+                    <UpdatePassword/>
                 </div>
             </div>
         </div>
     );
+}
+
+function getBadge(role) {
+    return <Badge text={role}
+                  type={role === Role.STUDENT ? "gray" : role === Role.TEACHER ? "blue" : role === Role.ADMIN ? "yellow" : ""}/>
+
 }
 
 export default Profile;

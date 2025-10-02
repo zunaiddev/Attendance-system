@@ -2,7 +2,7 @@ import {ElementType, MouseEventHandler, Ref} from "react";
 
 type ButtonProp = {
     text: string;
-    type: "submit" | "reset" | "button";
+    type?: "submit" | "reset" | "button";
     icon?: ElementType;
     isSubmitting?: boolean;
     onClick?: MouseEventHandler<HTMLButtonElement> | undefined;
@@ -13,7 +13,7 @@ type ButtonProp = {
 
 function Button({
                     text,
-                    type = "button",
+                    type = "submit",
                     icon: Icon,
                     isSubmitting,
                     onClick,

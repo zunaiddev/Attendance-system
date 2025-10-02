@@ -1,18 +1,30 @@
 import Button from "./others/Button.js";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {Student} from "../types/Student";
 
 interface Props {
     student: Student;
     add: (id: number) => void;
     remove: (id: number) => void;
+    isAdded: boolean;
 }
 
-function StudentField({student, add, remove}: Props) {
-    const [added, setAdded] = useState<boolean>(false);
+function StudentField({student, add, remove, isAdded}: Props) {
+    const [added, setAdded] = useState<boolean>(isAdded);
+
+    useEffect(() => {
+        setAdded(isAdded);
+    }, [isAdded]);
 
     function handleClick() {
-        
+        if (added) {
+            remove(student.id);
+            setAdded(false);
+            return;
+        }
+
+        add(student.id);
+        setAdded(true);
     }
 
     return (
@@ -27,7 +39,8 @@ function StudentField({student, add, remove}: Props) {
                     {student.course} • {student.year} Year • Sec {student.section} • {student.semester} Sem
                 </p>
             </div>
-            <Button text="Add" type="button" onClick={handleClick}/>
+            <Button text={added ? "Remove" : "Add"} className={added ? "bg-red-500 hover:bg-red-600" : ""} type="button"
+                    onClick={handleClick}/>
         </div>
     );
 }

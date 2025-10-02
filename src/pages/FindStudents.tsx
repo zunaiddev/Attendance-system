@@ -1,15 +1,18 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import StudentField from "../components/StudentField";
 import {Student} from "../types/Student";
 import Button from "../components/others/Button";
+import MainLoader from "../loader/MainLoader";
+import SomethingWentWrong from "../components/others/SomethingWentWrong";
+import getMapping from "../API/getMapping";
+import ApiResponse from "../types/ApiResponse";
 
 export default function FindStudents() {
-
     const [students, setStudents] = useState<Student[]>([
         {
             id: 1,
             name: "Amit Sharma",
-            role: "Student",
+            roll: "Student",
             course: "BCA",
             year: 2,
             section: "A",
@@ -19,7 +22,7 @@ export default function FindStudents() {
         {
             id: 2,
             name: "Priya Verma",
-            role: "Student",
+            roll: "Student",
             course: "B.Tech",
             year: 3,
             section: "B",
@@ -29,7 +32,7 @@ export default function FindStudents() {
         {
             id: 3,
             name: "Rohit Singh",
-            role: "Student",
+            roll: "Student",
             course: "B.Sc",
             year: 1,
             section: "C",
@@ -39,55 +42,28 @@ export default function FindStudents() {
         {
             id: 4,
             name: "Sneha Gupta",
-            role: "Student",
+            roll: "Student",
             course: "MBA",
             year: 1,
             section: "A",
             semester: 1,
             university: "Quantum University"
         },
-        {
-            id: 5,
-            name: "Aditya Yadav",
-            role: "Student",
-            course: "B.Com",
-            year: 2,
-            section: "B",
-            semester: 3,
-            university: "Delhi University"
-        },
-        {
-            id: 6,
-            name: "Neha Khan",
-            role: "Student",
-            course: "MCA",
-            year: 2,
-            section: "C",
-            semester: 4,
-            university: "Quantum University"
-        },
-        {
-            id: 7,
-            name: "Karan Mehta",
-            role: "Student",
-            course: "BCA",
-            year: 3,
-            section: "A",
-            semester: 6,
-            university: "IIT Delhi"
-        },
-        {
-            id: 8,
-            name: "Riya Sharma",
-            role: "Student",
-            course: "B.Tech",
-            year: 2,
-            section: "B",
-            semester: 4,
-            university: "Delhi University"
-        }
     ]);
     const [selected, setSelected] = useState<Set<number>>(new Set());
+    const [loading, setLoading] = useState<boolean>(true);
+    const [somethingWrong, setSomethingWrong] = useState<boolean>(false);
+
+    useEffect(() => {
+        (async function () {
+            const {data, error}: ApiResponse = await getMapping("/students/find");
+            setLoading(false);
+
+            setStudents(data?.students);
+
+            setSomethingWrong(error != null);
+        })();
+    }, []);
 
     function add(id: number): void {
         setSelected(prev => new Set(prev.add(id)));
@@ -109,6 +85,18 @@ export default function FindStudents() {
         setSelected(new Set(students.map(student => student.id)));
     };
 
+    if (loading) {
+        return <MainLoader/>;
+    }
+
+    if (somethingWrong) {
+        return <SomethingWentWrong/>
+    }
+
+    if (students.length <= 0) {
+        return <p>There are Not Students</p>;
+    }
+
     return (
         <div className="min-h-screen bg-gradient-to-br from-gray-900 to-black text-gray-100 p-8">
             <div className="flex justify-between items-center mb-8">
@@ -118,7 +106,8 @@ export default function FindStudents() {
             </div>
 
             <div className="space-y-4">
-                {students.map((student) => <StudentField student={student}/>)}
+                {students.map((student) => <StudentField key={student.id} student={student} add={add}
+                                                         remove={remove} isAdded={selected.has(student.id)}/>)}
             </div>
 
             <div className="mt-10 flex justify-center">
