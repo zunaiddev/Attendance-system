@@ -25,7 +25,7 @@ function InputField({
 
     return (
         <div className="w-full flex flex-col">
-            {label && <label className="block mb-2 text-sm font-medium text-gray-300">{label}</label>}
+            {label && <label className="block mb-1 text-sm font-medium text-gray-300">{label}</label>}
             <div className="relative">
                 <input
                     className={`shadow-xs border border-gray-700 text-sm rounded-sm focus:border-blue-500 outline-none block w-full p-2.5 bg-gray-700 

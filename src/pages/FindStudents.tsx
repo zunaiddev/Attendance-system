@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import StudentField from "../components/StudentField";
 import {Student} from "../types/Student";
-import Button from "../components/others/Button";
+import Button from "../components/Buttons/Button";
 import MainLoader from "../loader/MainLoader";
 import SomethingWentWrong from "../components/others/SomethingWentWrong";
 import getMapping from "../API/getMapping";

@@ -1,5 +1,5 @@
 import Switch from "./Switch.jsx";
-import Button from "./Button.tsx";
+import Button from "../Buttons/Button.tsx";
 
 function Header({onStudentAddClick, isUpdate, onUpdate}) {
 

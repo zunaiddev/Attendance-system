@@ -9,7 +9,7 @@ interface User {
     role: Role;
     createdAt: Date;
     locked: boolean;
-    academic: Academic;
+    academic: Academic | null;
 }
 
 export default User;

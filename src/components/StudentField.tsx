@@ -1,4 +1,4 @@
-import Button from "./others/Button.js";
+import Button from "./Buttons/Button.js";
 import {useEffect, useState} from "react";
 import {Student} from "../types/Student";
 

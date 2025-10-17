@@ -1,4 +1,5 @@
 import {useEffect} from "react";
+import ProfileAvatar from "../components/Profile/ProfileAvatar.js";
 
 function Test() {
     useEffect(() => {
@@ -6,7 +7,9 @@ function Test() {
     }, []);
 
     return (
-        <h1>Test</h1>
+        <div className="flex h-screen w-full justify-center items-center">
+            <ProfileAvatar/>
+        </div>
     );
 }
 

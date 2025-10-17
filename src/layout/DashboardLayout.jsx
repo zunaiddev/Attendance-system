@@ -1,5 +1,5 @@
 import {Outlet} from "react-router-dom";
-import Sidebar from "../components/others/Sidebar.tsx";
+import Sidebar from "../components/Sidebar/Sidebar.tsx";
 import {useEffect, useState} from "react";
 import FooterMenu from "../components/others/FooterMenu.jsx";
 import isMobile from "../utils/isMobile.js";
@@ -19,7 +19,7 @@ function DashboardLayout() {
                 isMobile() ? <FooterMenu/> : <Sidebar show={show} setShow={setShow}/>
             }
             <div className={`min-h-screen ${(show && window.innerWidth > 639) && "ml-64"}`}>
-                <div className="px-4 pt-10 border-gray-700 size-full">
+                <div className="size-full">
                     <Outlet/>
                 </div>
             </div>

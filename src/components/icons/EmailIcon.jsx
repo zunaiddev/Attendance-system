@@ -1,4 +1,5 @@
 function EmailIcon({className = "size-8 text-white"}) {
+
     return (
         <svg
             className={className}

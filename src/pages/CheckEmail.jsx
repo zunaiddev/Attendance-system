@@ -1,10 +1,10 @@
-import Button from "../components/others/Button.tsx";
+import Button from "../components/Buttons/Button.tsx";
 import {useSearchParams} from "react-router-dom";
 import MailIcon from "../components/icons/MailIcon.jsx";
 import usePost from "../hooks/usePost.tsx";
 import {toast} from "../components/Toaster/Toaster.tsx";
 import {useEffect, useRef, useState} from "react";
-import LinkField from "../components/others/LinkField.jsx";
+import LinkField from "../components/Fields/LinkField.jsx";
 import SomethingWentWrong from "../components/others/SomethingWentWrong.jsx";
 
 function CheckEmail() {

@@ -1,12 +1,7 @@
 import {NavLink} from "react-router-dom";
-import {ComponentType, createElement, JSX} from "react";
-import ProfileIcon from "../icons/ProfileIcon.jsx";
+import {JSX} from "react";
 import MenuIcon from "../icons/MenuIcon.jsx";
-import SearchIcon from "../icons/SearchIcon.jsx";
-import SettingsIcon from "../icons/SettingsIcon.jsx";
-import LogoutIcon from "../icons/LogoutIcon.jsx";
-import DashboardIcon from "../icons/DashboardIcon";
-import CloseSidebarIcon from "../icons/CloseSidebarIcon";
+import {Bolt, LayoutDashboard, LogOut, LucideIcon, PanelLeftClose, Search, User} from "lucide-react";
 
 type Props = {
     show: boolean,
@@ -30,15 +25,15 @@ function Sidebar({show, setShow}: Props): JSX.Element {
 
                 <div className="h-full px-3 py-10 overflow-y-auto bg-gray-800">
                     <ul className="space-y-2 font-medium">
-                        <MenuItem to="/dashboard" text="Dashboard" icon={DashboardIcon}/>
-                        <MenuItem to="/dashboard/profile" text="Profile" icon={ProfileIcon}/>
-                        <MenuItem to="/dashboard/search" text="Search" icon={SearchIcon}/>
-                        <MenuItem to="/dashboard/settings" text="Settings" icon={SettingsIcon}/>
-                        <MenuItem to="/logout" text="Logout" icon={LogoutIcon}/>
+                        <MenuItem to="/dashboard" text="Dashboard" icon={LayoutDashboard}/>
+                        <MenuItem to="/dashboard/profile" text="Profile" icon={User}/>
+                        <MenuItem to="/dashboard/search" text="Search" icon={Search}/>
+                        <MenuItem to="/dashboard/settings" text="Settings" icon={Bolt}/>
+                        <MenuItem to="/logout" text="Logout" icon={LogOut}/>
                     </ul>
 
                     <button type="button" className="absolute right-4 top-3 cursor-pointer" onClick={hideSidebar}>
-                        <CloseSidebarIcon/>
+                        <PanelLeftClose size={21}/>
                     </button>
                 </div>
             </aside>
@@ -55,17 +50,17 @@ function Sidebar({show, setShow}: Props): JSX.Element {
 type MenuItemProps = {
     to: string;
     text: string;
-    icon: ComponentType<{ className?: string }>;
+    icon: LucideIcon;
     replace?: boolean;
 }
 
-function MenuItem({to, text, icon, replace = false}: MenuItemProps) {
+function MenuItem({to, text, icon: Icon, replace = false}: MenuItemProps) {
     return (
         <li>
             <NavLink to={to} replace={replace}
                      className={({isActive}) => `flex items-center p-2  rounded-lg hover:text-white hover:bg-gray-700 group ${isActive ? "text-white bg-gray-700" : "text-gray-400"}`}
                      end={true}>
-                {icon && createElement(icon, {className: "size-6"})}
+                <Icon size={20}/>
                 <span className="ms-3">{text}</span>
             </NavLink>
         </li>);

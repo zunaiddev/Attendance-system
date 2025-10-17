@@ -1,8 +1,8 @@
 import {useForm} from "react-hook-form";
 import SocialButton from "../components/others/SocialButton.jsx";
-import InputField from "../components/others/InputField.tsx";
+import InputField from "../components/Fields/InputField.tsx";
 import Checkbox from "../components/others/Checkbox.jsx";
-import Button from "../components/others/Button.tsx";
+import Button from "../components/Buttons/Button.tsx";
 import {Link, useNavigate} from "react-router-dom";
 import {toast} from "../components/Toaster/Toaster.tsx";
 import GoogleIcon from "../components/icons/GoogleIcon.jsx";

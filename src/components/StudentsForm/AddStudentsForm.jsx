@@ -1,6 +1,6 @@
 import CloseIcon from "../icons/CloseIcon.tsx";
 import StudentFields from "./StudentFields.jsx";
-import Button from "../others/Button.tsx";
+import Button from "../Buttons/Button.tsx";
 import {useFieldArray, useForm} from "react-hook-form";
 import {useCallback, useContext, useEffect, useMemo} from "react";
 import useConfirm from "../../hooks/useConfirm.jsx";

@@ -1,17 +1,10 @@
-import React from "react";
+import {LucideIcon} from "lucide-react";
 
-type BadgeProps = {
+interface Props {
     text: string;
-    type?:
-        | "gray"
-        | "red"
-        | "yellow"
-        | "green"
-        | "blue"
-        | "indigo"
-        | "purple"
-        | "pink";
-};
+    color?: "gray" | "red" | "yellow" | "green" | "blue" | "indigo" | "purple" | "pink";
+    icon?: LucideIcon;
+}
 
 const colorMap: Record<string, string> = {
     gray: "bg-gray-400/10 text-gray-400 inset-ring inset-ring-gray-400/20",
@@ -24,13 +17,14 @@ const colorMap: Record<string, string> = {
     pink: "bg-pink-400/10 text-pink-400 inset-ring inset-ring-pink-400/20",
 };
 
-function Badge({text, type = "gray"}: BadgeProps) {
+function Badge({text, color = "gray", icon: Icon}: Props) {
     return (
-        <span
-            className={`inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ${colorMap[type]}`}
+        <div
+            className={`inline-flex items-center rounded-md min-h-6 px-2 font-medium ${colorMap[color]}`}
         >
-      {text}
-    </span>
+            {Icon && <Icon size={14} className="mr-2"/>}
+            <span className="text-xs first-letter:uppercase lowercase"> {text}</span>
+        </div>
     );
 }
 

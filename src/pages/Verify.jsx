@@ -3,8 +3,8 @@ import {useCallback, useEffect, useState} from "react";
 import {Navigate, useNavigate, useSearchParams} from "react-router-dom";
 import MainLoader from "../loader/MainLoader.jsx";
 import {useForm} from "react-hook-form";
-import InputField from "../components/others/InputField.tsx";
-import Button from "../components/others/Button.tsx";
+import InputField from "../components/Fields/InputField.tsx";
+import Button from "../components/Buttons/Button.tsx";
 import {extractClaims} from "../services/jwt.js";
 import {toast} from "../components/Toaster/Toaster.js";
 

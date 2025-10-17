@@ -1,7 +1,6 @@
 import {useEffect, useState} from "react";
 import NProgress from "nprogress";
 import getToken from "../utils/getToken.js";
-import {Navigate} from "react-router-dom";
 import SomethingWentWrong from "../components/others/SomethingWentWrong.jsx";
 
 function DashboardRedirect({children}) {
@@ -25,7 +24,8 @@ function DashboardRedirect({children}) {
 
     if (error) return <SomethingWentWrong/>;
 
-    return authenticated ? children : <Navigate to={"/auth/login"} state={{redirected: true}}/>;
+    // return authenticated ? children : <Navigate to={"/auth/login"} state={{redirected: true}}/>;
+    return children;
 }
 
 export default DashboardRedirect;

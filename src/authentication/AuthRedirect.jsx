@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import {Navigate, useLocation} from "react-router-dom";
+import {useLocation} from "react-router-dom";
 import getToken from "../utils/getToken.js";
 import SomethingWentWrong from "../components/others/SomethingWentWrong.jsx";
 
@@ -26,7 +26,8 @@ function AuthRedirect({children}) {
 
     if (error) return <SomethingWentWrong/>
 
-    return authenticated ? <Navigate to={"/dashboard"}/> : children;
+    // return authenticated ? <Navigate to={"/dashboard"}/> : children;
+    return children;
 }
 
 export default AuthRedirect;

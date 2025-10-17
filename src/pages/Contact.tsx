@@ -1,11 +1,11 @@
-import LinkField from "../components/others/LinkField.jsx";
+import LinkField from "../components/Fields/LinkField.jsx";
 import {ComponentType, createElement, useEffect} from "react";
 import EmailIcon from "../components/icons/EmailIcon.jsx";
 import PhoneIcon from "../components/icons/PhoneIcon.jsx";
 import supportIcon from "../components/icons/SupportIcon.jsx";
-import InputField from "../components/others/InputField.js";
+import InputField from "../components/Fields/InputField.js";
 import {FieldValues, useForm} from "react-hook-form";
-import Button from "../components/others/Button.js";
+import Button from "../components/Buttons/Button.js";
 import axios from "axios";
 import {toast} from "../components/Toaster/Toaster.js";
 

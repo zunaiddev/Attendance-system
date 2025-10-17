@@ -10,7 +10,7 @@ import NotFound from "../pages/NotFound.jsx";
 import DashboardLayout from "../layout/DashboardLayout.jsx";
 import ForgotPassword from "../pages/ForgotPassword.jsx";
 import Dashboard from "../pages/Dashboard.jsx";
-import Profile from "../pages/Profile.jsx";
+import Profile from "../pages/Profile.tsx";
 import Login from "../pages/Login.jsx";
 import AuthRedirect from "../authentication/AuthRedirect.jsx";
 import DashboardRedirect from "../authentication/DashboardRedirect.jsx";
