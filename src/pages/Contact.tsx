@@ -1,4 +1,4 @@
-import LinkField from "../components/Fields/LinkField.jsx";
+import LinkField from "../components/Fields/LinkField.js";
 import {ComponentType, createElement, useEffect} from "react";
 import EmailIcon from "../components/icons/EmailIcon.jsx";
 import PhoneIcon from "../components/icons/PhoneIcon.jsx";

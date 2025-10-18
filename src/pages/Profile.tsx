@@ -1,4 +1,4 @@
-import {JSX, useState} from "react";
+import {JSX} from "react";
 import UserInfo from "../components/Profile/UserInfo";
 import AcademicInfo from "../components/Profile/AcademicInfo";
 import SecuritySettings from "../components/Profile/SecuritySettings";
@@ -17,22 +17,18 @@ function Profile(): JSX.Element {
         createdAt: new Date(),
         academic: {
             university: "Quantum University",
-            course: "Bachelors Of Computer Applications",
+            course: "BCA",
             section: "C9",
             semester: 6,
-            year: 5
+            year: 1
         }
     }
-    const [showUpdateForm, setShowUpdateForm] = useState(false);
 
     return <div className="w-full space-y-5 px-20 relative">
         <UserInfo user={user}/>
         {user.academic && <AcademicInfo academic={user.academic}/>}
         <SecuritySettings/>
         <AccountManagement/>
-        {showUpdateForm && <ProfileForm/>}
-        {/*<UpdatePasswordForm/>*/}
-        {/*<UpdateEmailForm/>*/}
     </div>
 }
 

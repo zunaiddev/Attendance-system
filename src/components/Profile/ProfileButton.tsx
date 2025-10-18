@@ -5,6 +5,7 @@ interface Props {
     text: string,
     icon?: LucideIcon,
     className?: string,
+    onClick?: () => void,
 }
 
 function ProfileButton({text, icon: Icon, className, onClick}: Props) {

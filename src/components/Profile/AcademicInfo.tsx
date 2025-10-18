@@ -1,15 +1,24 @@
 import Card from "../Cards/Card";
 import Academic from "../../types/Academic";
-import {JSX} from "react";
+import {JSX, useState} from "react";
 import FormatNumber from "../../utils/formatNumber";
+import ProfileButton from "./ProfileButton";
+import {Pencil} from "lucide-react";
+import AcademicUpdateForm from "../Forms/AcademicUpdateForm";
 
 interface props {
     academic: Academic
 }
 
 function AcademicInfo({academic}: props): JSX.Element {
-    return (
-        <Card title="Academic Information" desc="Educational details and current enrollment">
+    const [updateForm, setUpdateForm] = useState<boolean>(false);
+
+    const show = () => setUpdateForm(true);
+    const hide = () => setUpdateForm(false);
+
+    return (<>
+            <Card title="Academic Information" desc="Educational details and current enrollment"
+                  button={<ProfileButton text="Edit Academic" icon={Pencil} onClick={show}/>}>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <Info title="University" value={academic.university}/>
                 <Info title="Course" value={academic.course}/>
@@ -18,6 +27,8 @@ function AcademicInfo({academic}: props): JSX.Element {
                 <Info title="Semester" value={FormatNumber(academic.semester)}/>
             </div>
         </Card>
+            {updateForm && <AcademicUpdateForm academic={academic} hideForm={hide}/>}
+        </>
     );
 }
 

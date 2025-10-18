@@ -1,18 +1,23 @@
 import Card from "../Cards/Card";
 import ProfileAvatar from "./ProfileAvatar";
 import Badge from "../Badge/Badge";
-import {JSX} from "react";
+import {JSX, useState} from "react";
 import ProfileButton from "./ProfileButton";
 import User from "../../types/User";
 import {Calendar, Lock, LockOpen, Mail, Pencil} from "lucide-react";
+import UserUpdateForm from "../Forms/UserUpdateForm";
 
 interface Props {
-    user: User
+    user: User,
 }
 
-function UserInfo({user, onClick}: Props): JSX.Element {
+function UserInfo({user}: Props): JSX.Element {
+    const [updateForm, setUpdateForm] = useState(false);
 
-    return (
+    const showUpdateForm = () => setUpdateForm(true);
+    const hideUpdateForm = () => setUpdateForm(false);
+
+    return (<>
         <Card>
             <div className="w-full flex gap-9">
                 <div className="flex justify-center items-center">
@@ -23,7 +28,7 @@ function UserInfo({user, onClick}: Props): JSX.Element {
                     <div className="mb-1">
                         <div className="flex w-full justify-between">
                             <h1 className="text-3xl font-oswald">{user.name}</h1>
-                            <ProfileButton text="Edit Profile" icon={Pencil}/>
+                            <ProfileButton text="Edit Profile" icon={Pencil} onClick={showUpdateForm}/>
                         </div>
                         <span className="text-gray-300">{user.username}</span>
                     </div>
@@ -45,6 +50,8 @@ function UserInfo({user, onClick}: Props): JSX.Element {
                 </div>
             </div>
         </Card>
+            {updateForm && <UserUpdateForm user={user} hideForm={hideUpdateForm}/>}
+        </>
     );
 }
 

@@ -1,7 +1,7 @@
 import {HTMLInputAutoCompleteAttribute, useState} from "react";
-import EyeOnIcon from "../icons/EyeOnIcon.jsx";
-import EyeOffIcon from "../icons/EyeOffIcon.jsx";
 import {FieldError, FieldErrorsImpl, Merge, UseFormRegisterReturn} from "react-hook-form";
+import {twMerge} from "tailwind-merge";
+import {Eye, EyeOff} from "lucide-react";
 
 type InputFieldType = {
     label?: string | null,
@@ -11,11 +11,12 @@ type InputFieldType = {
     register: UseFormRegisterReturn,
     error: FieldError | Merge<FieldError, FieldErrorsImpl<any>> | undefined;
     autoFocus?: boolean;
+    className?: string;
 }
 
 function InputField({
                         label = null, placeholder = "", autoComplete, type = "text",
-                        register, error, autoFocus = false
+                        register, error, autoFocus = false, className
                     }: InputFieldType) {
     const [show, setShow] = useState<boolean>(false);
 
@@ -28,9 +29,8 @@ function InputField({
             {label && <label className="block mb-1 text-sm font-medium text-gray-300">{label}</label>}
             <div className="relative">
                 <input
-                    className={`shadow-xs border border-gray-700 text-sm rounded-sm focus:border-blue-500 outline-none block w-full p-2.5 bg-gray-700 
-                     placeholder-gray-400 text-white
-                      ${error && "border-red-600"} ${type === "password" && "pr-9"}`}
+                    className={twMerge(`shadow-xs border border-gray-700 text-sm rounded-sm focus:border-blue-500 outline-none block w-full p-2.5 bg-gray-700 
+                     placeholder-gray-400 text-white ${error && "border-red-600"} ${type === "password" && "pr-9"}`, className)}
                     autoFocus={autoFocus}
                     placeholder={placeholder}
                     autoComplete={autoComplete}
@@ -40,12 +40,12 @@ function InputField({
                         <div
                             className="absolute top-[50%] bottom-[50%] translate-y-[-50%] right-2 text-gray-400 size-5 cursor-pointer"
                             onClick={handleShow}>
-                            <EyeOnIcon/>
+                            <Eye size={20}/>
                         </div> :
                         <div
                             className="absolute top-[50%] bottom-[50%] translate-y-[-50%] right-2 text-gray-400 size-5 cursor-pointer"
                             onClick={handleShow}>
-                            <EyeOffIcon/>
+                            <EyeOff size={20}/>
                         </div>
                 )}
 

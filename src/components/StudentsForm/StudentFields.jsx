@@ -1,5 +1,5 @@
 import InputField from "../Fields/InputField.tsx";
-import SelectField from "../others/SelectField.tsx";
+import SelectField from "../Fields/SelectField.tsx";
 import PropTypes from "prop-types";
 import {courses} from "../../Data/courses.js";
 import {semesters} from "../../Data/semesters.js";

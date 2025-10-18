@@ -3,7 +3,7 @@ import {useEffect, useRef, useState} from "react";
 import PropTypes from "prop-types";
 import useGet from "../hooks/useGet.jsx";
 import InputField from "../components/Fields/InputField.tsx";
-import SelectField from "../components/others/SelectField.js";
+import SelectField from "../components/Fields/SelectField.tsx";
 import {courses} from "../Data/courses.js";
 import {semesters} from "../Data/semesters.js";
 import Button from "../components/Buttons/Button.tsx";

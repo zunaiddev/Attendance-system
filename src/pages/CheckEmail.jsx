@@ -4,7 +4,7 @@ import MailIcon from "../components/icons/MailIcon.jsx";
 import usePost from "../hooks/usePost.tsx";
 import {toast} from "../components/Toaster/Toaster.tsx";
 import {useEffect, useRef, useState} from "react";
-import LinkField from "../components/Fields/LinkField.jsx";
+import LinkField from "../components/Fields/LinkField.tsx";
 import SomethingWentWrong from "../components/others/SomethingWentWrong.jsx";
 
 function CheckEmail() {
