@@ -11,7 +11,7 @@ function Profile(): JSX.Element {
         id: 1,
         role: Role.STUDENT,
         name: "John Doe",
-        username: "john@1236",
+        username: "john_doe",
         email: "john@gmail.com",
         locked: false,
         createdAt: new Date(),
@@ -19,14 +19,14 @@ function Profile(): JSX.Element {
             university: "Quantum University",
             course: "BCA",
             section: "C9",
-            semester: 6,
-            year: 1
+            semester: 5,
+            year: 3
         }
     }
 
-    return <div className="w-full space-y-5 px-20 relative">
+    return <div className="w-full space-y-5 px-5 pt-13 pb-20 relative">
         <UserInfo user={user}/>
-        {user.academic && <AcademicInfo academic={user.academic}/>}
+        {user?.academic && <AcademicInfo academic={user.academic}/>}
         <SecuritySettings/>
         <AccountManagement/>
     </div>

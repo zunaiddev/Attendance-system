@@ -1,5 +1,4 @@
 import {useForm} from "react-hook-form";
-import {useEffect, useState} from "react";
 import FloatForm from "./FloatForm";
 import ProfileInput from "../Fields/ProfileInput";
 import ForgetPasswordField from "./ForgetPasswordField";
@@ -8,24 +7,26 @@ interface Props {
     hideForm: () => void;
 }
 
-function PasswordUpdateForm({hideForm}: Props) {
-    const [disabled, setDisabled] = useState<boolean>(true);
+interface PasswordForm {
+    password: string;
+    newPassword: string;
+    confirmPassword: string;
+}
 
+function PasswordUpdateForm({hideForm}: Props) {
     const {
         register,
         handleSubmit,
         watch,
-        formState: {errors, isSubmitting, isValid},
-    } = useForm();
+        formState: {errors, isSubmitting},
+    } = useForm<PasswordForm>();
 
-    const currentPassword = watch("currentPassword");
-    const newPassword = watch("newPassword");
-    const confirmNewPassword = watch("confirmNewPassword");
+    const {password, newPassword, confirmPassword} = watch();
 
+    const filled: boolean = password?.trim().length > 0
+        && newPassword?.trim().length > 0
+        && confirmPassword?.trim().length > 0;
 
-    useEffect(() => {
-
-    }, [currentPassword, newPassword, confirmNewPassword]);
 
     const onSubmit = (data: any) => {
         console.log("Password update data:", data);
@@ -37,16 +38,17 @@ function PasswordUpdateForm({hideForm}: Props) {
         hideForm();
     };
 
-    return (<FloatForm isSubmitting={isSubmitting} isDisabled={disabled} onHide={handleHide}
+    return (<FloatForm title="Change Password" desc="Enter your current password and choose a new one"
+                       isSubmitting={isSubmitting} isDisabled={!filled} onHide={handleHide}
                        onSubmit={handleSubmit(onSubmit)} gridCols={1}>
 
             <ProfileInput
                 label="Current Password"
                 type="password"
-                register={register("currentPassword", {
+                register={register("password", {
                     required: "Current password is required",
                 })}
-                error={errors.currentPassword}
+                error={errors.password}
             />
 
             <ProfileInput
@@ -64,12 +66,12 @@ function PasswordUpdateForm({hideForm}: Props) {
             <ProfileInput
                 label="Confirm New Password"
                 type="password"
-                register={register("confirmNewPassword", {
+                register={register("confirmPassword", {
                     required: "Please confirm your new password",
                     validate: value =>
                         value === newPassword || "Passwords do not match",
                 })}
-                error={errors.confirmNewPassword}
+                error={errors.confirmPassword}
             />
 
             <ForgetPasswordField/>

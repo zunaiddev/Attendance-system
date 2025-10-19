@@ -1,5 +1,5 @@
 import {useForm} from "react-hook-form";
-import {useEffect, useState} from "react";
+import {useEffect} from "react";
 import Academic from "../../types/Academic";
 import {courses} from "../../Data/courses";
 import {semesters} from "../../Data/semesters";
@@ -14,20 +14,11 @@ interface Props {
 }
 
 function AcademicUpdateForm({academic, hideForm}: Props) {
-    const [disable, setDisable] = useState<boolean>(true);
-
     const {
         register,
-        formState: {errors, isSubmitting},
-        watch,
+        formState: {errors, isSubmitting, isDirty},
         handleSubmit,
     } = useForm({defaultValues: academic});
-
-    const university: string = watch("university").trim();
-    const course: string = watch("course");
-    const section: string = watch("section").trim();
-    const semester: number = watch("semester");
-    const year: number = watch("year");
 
     useEffect(() => {
         document.body.style.overflow = "hidden";
@@ -37,11 +28,6 @@ function AcademicUpdateForm({academic, hideForm}: Props) {
         }
     }, []);
 
-    useEffect(() => {
-        setDisable(university === academic.university
-            && course === academic.course && section === academic.section &&
-            semester === academic.semester && year === academic.year);
-    }, [university, course, section, semester, year]);
 
 
     function onSubmit(data: any) {
@@ -54,7 +40,8 @@ function AcademicUpdateForm({academic, hideForm}: Props) {
     }
 
     return (
-        <FloatForm isSubmitting={isSubmitting} isDisabled={disable} onHide={handleHide}
+        <FloatForm title="Edit Academic" desc="Update your academic information" subTitle="Academic Informatoin"
+                   isSubmitting={isSubmitting} isDisabled={!isDirty} onHide={handleHide}
                    onSubmit={handleSubmit(onSubmit)}>
             <ProfileInput label="Name"
                           register={register("university", {

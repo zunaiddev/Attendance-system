@@ -1,5 +1,4 @@
 import {useForm} from "react-hook-form";
-import {useEffect, useState} from "react";
 import User from "../../types/User";
 import Role from "../../types/Role";
 import FloatForm from "./FloatForm";
@@ -12,24 +11,11 @@ interface Props {
 }
 
 function UserUpdateForm({user, hideForm}: Props) {
-    const [disable, setDisable] = useState<boolean>(true);
-
     const {
         register,
-        formState: {errors, isSubmitting},
-        getValues,
-        watch,
+        formState: {errors, isSubmitting, isDirty},
         handleSubmit,
     } = useForm({defaultValues: user});
-
-    const name: string = watch("name");
-    const username: string = watch("username");
-    const role: Role = watch("role");
-
-    useEffect(() => {
-        setDisable(name === user.name && username === user.username && role === user.role);
-    }, [name, username, role]);
-
 
     function onSubmit(data: any) {
         console.log(data);
@@ -41,8 +27,9 @@ function UserUpdateForm({user, hideForm}: Props) {
     }
 
     return (
-        <FloatForm onSubmit={handleSubmit(onSubmit)} onHide={handleHide} isSubmitting={isSubmitting}
-                   isDisabled={disable}>
+        <FloatForm title="Edit Profile" desc="Update your profile information" subTitle="Personal Information"
+                   onSubmit={handleSubmit(onSubmit)} onHide={handleHide} isSubmitting={isSubmitting}
+                   isDisabled={!isDirty}>
             <ProfileInput label="Name"
                           register={register("name", {
                               required: "Please enter your name",

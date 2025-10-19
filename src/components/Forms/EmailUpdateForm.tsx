@@ -1,9 +1,8 @@
-import Card from "../Cards/Card";
-import InputField from "../Fields/InputField";
 import {useForm} from "react-hook-form";
 import {useEffect, useState} from "react";
-import Button from "../Buttons/Button";
-import {Save, X} from "lucide-react";
+import FloatForm from "./FloatForm";
+import ProfileInput from "../Fields/ProfileInput";
+import ForgetPasswordField from "./ForgetPasswordField";
 
 interface Props {
     hideForm: () => void;
@@ -17,12 +16,7 @@ function EmailUpdateForm({hideForm}: Props) {
         handleSubmit,
         watch,
         formState: {errors, isSubmitting},
-    } = useForm({
-        defaultValues: {
-            newEmail: "",
-            password: "",
-        },
-    });
+    } = useForm({});
 
     const newEmail = watch("newEmail");
     const password = watch("password");
@@ -40,7 +34,6 @@ function EmailUpdateForm({hideForm}: Props) {
 
     const onSubmit = (data: any) => {
         console.log("Email update data:", data);
-        // Call API here
     };
 
     const handleHide = () => {
@@ -49,47 +42,33 @@ function EmailUpdateForm({hideForm}: Props) {
     };
 
     return (
-        <div className="h-screen bg-gray-700/50 flex justify-center items-center fixed inset-0" onClick={handleHide}>
-            <form onSubmit={handleSubmit(onSubmit)} className="max-w-xl w-full relative"
-                  onClick={e => e.stopPropagation()}>
-                <Card title="Update Email" desc="Change your account email">
-                    <div className="grid grid-cols-1 gap-6">
-                        <InputField
-                            label="New Email"
-                            type="email"
-                            register={register("newEmail", {
-                                required: "New email is required",
-                                pattern: {
-                                    value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                                    message: "Enter a valid email",
-                                },
-                            })}
-                            error={errors.newEmail}
-                        />
-                        <InputField
-                            label="Password"
-                            type="password"
-                            register={register("password", {
-                                required: "Password is required",
-                            })}
-                            error={errors.password}
-                        />
-                    </div>
+        <FloatForm title="Change Email" desc="Enter your new email and password to confirm"
+                   isSubmitting={isSubmitting} isDisabled={disable} onHide={handleHide}
+                   onSubmit={handleSubmit(onSubmit)} gridCols={1}>
+            <ProfileInput
+                label="New Email"
+                placeholder="Enter your email"
+                register={register("email", {
+                    required: "New email is required",
+                    pattern: {
+                        value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                        message: "Enter a valid email",
+                    },
+                })}
+                error={errors.newEmail}
+            />
 
-                    <div className="w-full flex justify-end items-center mt-6">
-                        <Button text="Cancel" disable={isSubmitting} onClick={handleHide}
-                                className="bg-transparent border py-2 hover:bg-white hover:text-gray-800 disabled:text-gray-800 disabled:bg-gray-300/40"/>
-                        <Button text="Update Email" icon={Save}
-                                className="bg-white text-gray-800 border py-2 hover:bg-gray-300 disabled:text-gray-700 disabled:bg-gray-100/70"
-                                isSubmitting={isSubmitting} disable={disable}/>
-                    </div>
-                </Card>
-                <button className="text-white absolute right-3 top-3 cursor-pointer disabled:cursor-not-allowed"
-                        onClick={handleHide} disabled={isSubmitting}>
-                    <X/>
-                </button>
-            </form>
-        </div>
+            <ProfileInput
+                label="Confirm Password"
+                type="password"
+                placeholder="Enter Your Password"
+                register={register("password", {
+                    required: "Password is required",
+                })}
+                error={errors.password}
+            />
+            <ForgetPasswordField/>
+        </FloatForm>
     );
 }
 

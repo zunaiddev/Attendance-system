@@ -1,8 +1,10 @@
 import Card from "../Cards/Card";
 import {ShieldAlert, Trash2, UserX} from "lucide-react";
-import {ReactNode} from "react";
+import {ReactNode, useState} from "react";
 import Button from "../Buttons/Button";
 import {twMerge} from "tailwind-merge";
+import DeactivateForm from "../Forms/DeactivateForm";
+import DeleteForm from "../Forms/DeleteForm";
 
 interface FieldProps {
     title: string,
@@ -13,21 +15,33 @@ interface FieldProps {
 }
 
 function AccountManagement() {
-    return (
+    const [deactivateForm, setDeactivateForm] = useState(false);
+    const [deleteForm, setDeleteForm] = useState(false);
+
+    const showDeactivateForm = () => setDeactivateForm(true);
+    const hideDeactivateForm = () => setDeactivateForm(false);
+
+    const showDeleteForm = () => setDeleteForm(true);
+    const hideDeleteForm = () => setDeleteForm(false);
+
+    return (<>
         <Card title="Academic Information" desc="Educational details and current enrollment">
             <Field title="Deactive Account" desc="Temporarily disable your account. You can reactivate it anytime by
             logging in." className="mb-3" icon={<UserX size={20} className="text-orange-400"/>}>
-                <Button text="Deactivate Account" icon={UserX}
+                <Button text="Deactivate Account" icon={UserX} onClick={showDeactivateForm}
                         className="text-orange-400 bg-orange-500/20 px-4 py-2 hover:bg-orange-500/30 disabled:bg-orange-900"/>
             </Field>
 
             <Field title="Delete Account" className="border-red-500/30 bg-red-500/5"
                    desc="Permanently delete your account and all associated data. This action cannot be undone."
                    icon={<ShieldAlert size={20} className="text-red-400"/>}>
-                <Button text="Deactivate Account" icon={Trash2}
+                <Button text="Deactivate Account" icon={Trash2} onClick={showDeleteForm}
                         className="text-sm text-red-400 bg-red-500/20 px-4 py-2 hover:bg-red-500/30 disabled:bg-red-900"/>
             </Field>
         </Card>
+            {deactivateForm && <DeactivateForm onHide={hideDeactivateForm}/>}
+            {deleteForm && <DeleteForm onHide={hideDeleteForm}/>}
+        </>
     );
 }
 
