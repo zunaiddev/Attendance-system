@@ -12,6 +12,8 @@ interface Props {
 }
 
 function UserInfo({user}: Props): JSX.Element {
+    const {name, username, role, locked, email, createdAt} = user;
+
     const [updateForm, setUpdateForm] = useState(false);
 
     const showUpdateForm = () => setUpdateForm(true);
@@ -27,25 +29,25 @@ function UserInfo({user}: Props): JSX.Element {
                 <div className="w-full">
                     <div className="mb-1">
                         <div className="flex w-full justify-between">
-                            <h1 className="text-3xl font-oswald">{user.name}</h1>
+                            <h1 className="text-3xl font-oswald">{name}</h1>
                             <ProfileButton text="Edit Profile" icon={Pencil} onClick={showUpdateForm}/>
                         </div>
-                        <span className="text-gray-300">{user.username}</span>
+                        <span className="text-gray-300">{username}</span>
                     </div>
 
                     <div className="my-3 flex items-center gap-2">
-                        <Badge text={user.role} color={"green"}/>
-                        <Badge text={user.locked ? "Locked" : "Active"}
-                               color={user.locked ? "red" : "green"}
-                               icon={user.locked ? Lock : LockOpen}/>
+                        <Badge text={role} color={"green"}/>
+                        <Badge text={locked ? "Locked" : "Active"}
+                               color={locked ? "red" : "green"}
+                               icon={locked ? Lock : LockOpen}/>
                     </div>
 
                     <div className="flex items-center gap-2 text-gray-300">
-                        <Mail size={17}/> {user.email}
+                        <Mail size={17}/> {email}
                     </div>
 
                     <div className="flex items-center gap-2 text-gray-300">
-                        <Calendar size={17}/> Joined {user.createdAt.toDateString()}
+                        <Calendar size={17}/> Joined {createdAt.toDateString()}
                     </div>
                 </div>
             </div>

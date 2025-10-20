@@ -1,0 +1,7 @@
+interface UserRes {
+
+}
+
+interface AcademicRes {
+
+}

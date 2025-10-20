@@ -2,12 +2,14 @@ import InputField from "../components/Fields/InputField.tsx";
 import Button from "../components/Buttons/Button.tsx";
 import {useForm} from "react-hook-form";
 import SocialButton from "../components/others/SocialButton.jsx";
-import {Link, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import GithubIcon from "../components/icons/GithubIcon.jsx";
 import GoogleIcon from "../components/icons/GoogleIcon.jsx";
 import usePost from "../hooks/usePost.tsx";
 import {HttpStatusCode} from "axios";
 import {toast} from "../components/Toaster/Toaster.tsx";
+import LinkField from "../components/Fields/LinkField.js";
+import Divider from "../components/Divider.js";
 
 function SignupForm() {
     const {
@@ -51,13 +53,7 @@ function SignupForm() {
                     <SocialButton text="Sign up with Google" icon={GoogleIcon}/>
                     <SocialButton text="Sign up with Github" icon={GithubIcon}/>
                 </div>
-                <div className="relative my-4">
-                    <hr/>
-                    <span
-                        className="text-lg absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-gray-800 px-5">
-                    or
-                </span>
-                </div>
+                <Divider/>
             </div>
 
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -88,10 +84,8 @@ function SignupForm() {
                 </div>
             </form>
 
-            <div>
-                Already have an account?&nbsp;
-                <Link to="/auth/login" className="text-blue-500 hover:underline">login here</Link>
-            </div>
+            <LinkField label="Already have an account" to="/auth/sign-in" linkText="Sign in"
+                       className="text-md text-start"/>
         </div>
     );
 }

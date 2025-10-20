@@ -1,12 +1,13 @@
 import {Outlet} from "react-router-dom";
 import Sidebar from "../components/Sidebar/Sidebar.tsx";
 import {useEffect, useState} from "react";
-import FooterMenu from "../components/others/FooterMenu.jsx";
 import isMobile from "../utils/isMobile.js";
 import storage from "../services/storage.js";
 
 function DashboardLayout() {
-    const [show, setShow] = useState(storage.getItem("isSidebarOpen") ? storage.getItem("isSidebarOpen") === "true" : !isMobile());
+    const [show, setShow] =
+        useState(storage.getItem("isSidebarOpen")
+            ? storage.getItem("isSidebarOpen") === "true" : !isMobile());
 
 
     useEffect(function () {
@@ -15,9 +16,7 @@ function DashboardLayout() {
 
     return (
         <main className="relative">
-            {
-                isMobile() ? <FooterMenu/> : <Sidebar show={show} setShow={setShow}/>
-            }
+            <Sidebar show={show} setShow={setShow}/>
             <div className={`min-h-screen ${(show && window.innerWidth > 639) && "ml-64"}`}>
                 <div className="size-full">
                     <Outlet/>

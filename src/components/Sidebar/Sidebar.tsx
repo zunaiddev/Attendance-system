@@ -15,12 +15,13 @@ function Sidebar({show, setShow}: Props): JSX.Element {
 
     function showSidebar(): void {
         setShow(true);
+        console.log("showSidebar");
     }
 
     return (
         <div>
             <aside
-                className={`fixed left-0 top-0 z-40 w-64 h-screen transition-transform -translate-x-full  ${show && "translate-x-0"}`}
+                className={`fixed left-0 top-0 z-40 w-64 bg-orange-500 h-screen transition-transform -translate-x-full  ${show && "translate-x-0"}`}
                 aria-label="Sidebar">
 
                 <div className="h-full px-3 py-10 overflow-y-auto bg-gray-800">
@@ -39,7 +40,7 @@ function Sidebar({show, setShow}: Props): JSX.Element {
             </aside>
             {
                 !show && <button type="button" onClick={showSidebar}
-                                 className="absolute top-1 left-1 p-2 mt-2 ms-3 text-sm rounded-lg text-gray-400 hover:bg-gray-700 cursor-pointer">
+                                 className="z-999 absolute top-1 left-1 p-2 mt-2 ms-3 text-sm rounded-lg text-gray-400 hover:bg-gray-700 cursor-pointer">
                     <MenuIcon/>
                 </button>
             }

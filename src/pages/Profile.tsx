@@ -23,6 +23,10 @@ function Profile(): JSX.Element {
             year: 3
         }
     }
+    // const {data: user, isPending, isError} = useQuery({
+    //     queryKey: ["user"],
+    //     queryFn: getUser,
+    // });
 
     return <div className="w-full space-y-5 px-5 pt-13 pb-20 relative">
         <UserInfo user={user}/>

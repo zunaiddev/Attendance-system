@@ -74,11 +74,11 @@ const router = createBrowserRouter([
                 element: <AuthRedirect><AuthLayout/></AuthRedirect>,
                 children: [
                     {
-                        path: "signup",
+                        path: "sign-up",
                         element: <Signup/>
                     },
                     {
-                        path: "login",
+                        path: "sign-in",
                         element: <Login/>
                     }
                 ]

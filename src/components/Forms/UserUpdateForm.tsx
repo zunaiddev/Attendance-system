@@ -4,6 +4,9 @@ import Role from "../../types/Role";
 import FloatForm from "./FloatForm";
 import ProfileInput from "../Fields/ProfileInput";
 import ProfileSelect from "../Fields/ProfileSelectField";
+import {QueryClient, useMutation, useQueryClient} from "@tanstack/react-query";
+import {updateUser} from "../../services/userService";
+import {UserUpdateReq} from "../../types/UserUpdateReq";
 
 interface Props {
     user: User;
@@ -15,10 +18,33 @@ function UserUpdateForm({user, hideForm}: Props) {
         register,
         formState: {errors, isSubmitting, isDirty},
         handleSubmit,
-    } = useForm({defaultValues: user});
+    } = useForm<UserUpdateReq>({
+        defaultValues: {
+            name: user.name,
+            username: user.username,
+            role: user.role
+        }
+    });
 
-    function onSubmit(data: any) {
-        console.log(data);
+    const client: QueryClient = useQueryClient();
+
+    const {mutate} = useMutation({
+        mutationFn: (data: UserUpdateReq) => updateUser(data),
+    });
+
+    function onSubmit(formData: UserUpdateReq) {
+        console.log(formData);
+        mutate(formData, {
+            onSuccess: (data: User) => {
+                client.setQueriesData(["user"], (prev: User) => {
+                    prev.name = data.name;
+                    prev.username = data.username;
+                    prev.role = data.role;
+
+                    return prev;
+                });
+            }
+        });
     }
 
     function handleHide() {

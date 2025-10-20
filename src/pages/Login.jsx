@@ -10,6 +10,8 @@ import GithubIcon from "../components/icons/GithubIcon.jsx";
 import usePost from "../hooks/usePost.tsx";
 import {HttpStatusCode} from "axios";
 import storage from "../services/storage.js";
+import LinkField from "../components/Fields/LinkField.js";
+import Divider from "../components/Divider.js";
 
 function Login() {
     const {
@@ -62,13 +64,7 @@ function Login() {
                     <SocialButton text="Sign in with Google" icon={GoogleIcon}/>
                     <SocialButton text="Sign in with Github" icon={GithubIcon}/>
                 </div>
-                <div className="relative my-4">
-                    <hr/>
-                    <span
-                        className="text-lg absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-gray-800 px-5">
-                    or
-                </span>
-                </div>
+                <Divider/>
             </div>
 
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -97,10 +93,8 @@ function Login() {
                 </div>
             </form>
 
-            <div>
-                Don't have an account?&nbsp;
-                <Link to="/auth/signup" className="text-blue-500 hover:underline">sign up here</Link>
-            </div>
+            <LinkField label="Don't have an account" to="/auth/sign-up" linkText="Sign up"
+                       className="text-md text-start"/>
         </div>
     );
 }
