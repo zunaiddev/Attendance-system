@@ -10,6 +10,7 @@ import Divider from "../../components/Divider";
 import {useMutation} from "@tanstack/react-query";
 import {SignUpReq} from "../../types/Requests";
 import {JSX} from "react";
+import {signup} from "../../services/authService";
 
 function SignupForm(): JSX.Element {
     const {
@@ -18,7 +19,7 @@ function SignupForm(): JSX.Element {
     } = useForm<SignUpReq>({
         defaultValues: {
             name: "John Doe",
-            email: "john@gmail.com",
+            email: "john1@gmail.com",
             password: "John@123",
         }
     });
@@ -26,11 +27,10 @@ function SignupForm(): JSX.Element {
     const navigate: NavigateFunction = useNavigate();
 
     const {mutate, isPending} = useMutation({
-        mutationFn: async () => {
-            throw new Error("Method not implemented.");
-        },
+        mutationFn: signup,
         onSuccess: data => {
             console.log("data", data);
+            navigate(`/check-email?from=signup&userId=${data?.user?.id}`);
         },
 
         onError: error => {
@@ -39,9 +39,7 @@ function SignupForm(): JSX.Element {
     });
 
     async function onSubmit(data: SignUpReq) {
-        console.log("Sunmitting");
         mutate(data);
-        // navigate(`/check-email?from=signup&userId=${data?.user?.id}`);
     }
 
     return (

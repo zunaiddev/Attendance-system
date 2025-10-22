@@ -1,55 +1,49 @@
 import Button from "../../components/Buttons/Button.tsx";
-import {useSearchParams} from "react-router-dom";
+import {useParams} from "react-router-dom";
 import MailIcon from "../../components/icons/MailIcon.jsx";
-import usePost from "../../hooks/usePost.tsx";
 import {toast} from "../../components/Toaster/Toaster.tsx";
 import {useEffect, useRef, useState} from "react";
 import LinkField from "../../components/Fields/LinkField.tsx";
-import SomethingWentWrong from "../../components/others/SomethingWentWrong.jsx";
+import {useMutation} from "@tanstack/react-query";
+import {resendEmail} from "../../services/authService.js";
 
 function CheckEmail() {
-    const [params] = useSearchParams();
-    const from = params.get("from");
-    const userId = params.get("userId");
-    const [post, loading] = usePost();
+    const {id, from} = useParams();
     const timerRef = useRef(null);
     const [timeLeft, setTimeLeft] = useState(Number.parseInt(localStorage.getItem("RESEND_EMAIL_TIME_LEFT")) ?? -1);
-    const [somethingWrong, setSomethingWrong] = useState(false);
+
+    const {mutate, isPending} = useMutation({
+        mutationFn: resendEmail,
+        onSuccess: () => {
+            localStorage.setItem("RESEND_EMAIL_TIME_LEFT", '59');
+            setTimeLeft(59);
+        },
+
+        onError: () => {
+            toast.error("Something went wrong");
+        }
+    });
 
     useEffect(() => {
-        if (!userId && from === "signup") {
-            toast.error("Missing User id.");
-            setSomethingWrong(true);
+        if (!id && from === "signup") {
+            toast.error("Use id is Missing");
             return;
         }
 
         if (timeLeft < 0) return;
 
-        let id = setInterval(function () {
+        let intervalId = setInterval(function () {
             setTimeLeft(prev => {
                 localStorage.setItem("RESEND_EMAIL_TIME_LEFT", (prev - 1).toString());
                 return prev - 1;
             });
         }, 1000);
 
-        return () => clearInterval(id);
-    }, [from, timeLeft, userId]);
+        return () => clearInterval(intervalId);
+    }, [from, timeLeft, id]);
 
-    const handleResendEmail = async () => {
-        let {data, error} = await post(`/auth/resend-email/${userId}`);
-
-        if (error) {
-            toast.error("Something went wrong");
-            return;
-        }
-
-        toast.success(`Email sent to ${data.email}`);
-        localStorage.setItem("RESEND_EMAIL_TIME_LEFT", '59');
-        setTimeLeft(59);
-    };
-
-    if (somethingWrong) {
-        return <SomethingWentWrong/>;
+    function handleOnClick() {
+        mutate(id);
     }
 
     return (
@@ -74,8 +68,8 @@ function CheckEmail() {
                     <Button
                         className="!w-full"
                         text={timeLeft >= 0 ? `Resend Email in 00:${timeLeft <= 9 ? '0' : ''}${timeLeft}` : "Resend verification email"}
-                        isSubmitting={loading}
-                        onClick={handleResendEmail}
+                        isSubmitting={isPending}
+                        onClick={handleOnClick}
                         disable={timeLeft >= 0}
                         ref={timerRef}
                     />

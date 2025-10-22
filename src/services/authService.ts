@@ -1,15 +1,9 @@
 import {SignInReq, SignUpReq} from "../types/Requests";
 import {SignUpRes} from "../types/Responses";
 import API from "../API/API";
-import fakeResponse from "../utils/fakeResponse";
 
-async function signUp(req: SignUpReq): Promise<SignUpRes> {
-    const data: SignUpRes = {
-        name: req.name,
-        email: req.email
-    };
-
-    return await fakeResponse<SignUpRes>(data);
+async function signup(req: SignUpReq): Promise<SignUpRes> {
+    return (await API.post("/auth/signup", req)).data;
 }
 
 async function signIn(req: SignInReq) {
@@ -34,4 +28,8 @@ async function verifyToken() {
 
 }
 
-export {signUp, signIn, signOut, forgetPassword, refreshToken, verifyToken};
+async function resendEmail(id: number) {
+    return (await API.post(`/resend-email/${id}`)).data;
+}
+
+export {signup, signIn, signOut, forgetPassword, refreshToken, verifyToken, resendEmail};
