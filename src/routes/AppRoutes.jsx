@@ -1,6 +1,6 @@
 import {createBrowserRouter} from "react-router-dom";
 import AuthLayout from "../layout/AuthLayout.jsx";
-import Signup from "../pages/Auth/Signup.jsx";
+import Signup from "../pages/Auth/Signup.tsx";
 import RootLayout from "../layout/RootLayout.jsx";
 import About from "../pages/About.jsx";
 import Contact from "../pages/Contact.tsx";

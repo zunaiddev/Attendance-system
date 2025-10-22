@@ -1,39 +1,46 @@
-import InputField from "../../components/Fields/InputField.tsx";
-import Button from "../../components/Buttons/Button.tsx";
+import InputField from "../../components/Fields/InputField";
+import Button from "../../components/Buttons/Button";
 import {useForm} from "react-hook-form";
 import SocialButton from "../../components/others/SocialButton.jsx";
-import {useNavigate} from "react-router-dom";
-import GithubIcon from "../../components/icons/GithubIcon.jsx";
-import GoogleIcon from "../../components/icons/GoogleIcon.jsx";
-import LinkField from "../../components/Fields/LinkField.tsx";
-import Divider from "../../components/Divider.tsx";
+import {NavigateFunction, useNavigate} from "react-router-dom";
+import GithubIcon from "../../components/icons/GithubIcon";
+import GoogleIcon from "../../components/icons/GoogleIcon";
+import LinkField from "../../components/Fields/LinkField";
+import Divider from "../../components/Divider";
 import {useMutation} from "@tanstack/react-query";
-import {signUp} from "../../services/authService.js";
+import {SignUpReq} from "../../types/Requests";
+import {JSX} from "react";
 
-function SignupForm() {
+function SignupForm(): JSX.Element {
     const {
-        register,
-        handleSubmit,
-        reset,
-        setError,
-        formState: {errors, isSubmitting},
-    } = useForm({
+        register, handleSubmit, reset,
+        setError, formState: {errors, isSubmitting},
+    } = useForm<SignUpReq>({
         defaultValues: {
             name: "John Doe",
             email: "john@gmail.com",
             password: "John@123",
         }
     });
-    const navigate = useNavigate();
 
-    const {mutate, data} = useMutation({
-        mutationFn: (req) => signUp(req)
-    })
+    const navigate: NavigateFunction = useNavigate();
 
-    async function onSubmit(formData) {
-        await mutate(formData);
+    const {mutate, isPending} = useMutation({
+        mutationFn: async () => {
+            throw new Error("Method not implemented.");
+        },
+        onSuccess: data => {
+            console.log("data", data);
+        },
 
-        reset();
+        onError: error => {
+            console.log("error", error);
+        }
+    });
+
+    async function onSubmit(data: SignUpReq) {
+        console.log("Sunmitting");
+        mutate(data);
         // navigate(`/check-email?from=signup&userId=${data?.user?.id}`);
     }
 
@@ -72,7 +79,7 @@ function SignupForm() {
                                         message: "Weak Password"
                                     },
                                 })} error={errors.password}/>
-                    <Button className="!w-full" type="submit" text="Sign up" isSubmitting={isSubmitting}/>
+                    <Button className="!w-full" type="submit" text="Sign up" isSubmitting={isPending}/>
                 </div>
             </form>
 
