@@ -1,12 +1,12 @@
 import {useEffect, useState} from "react";
-import usePost from "../hooks/usePost.tsx";
-import SomethingWentWrong from "../components/others/SomethingWentWrong.jsx";
-import MainLoader from "../loader/MainLoader.jsx";
+import usePost from "../../hooks/usePost.tsx";
+import SomethingWentWrong from "../../components/others/SomethingWentWrong.jsx";
+import MainLoader from "../../loader/MainLoader.jsx";
 import {useNavigate} from "react-router-dom";
-import {toast} from "../components/Toaster/Toaster.tsx";
-import storage from "../services/storage.js";
+import {toast} from "../../components/Toaster/Toaster.tsx";
+import storage from "../../services/storage.js";
 
-function Logout() {
+function SignOut() {
     const [post] = usePost();
     const [error, setError] = useState(false);
     const nav = useNavigate();
@@ -32,4 +32,4 @@ function Logout() {
     return <MainLoader/>;
 }
 
-export default Logout;
+export default SignOut;

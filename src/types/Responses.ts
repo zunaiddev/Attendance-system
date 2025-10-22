@@ -1,7 +1,10 @@
-interface UserRes {
-
+interface SignUpRes {
+    name: string,
+    email: string
 }
 
-interface AcademicRes {
-
+interface SignInRes {
+    token: string
 }
+
+export {SignUpRes, SignInRes};

@@ -1,11 +1,11 @@
-import Button from "../components/Buttons/Button.tsx";
+import Button from "../../components/Buttons/Button.tsx";
 import {useSearchParams} from "react-router-dom";
-import MailIcon from "../components/icons/MailIcon.jsx";
-import usePost from "../hooks/usePost.tsx";
-import {toast} from "../components/Toaster/Toaster.tsx";
+import MailIcon from "../../components/icons/MailIcon.jsx";
+import usePost from "../../hooks/usePost.tsx";
+import {toast} from "../../components/Toaster/Toaster.tsx";
 import {useEffect, useRef, useState} from "react";
-import LinkField from "../components/Fields/LinkField.tsx";
-import SomethingWentWrong from "../components/others/SomethingWentWrong.jsx";
+import LinkField from "../../components/Fields/LinkField.tsx";
+import SomethingWentWrong from "../../components/others/SomethingWentWrong.jsx";
 
 function CheckEmail() {
     const [params] = useSearchParams();

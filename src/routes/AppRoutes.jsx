@@ -1,22 +1,22 @@
 import {createBrowserRouter} from "react-router-dom";
 import AuthLayout from "../layout/AuthLayout.jsx";
-import Signup from "../pages/Signup.jsx";
+import Signup from "../pages/Auth/Signup.jsx";
 import RootLayout from "../layout/RootLayout.jsx";
 import About from "../pages/About.jsx";
 import Contact from "../pages/Contact.tsx";
 import Terms from "../pages/Terms.jsx";
-import CheckEmail from "../pages/CheckEmail.jsx";
+import CheckEmail from "../pages/Auth/CheckEmail.jsx";
 import NotFound from "../pages/NotFound.jsx";
 import DashboardLayout from "../layout/DashboardLayout.jsx";
 import ForgotPassword from "../pages/ForgotPassword.jsx";
 import Dashboard from "../pages/Dashboard.jsx";
 import Profile from "../pages/Profile.tsx";
-import Login from "../pages/Login.jsx";
+import SignIn from "../pages/Auth/SignIn.jsx";
 import AuthRedirect from "../authentication/AuthRedirect.jsx";
 import DashboardRedirect from "../authentication/DashboardRedirect.jsx";
 import Search from "../pages/Search.jsx";
-import Verify from "../pages/Verify.jsx";
-import Logout from "../pages/Logout.jsx";
+import Verify from "../pages/Auth/Verify.jsx";
+import SignOut from "../pages/Auth/SignOut.jsx";
 import Settings from "../pages/Settings.jsx";
 import Test from "../pages/Test.jsx";
 import Institution from "../pages/InstitutionForm.jsx";
@@ -79,7 +79,7 @@ const router = createBrowserRouter([
                     },
                     {
                         path: "sign-in",
-                        element: <Login/>
+                        element: <SignIn/>
                     }
                 ]
             },
@@ -89,7 +89,7 @@ const router = createBrowserRouter([
             },
             {
                 path: "logout",
-                element: <Logout/>
+                element: <SignOut/>
             },
             {
                 path: "not-found",

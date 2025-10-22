@@ -1,15 +1,14 @@
-import InputField from "../components/Fields/InputField.tsx";
-import Button from "../components/Buttons/Button.tsx";
+import InputField from "../../components/Fields/InputField.tsx";
+import Button from "../../components/Buttons/Button.tsx";
 import {useForm} from "react-hook-form";
-import SocialButton from "../components/others/SocialButton.jsx";
+import SocialButton from "../../components/others/SocialButton.jsx";
 import {useNavigate} from "react-router-dom";
-import GithubIcon from "../components/icons/GithubIcon.jsx";
-import GoogleIcon from "../components/icons/GoogleIcon.jsx";
-import usePost from "../hooks/usePost.tsx";
-import {HttpStatusCode} from "axios";
-import {toast} from "../components/Toaster/Toaster.tsx";
-import LinkField from "../components/Fields/LinkField.js";
-import Divider from "../components/Divider.js";
+import GithubIcon from "../../components/icons/GithubIcon.jsx";
+import GoogleIcon from "../../components/icons/GoogleIcon.jsx";
+import LinkField from "../../components/Fields/LinkField.tsx";
+import Divider from "../../components/Divider.tsx";
+import {useMutation} from "@tanstack/react-query";
+import {signUp} from "../../services/authService.js";
 
 function SignupForm() {
     const {
@@ -25,24 +24,17 @@ function SignupForm() {
             password: "John@123",
         }
     });
-    const [post] = usePost();
     const navigate = useNavigate();
 
+    const {mutate, data} = useMutation({
+        mutationFn: (req) => signUp(req)
+    })
+
     async function onSubmit(formData) {
-        const {data, error} = await post("/auth/signup", formData);
-
-        if (error) {
-            if (error.status === HttpStatusCode.Conflict) {
-                setError("email", {message: "Email already exists"});
-                return;
-            }
-
-            toast.error("Something went wrong. Please try again later.");
-            return;
-        }
+        await mutate(formData);
 
         reset();
-        navigate(`/check-email?from=signup&userId=${data?.user?.id}`);
+        // navigate(`/check-email?from=signup&userId=${data?.user?.id}`);
     }
 
     return (

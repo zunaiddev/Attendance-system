@@ -1,19 +1,19 @@
 import {useForm} from "react-hook-form";
-import SocialButton from "../components/others/SocialButton.jsx";
-import InputField from "../components/Fields/InputField.tsx";
-import Checkbox from "../components/others/Checkbox.jsx";
-import Button from "../components/Buttons/Button.tsx";
+import SocialButton from "../../components/others/SocialButton.jsx";
+import InputField from "../../components/Fields/InputField.tsx";
+import Checkbox from "../../components/others/Checkbox.jsx";
+import Button from "../../components/Buttons/Button.tsx";
 import {Link, useNavigate} from "react-router-dom";
-import {toast} from "../components/Toaster/Toaster.tsx";
-import GoogleIcon from "../components/icons/GoogleIcon.jsx";
-import GithubIcon from "../components/icons/GithubIcon.jsx";
-import usePost from "../hooks/usePost.tsx";
+import {toast} from "../../components/Toaster/Toaster.tsx";
+import GoogleIcon from "../../components/icons/GoogleIcon.jsx";
+import GithubIcon from "../../components/icons/GithubIcon.jsx";
+import usePost from "../../hooks/usePost.tsx";
 import {HttpStatusCode} from "axios";
-import storage from "../services/storage.js";
-import LinkField from "../components/Fields/LinkField.js";
-import Divider from "../components/Divider.js";
+import storage from "../../services/storage.js";
+import LinkField from "../../components/Fields/LinkField.tsx";
+import Divider from "../../components/Divider.tsx";
 
-function Login() {
+function SignIn() {
     const {
         register,
         handleSubmit,
@@ -99,4 +99,4 @@ function Login() {
     );
 }
 
-export default Login;
+export default SignIn;

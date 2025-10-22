@@ -1,12 +1,12 @@
-import usePost from "../hooks/usePost.tsx";
+import usePost from "../../hooks/usePost.tsx";
 import {useCallback, useEffect, useState} from "react";
 import {Navigate, useNavigate, useSearchParams} from "react-router-dom";
-import MainLoader from "../loader/MainLoader.jsx";
+import MainLoader from "../../loader/MainLoader.jsx";
 import {useForm} from "react-hook-form";
-import InputField from "../components/Fields/InputField.tsx";
-import Button from "../components/Buttons/Button.tsx";
-import {extractClaims} from "../services/jwt.js";
-import {toast} from "../components/Toaster/Toaster.js";
+import InputField from "../../components/Fields/InputField.tsx";
+import Button from "../../components/Buttons/Button.tsx";
+import {extractClaims} from "../../services/jwt.js";
+import {toast} from "../../components/Toaster/Toaster.tsx";
 
 function Verify() {
     const [params] = useSearchParams();
