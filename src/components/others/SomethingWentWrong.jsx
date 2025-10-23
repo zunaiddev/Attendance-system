@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 
-function SomethingWentWrong({onRetry = () => location.reload()}) {
+function SomethingWentWrong({message, onRetry = () => location.reload()}) {
     return (
         <div className="flex flex-col items-center justify-center h-full py-10 px-4 text-center">
             <svg
@@ -23,7 +23,8 @@ function SomethingWentWrong({onRetry = () => location.reload()}) {
             </h2>
 
             <p className="text-gray-600 dark:text-gray-300 mt-2 mb-6 max-w-md">
-                We couldn’t complete your request. Please try again later or refresh the page.
+                We couldn’t complete your request.{" "}
+                {message ?? "Please try again later or refresh the page."}
             </p>
 
             <button

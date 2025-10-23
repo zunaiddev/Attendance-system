@@ -84,6 +84,38 @@ body{
   overflow: hidden;
 }
 
+/* In animation: slide in + fade in */
+@keyframes toastIn {
+    0% {
+        transform: translateX(-20px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Out animation: slide down + fade out */
+@keyframes toastOut {
+    0% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+}
+
+.animate-toast-in {
+    animation: toastIn 0.4s ease-out forwards;
+}
+
+.animate-toast-out {
+    animation: toastOut 0.4s ease-in forwards;
+}
+
 .top-loader::before {
   content: '';
   display: block;

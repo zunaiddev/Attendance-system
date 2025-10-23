@@ -1,14 +1,10 @@
-async function fakeResponse<T>(data: T, error = false): Promise<T> {
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            if (error) {
-                reject(new Error('Fake response Error'));
-                return;
-            }
+import API from "../API/API";
 
-            resolve(data);
-        }, 1500);
-    });
+async function fakeResponse(code: number) {
+    let response = await
+        API.get(`http://localhost:9090/api/${code}`);
+
+    return response.data;
 }
 
 export default fakeResponse;

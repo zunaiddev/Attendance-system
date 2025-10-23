@@ -1,5 +1,8 @@
-import {JSX, useState} from "react";
+import {JSX, ReactNode, useState} from "react";
+import ToastComponent2 from "./ToastComponent2";
+import {Check, Info, ShieldX, TriangleAlert} from "lucide-react";
 
+let toast2;
 function Toaster2() {
     const [toasts, setToasts] = useState<Array<JSX.Element>>([]);
 
@@ -11,12 +14,27 @@ function Toaster2() {
         });
     }
 
+    function addToast(icon: ReactNode, message: string) {
+        setToasts(prev => {
+            let newToast = [...prev];
+            newToast.push(<ToastComponent2 key={newToast.length} icon={icon} message={message} onClick={remove}/>);
+            return newToast;
+        });
+    }
+
+    toast2 = {
+        success: (message: string) => addToast(<Check className="size-5 text-green-500"/>, message),
+        error: (message: string) => addToast(<ShieldX className="size-5 text-red-500"/>, message),
+        warning: (message: string) => addToast(<TriangleAlert className="size-5 text-orange-500"/>, message),
+        info: (message: string) => addToast(<Info className="size-5 text-blue-500"/>, message),
+    }
 
     return (toasts.length > 0 &&
-        <div className="fixed bottom-6 left-5 max-h-40 max-w-sm 30 z-999">
-            {toasts[toasts.length - 1]}
+        <div>
+            {/*{toasts[toasts.length - 1]}*/}
+            {toasts}
         </div>
     );
 }
 
-export default Toaster2;
+export {toast2, Toaster2};

@@ -28,9 +28,11 @@ function SignupForm(): JSX.Element {
 
     const {mutate, isPending} = useMutation({
         mutationFn: signup,
-        onSuccess: data => {
-            console.log("data", data);
-            navigate(`/check-email?from=signup&userId=${data?.user?.id}`);
+        onSuccess: (res, data) => {
+            console.log("data", res);
+            navigate(`/check-email?email=${data.email}&id=${res?.user?.id}`, {
+                state: {email: data.email}
+            });
         },
 
         onError: error => {
